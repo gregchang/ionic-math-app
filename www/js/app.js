@@ -22,3 +22,38 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+
+
+angular.module('todo', ['ionic'])
+
+.controller('TodoCtrl', function($scope, $ionicModal) {
+  $scope.tasks = [];
+  
+  // Create and load modal
+  $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
+    $scope.taskModal = modal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
+  // Called on form submit
+  $scope.createTask = function(task) {
+    $scope.tasks.push({
+      title: task.title
+    });
+    $scope.taskModal.hide();
+    task.title = "";
+  };
+
+  // Open new task modal
+  $scope.newTask = function() {
+    $scope.taskModal.show();
+  };
+
+  // Close new task modal
+  $scope.closeNewTask = function() {
+    $scope.taskModal.hide();
+  };
+})
