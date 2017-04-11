@@ -36,21 +36,21 @@
         </ion-content>
     </ion-pane> -->
     <ion-side-menus>
-        <!-- Center Content -->
+        <!-- Center content -->
         <ion-side-menu-content>
             <ion-header-bar class="bar-dark">
                 <button class="button button-icon" ng-click="toggleProjects()">
                     <i class="icon ion-navicon"></i>
                 </button>
                 <h1 class="title">{{activeProject.title}}</h1>
+                <!-- New Task button-->
                 <button class="button button-icon" ng-click="newTask()">
                     <i class="icon ion-compose"></i>
                 </button>
             </ion-header-bar>
             <ion-content scroll="false">
-                <!-- list and list items -->
                 <ion-list>
-                    <ion-item ng-repeat="task in tasks">
+                    <ion-item ng-repeat="task in activeProject.tasks">
                         {{task.title}}
                     </ion-item>
                 </ion-list>

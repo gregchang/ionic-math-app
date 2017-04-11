@@ -24,7 +24,6 @@ angular.module('starter', ['ionic'])
 })
 
 
-
 angular.module('todo', ['ionic'])
 /**
  * The Projects factory handles saving and loading projects
