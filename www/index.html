@@ -19,6 +19,8 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+    <!-- Ionicons -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
@@ -54,6 +56,89 @@
                         {{task.title}}
                     </ion-item>
                 </ion-list>
+                <!-- Calculator -->
+                <div class="calc">
+                    <div class="row calc-question-container">
+                        <div class="col col-66 text-center calc-question">
+                          {{calcQuestionString}}
+                        </div>
+                    </div>
+                    <div class="row calc-display-container">
+                        <div class="col col-66 text-center calc-display">
+                            {{calcValueString}}
+                        </div>
+                    </div>
+                    <div class="calc-buttons">
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
+                                    1
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
+                                    2
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(3)">
+                                    3
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
+                                    4
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
+                                    5
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(6)">
+                                    6
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(7)">
+                                    7
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(8)">
+                                    8
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(9)">
+                                    9
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
+                                    <i class="icon ion-close-round"></i>
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(0)">
+                                    0
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-balanced" ng-click="calcDisplayUpdate('submit')">
+                                    <i class="icon ion-checkmark-round"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ion-content>
         </ion-side-menu-content>
         <!-- Left menu -->
