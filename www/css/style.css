@@ -24,3 +24,7 @@
 
 .calc-display-container {
 }
+
+.calc-buttons button {
+	width: 80%;
+}
