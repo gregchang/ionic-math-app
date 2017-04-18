@@ -9834,8 +9834,7 @@ a.button {
   padding-top: 2vh;
   padding-bottom: 2vh;
   height: 7vh;
-  vertical-align: center;
-  color: red; }
+  vertical-align: center; }
 
 .calc-buttons button {
   width: 80%; }
