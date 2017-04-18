@@ -146,6 +146,8 @@ angular.module('todo', ['ionic'])
     $scope.calcValueString = '';
     $scope.calcQuestionString = '';
     $scope.calcQuestionAnswer = 0;
+    $scope.calcQuestionNumberTotal = 2;
+    $scope.calcQuestionNumberCurrent = 0;
 
     calcQuestionStringConstruction();
 
@@ -183,6 +185,10 @@ angular.module('todo', ['ionic'])
             if (currentValue == $scope.calcQuestionAnswer) {
                 calcQuestionStringConstruction();
                 console.log('Correct Answer');
+                $scope.calcQuestionNumberCurrent += 1;
+                if($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
+                  console.log($scope.calcQuestionNumberTotal + ' correct!');
+                }
             }
             else {
               console.log('Incorrect Answer');
