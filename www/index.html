@@ -26,39 +26,64 @@
     <script src="js/app.js"></script>
 </head>
 
-<body ng-app="todo" ng-controller="TodoCtrl">
-    <!--     <ion-pane>
-        <ion-header-bar class="bar-stable">
-            <h1 class="title">Ionic Blank Starter</h1>
-        </ion-header-bar>
-        <ion-content>
-        </ion-content>
-    </ion-pane> -->
-    <ion-side-menus>
-        <!-- Center content -->
-        <ion-side-menu-content>
-            <ion-header-bar class="bar-dark">
-<!--                 <button class="button button-icon" ng-click="toggleProjects()">
-                    <i class="icon ion-navicon"></i>
-                </button> -->
-                <!-- <h1 class="title">{{activeProject.title}}</h1> -->
-                <h1 class="title">MathFast</h1>
-                <!-- New Task button-->
-<!--                 <button class="button button-icon" ng-click="newTask()">
-                    <i class="icon ion-compose"></i>
-                </button> -->
-            </ion-header-bar>
-            <ion-content scroll="false">
-<!--                 <ion-list>
-                    <ion-item ng-repeat="task in activeProject.tasks">
-                        {{task.title}}
-                    </ion-item>
-                </ion-list> -->
-                <!-- Calculator -->
+<body ng-app="todo" ng-controller="MainCtrl">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+    <script id="templates/tabs.html" type="text/ng-template">
+        <ion-tabs class="tabs-icon-top tabs-positive">
+            <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+                <ion-nav-view name="home-tab"></ion-nav-view>
+            </ion-tab>
+            <ion-tab title="About" icon="ion-ios-information" href="#/calc">
+                <ion-nav-view name="about-tab"></ion-nav-view>
+            </ion-tab>
+            <ion-tab title="Contact" icon="ion-ios-world" href="#/contact">
+                <ion-nav-view name="contact-tab"></ion-nav-view>
+            </ion-tab>
+        </ion-tabs>
+    </script>
+    <script id="templates/home.html" type="text/ng-template">
+        <ion-view view-title="Home">
+            <ion-content class="padding">
+                <p>
+                    <a class="button icon icon-right ion-chevron-right" href="#/calc">Test</a>
+                </p>
+                <p>
+                    <a class="button icon icon-right ion-chevron-right" href="#/calcView">Start Game</a>
+                </p>
+            </ion-content>
+        </ion-view>
+    </script>
+    <script id="templates/calc.html" type="text/ng-template">
+        <ion-view view-title="Calc">
+            <ion-content class="padding">
+                <h2 class="title">Greg Chang</h2>
+                <p>
+                    <a class="button icon icon-right ion-chevron-right" href="#/contact">Contact</a>
+                </p>
+            </ion-content>
+        </ion-view>
+    </script>
+    <script id="templates/contact.html" type="text/ng-template">
+        <ion-view view-title="Calc">
+            <ion-content class="padding">
+                <h2 class="title">Stuff</h2>
+                <p>
+                    <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
+                </p>
+            </ion-content>
+        </ion-view>
+    </script>
+    <script id="templates/calcView.html" type="text/ng-template">
+        <ion-view view-title="Calc">
+            <ion-content class="padding">
                 <div class="calc">
                     <div class="row calc-question-container">
                         <div class="col col-66 text-center calc-question">
-                          {{calcQuestionString}}
+                            {{calcQuestionString}}
                         </div>
                     </div>
                     <div class="row calc-display-container">
@@ -138,45 +163,101 @@
                     </div>
                 </div>
             </ion-content>
-        </ion-side-menu-content>
-        <!-- Left menu -->
-<!--         <ion-side-menu side="left">
-            <ion-header-bar class="bar-dark">
-                <h1 class="title">Projects</h1>
-                <button class="button button-icon ion-plus" ng-click="newProject()">
-                </button>
-            </ion-header-bar>
-            <ion-content scroll="false">
-                <ion-list>
-                    <ion-item ng-repeat="project in projects" ng-click="selectProject(project, $index)" ng-class="{active: activeProject == project}">
-                        {{project.title}}
-                    </ion-item>
-                </ion-list>
-            </ion-content>
-        </ion-side-menu> -->
-<!--         <script id="new-task.html" type="text/ng-template">
-            <div class="modal"> -->
-                <!-- Modal header bar -->
-<!--                 <ion-header-bar class="bar-secondary">
-                    <h1 class="title">New Task</h1>
-                    <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
-                </ion-header-bar> -->
-                <!-- Modal content area -->
-<!--                 <ion-content>
-                    <form ng-submit="createTask(task)">
-                        <div class="list">
-                            <label class="item item-input">
-                                <input type="text" placeholder="What do you need to do?" ng-model="task.title">
-                            </label>
-                        </div>
-                        <div class="padding">
-                            <button type="submit" class="button button-block button-positive">Create Task</button>
-                        </div>
-                    </form>
-                </ion-content>
-            </div>
-        </script> -->
-    </ion-side-menus>
+        </ion-view>
+    </script>
 </body>
+<!-- <body ng-app="todo" ng-controller="TodoCtrl">
+    <div>
+        <div>
+            <ion-nav-bar class="bar-dark">
+                <ion-nav-back-button></ion-nav-back-button>
+            </ion-nav-bar>
+            <ion-nav-view scroll="false">
+                <div class="calc">
+                    <div class="row calc-question-container">
+                        <div class="col col-66 text-center calc-question">
+                            {{calcQuestionString}}
+                        </div>
+                    </div>
+                    <div class="row calc-display-container">
+                        <div class="col col-66 text-center calc-display">
+                            {{calcValueString}}
+                        </div>
+                    </div>
+                    <div class="calc-buttons">
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
+                                    1
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
+                                    2
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(3)">
+                                    3
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
+                                    4
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
+                                    5
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(6)">
+                                    6
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(7)">
+                                    7
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(8)">
+                                    8
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(9)">
+                                    9
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33 text-center">
+                                <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
+                                    <i class="icon ion-close-round"></i>
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(0)">
+                                    0
+                                </button>
+                            </div>
+                            <div class="col col-33 text-center">
+                                <button class="button button-balanced" ng-click="calcDisplayUpdate('submit')">
+                                    <i class="icon ion-checkmark-round"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+ -->
 
 </html>

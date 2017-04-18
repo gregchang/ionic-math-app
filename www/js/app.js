@@ -30,7 +30,7 @@ angular.module('todo', ['ionic'])
      * from local storage, and also lets us save and load the
      * last active project index.
      */
-    .factory('Projects', function() {
+    .factory('localStorage', function() {
         return {
             // all: function() {
             //     var projectString = window.localStorage['projects'];
@@ -55,10 +55,54 @@ angular.module('todo', ['ionic'])
             // setLastActiveIndex: function(index) {
             //     window.localStorage['lastActiveProject'] = index;
             // }
+
+            save: function(numWrong) {
+                window.localStorage['numWrong'] = numWrong;
+            },
+
+            load: function() {
+                return window.localStorage['numWrong'];
+            }
         }
     })
 
-.controller('TodoCtrl', function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate) {
+.config(function($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+        .state('tabs', {
+            url: "/tab",
+            abstract: true,
+            templateUrl: "templates/tabs.html"
+        })
+        .state('tabs.home', {
+            url: "/home",
+            views: {
+                'home-tab': {
+                    templateUrl: "templates/home.html",
+                    controller: 'MainCtrl'
+                }
+            }
+        })
+        .state('contact', {
+            url: "/contact",
+            templateUrl: "templates/contact.html"
+
+        })
+        .state('calc', {
+            url: "/calc",
+            templateUrl: "templates/calc.html"
+
+        })
+        .state('calcView', {
+            url: "/calcView",
+            templateUrl: "templates/calcView.html"
+
+        });
+    $urlRouterProvider.otherwise("/tab/home");
+
+})
+
+.controller('MainCtrl', function($scope, $timeout, $ionicModal, localStorage, $ionicSideMenuDelegate) {
 
     // // A utility function for creating a new project
     // // with the given projectTitle
@@ -149,6 +193,8 @@ angular.module('todo', ['ionic'])
     $scope.calcQuestionNumberTotal = 2;
     $scope.calcQuestionNumberCurrent = 0;
 
+    $scope.calcQuestionNumberWrong = 0;
+
     calcQuestionStringConstruction();
 
     function calcQuestionStringConstruction() {
@@ -186,12 +232,12 @@ angular.module('todo', ['ionic'])
                 calcQuestionStringConstruction();
                 console.log('Correct Answer');
                 $scope.calcQuestionNumberCurrent += 1;
-                if($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                  console.log($scope.calcQuestionNumberTotal + ' correct!');
+                if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
+                    console.log($scope.calcQuestionNumberTotal + ' correct!');
                 }
-            }
-            else {
-              console.log('Incorrect Answer');
+            } else {
+                $scope.calcQuestionNumberWrong += 1;
+                console.log('Incorrect Answer');
             }
         } else if ($scope.calcValueString.length < 5) {
             $scope.calcValueString += digit.toString();
