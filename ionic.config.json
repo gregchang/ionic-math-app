@@ -1,4 +1,26 @@
 {
-  "name": "MathFast",
-  "app_id": "53c64133"
+    "name": "MathFast",
+    "app_id": "53c64133",
+    "gulpStartupTasks": [
+        "sass",
+        "watch"
+    ],
+    "watch": {
+        "sass": [
+            "scss/**/*.scss"
+        ],
+        "html": [
+            "www/**/*.html"
+        ],
+        "livereload": [
+            "www/**/*.html",
+            "www/**/*.js",
+            "www/**/*.css"
+        ]
+    },
+    "watchPatterns": [
+        "www/**/*",
+        "!www/lib/**/*",
+        "!www/**/*.map"
+    ]
 }

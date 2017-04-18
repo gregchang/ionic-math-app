@@ -21,3 +21,33 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.calc-display {
+	background-color: lightgray;
+	margin: 0 auto;
+	font-size: 200%;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	height: 7vh;
+	vertical-align: center;
+}
+
+.calc-question {
+	margin: 0 auto;
+	font-size: 200%;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	height: 7vh;
+	vertical-align: center;
+	/*color: red;*/
+}
+
+.calc-display-container {
+}
+
+.calc-buttons button {
+	width: 80%;
+}
