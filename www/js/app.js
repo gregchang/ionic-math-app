@@ -30,7 +30,7 @@ angular.module('todo', ['ionic'])
      * from local storage, and also lets us save and load the
      * last active project index.
      */
-    .factory('Results', function($location) {
+    .factory('Calc', function($location) {
         return {
             // all: function() {
             //     var projectString = window.localStorage['projects'];
@@ -107,105 +107,24 @@ angular.module('todo', ['ionic'])
         $urlRouterProvider.otherwise("/tab/home");
 
     })
-    .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Results, $ionicSideMenuDelegate) {
+    .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
             $location.path(view);
         }
     })
-    .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Results, $ionicSideMenuDelegate) {
+    .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
             $location.path(view);
         }
     })
-    .controller('CalcCtrl', function($scope, $timeout, $ionicModal, $location, Results, $ionicSideMenuDelegate) {
-
-        // // A utility function for creating a new project
-        // // with the given projectTitle
-        // var createProject = function(projectTitle) {
-        //     var newProject = Projects.newProject(projectTitle);
-        //     $scope.projects.push(newProject);
-        //     Projects.save($scope.projects);
-        //     $scope.selectProject(newProject, $scope.projects.length - 1);
-        // }
-
-
-        // // Load or initialize projects
-        // $scope.projects = Projects.all();
-
-        // // Grab the last active, or the first project
-        // $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
-
-        // // Called to create a new project
-        // $scope.newProject = function() {
-        //     var projectTitle = prompt('Project name');
-        //     if (projectTitle) {
-        //         createProject(projectTitle);
-        //     }
-        // };
-
-        // // Called to select the given project
-        // $scope.selectProject = function(project, index) {
-        //     $scope.activeProject = project;
-        //     Projects.setLastActiveIndex(index);
-        //     $ionicSideMenuDelegate.toggleLeft(false);
-        // };
-
-        // // Create our modal
-        // $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
-        //     $scope.taskModal = modal;
-        // }, {
-        //     scope: $scope
-        // });
-
-        // $scope.createTask = function(task) {
-        //     if (!$scope.activeProject || !task) {
-        //         return;
-        //     }
-        //     $scope.activeProject.tasks.push({
-        //         title: task.title
-        //     });
-        //     $scope.taskModal.hide();
-
-        //     // Inefficient, but save all the projects
-        //     Projects.save($scope.projects);
-
-        //     task.title = "";
-        // };
-
-        // $scope.newTask = function() {
-        //     $scope.taskModal.show();
-        // };
-
-        // $scope.closeNewTask = function() {
-        //     $scope.taskModal.hide();
-        // }
-
-        // $scope.toggleProjects = function() {
-        //     $ionicSideMenuDelegate.toggleLeft();
-        // };
-
-
-        // // Try to create the first project, make sure to defer
-        // // this by using $timeout so everything is initialized
-        // // properly
-        // $timeout(function() {
-        //     if ($scope.projects.length == 0) {
-        //         while (true) {
-        //             var projectTitle = prompt('Your first project title:');
-        //             if (projectTitle) {
-        //                 createProject(projectTitle);
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }, 1000);
+    .controller('CalcCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
         // Enable back button
-        $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
-            viewData.enableBack = true;
-        });
+        // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
+        //     viewData.enableBack = true;
+        // });
 
         // Change view
         $scope.changeView = function(view) {
@@ -229,14 +148,18 @@ angular.module('todo', ['ionic'])
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
             var op = ['+', '-'];
+            var idx = Math.floor(Math.random() * op.length);
 
-            if (n1 < n2) {
+
+            // If doing substraction ensure first number 
+            // is larger than second number to avoid
+            // negative answers
+            if (n1 < n2 && op[idx] == '-') {
                 var temp = n1;
                 n1 = n2;
                 n2 = temp;
             }
 
-            var idx = Math.floor(Math.random() * op.length);
             if (idx == 0) {
                 $scope.calcQuestionAnswer = n1 + n2;
             } else if (idx == 1) {
@@ -257,14 +180,16 @@ angular.module('todo', ['ionic'])
                 $scope.calcValueString = '';
 
                 if (currentValue == $scope.calcQuestionAnswer) {
-                    calcQuestionStringConstruction();
                     console.log('Correct Answer');
                     $scope.calcQuestionNumberCurrent += 1;
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
                         console.log($scope.calcQuestionNumberTotal + ' correct!');
                         console.log('Changing to Results View');
                         $scope.changeView('results');
+                    } else {
+                        calcQuestionStringConstruction();
                     }
+
                 } else {
                     $scope.calcQuestionNumberWrong += 1;
                     console.log('Incorrect Answer');

@@ -1,26 +1,27 @@
 {
-    "name": "MathFast",
-    "app_id": "53c64133",
-    "gulpStartupTasks": [
-        "sass",
-        "watch"
+  "name": "MathFast",
+  "app_id": "53c64133",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  // Added to fix livereload for sass
+  "watch": {
+    "sass": [
+      "scss/**/*.scss"
     ],
-    "watch": {
-        "sass": [
-            "scss/**/*.scss"
-        ],
-        "html": [
-            "www/**/*.html"
-        ],
-        "livereload": [
-            "www/**/*.html",
-            "www/**/*.js",
-            "www/**/*.css"
-        ]
-    },
-    "watchPatterns": [
-        "www/**/*",
-        "!www/lib/**/*",
-        "!www/**/*.map"
+    "html": [
+      "www/**/*.html"
+    ],
+    "livereload": [
+      "www/**/*.html",
+      "www/**/*.js",
+      "www/**/*.css"
     ]
+  },
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }

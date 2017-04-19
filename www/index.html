@@ -28,9 +28,9 @@
 
 <body ng-app="todo">
     <ion-nav-bar class="bar-positive">
-        <ion-nav-back-button>
-        </ion-nav-back-button>
-<!--         <ion-nav-buttons side="right">
+        <!--         <ion-nav-back-button>
+        </ion-nav-back-button> -->
+        <!--         <ion-nav-buttons side="right">
             <button class="button button-clear">
                 <i class="icon ion-checkmark-round"></i>
             </button>
@@ -163,8 +163,8 @@
                         </div>
                         <div class="row">
                             <div class="col col-33 text-center">
-                                <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
-                                    <i class="icon ion-close-round"></i>
+                                <button class="button button-positive" ng-click="calcDisplayUpdate('clear')">
+                                    (-)
                                 </button>
                             </div>
                             <div class="col col-33 text-center">
@@ -173,11 +173,33 @@
                                 </button>
                             </div>
                             <div class="col col-33 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate('submit')">
+                                    .
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-50 text-center">
+                                <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
+                                    <i class="icon ion-close-round"></i>
+                                </button>
+                            </div>
+                            <div class="col col-50 text-center">
                                 <button class="button button-balanced" ng-click="calcDisplayUpdate('submit')">
                                     <i class="icon ion-checkmark-round"></i>
                                 </button>
                             </div>
                         </div>
+                    </div>
+                    <!-- Calc debug code -->
+                    <div id="calc-debug">
+                        <h5>Calc debug</h5>
+                        <p>
+                            calcQuestionNumberCurrent: {{calcQuestionNumberCurrent}}
+                        </p>
+                        <p>
+                            calcQuestionNumberTotal: {{calcQuestionNumberTotal}}
+                        </p>
                     </div>
                 </div>
             </ion-content>
