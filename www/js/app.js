@@ -142,8 +142,6 @@ angular.module('todo', ['ionic'])
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionNumberWrong = 0;
 
-        $scope.calcNegativeToggle = 1;
-
         calcQuestionStringConstruction();
 
         function calcQuestionStringConstruction() {
@@ -156,11 +154,11 @@ angular.module('todo', ['ionic'])
             // If doing substraction ensure first number 
             // is larger than second number to avoid
             // negative answers
-            if (n1 < n2 && op[idx] == '-') {
-                var temp = n1;
-                n1 = n2;
-                n2 = temp;
-            }
+            // if (n1 < n2 && op[idx] == '-') {
+            //     var temp = n1;
+            //     n1 = n2;
+            //     n2 = temp;
+            // }
 
             if (idx == 0) {
                 $scope.calcQuestionAnswer = n1 + n2;
@@ -177,14 +175,19 @@ angular.module('todo', ['ionic'])
             // Clear button pressed - clear number
             if (digit == 'clear') {
                 $scope.calcValueString = '';
-                // Submit button pressed - submit number
             } else if (digit == 'negativeToggle') {
-                $scope.calcNegativeToggle *= -1;
+                if ($scope.calcValueString[0] == '-') {
+                    $scope.calcValueString = $scope.calcValueString.substring(1);
+                } else {
+                    $scope.calcValueString = '-' + $scope.calcValueString;
+                }
+                console.log('After negativeToggle: ' + $scope.calcValueString);
 
-            } else if (digit == 'submit') {
+            }
+            // Submit button pressed - submit number
+            else if (digit == 'submit') {
                 var currentValue = parseInt($scope.calcValueString);
-
-                $scope.calcValueString = '';
+                console.log('currentValue: ' + currentValue);
 
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
@@ -201,10 +204,19 @@ angular.module('todo', ['ionic'])
                     $scope.calcQuestionNumberWrong += 1;
                     console.log('Incorrect Answer');
                 }
-                // Digit pressed - add digit to end of current number
-            } else if ($scope.calcValueString.length < 5) {
+
+                $scope.calcValueString = '';
+
+            }
+            // Digit pressed - add digit to end of current number
+            else if ($scope.calcValueString.length < 5 && (typeof digit === 'number') && Math.floor(digit) === digit) {
                 $scope.calcValueString += digit.toString();
                 console.log('After update: ' + $scope.calcValueString);
+            }
+            // else if ($scope.calcValueString.length  5)
+            // Unexpected behavior check
+            else {
+                console.log('Error: CalcCtrl controller calcDisplayUpdate no actions triggered');
             }
         }
 
