@@ -137,10 +137,12 @@ angular.module('todo', ['ionic'])
         $scope.calcValueString = '';
         $scope.calcQuestionString = '';
         $scope.calcQuestionAnswer = 0;
+
         $scope.calcQuestionNumberTotal = 2;
         $scope.calcQuestionNumberCurrent = 0;
-
         $scope.calcQuestionNumberWrong = 0;
+
+        $scope.calcNegativeToggle = 1;
 
         calcQuestionStringConstruction();
 
@@ -165,15 +167,20 @@ angular.module('todo', ['ionic'])
             } else if (idx == 1) {
                 $scope.calcQuestionAnswer = n1 - n2;
             }
-            console.log('calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
+            console.log('Current calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
             $scope.calcQuestionString = n1 + ' ' + op[idx] + ' ' + n2;
         };
 
         console.log('Initial calcValueString' + $scope.calcValueString);
 
         $scope.calcDisplayUpdate = function(digit) {
+            // Clear button pressed - clear number
             if (digit == 'clear') {
                 $scope.calcValueString = '';
+                // Submit button pressed - submit number
+            } else if (digit == 'negativeToggle') {
+                $scope.calcNegativeToggle *= -1;
+
             } else if (digit == 'submit') {
                 var currentValue = parseInt($scope.calcValueString);
 
@@ -194,6 +201,7 @@ angular.module('todo', ['ionic'])
                     $scope.calcQuestionNumberWrong += 1;
                     console.log('Incorrect Answer');
                 }
+                // Digit pressed - add digit to end of current number
             } else if ($scope.calcValueString.length < 5) {
                 $scope.calcValueString += digit.toString();
                 console.log('After update: ' + $scope.calcValueString);
