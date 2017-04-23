@@ -5,7 +5,6 @@
     "sass",
     "watch"
   ],
-  // Added to fix livereload for sass
   "watch": {
     "sass": [
       "scss/**/*.scss"

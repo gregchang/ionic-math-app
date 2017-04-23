@@ -90,6 +90,15 @@
             <ion-content class="padding">
                 <h2 class="title">Results</h2>
                 <p>
+                    Time: {{calcData.time}}
+                </p>
+                <p>
+                    # of Questions: {{calcData.questionsTotal}}
+                </p>
+                <p>
+                    Mistakes {{calcData.mistakes}}
+                </p>
+                <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
                 </p>
             </ion-content>
@@ -199,6 +208,9 @@
                         </p>
                         <p>
                             calcQuestionNumberTotal: {{calcQuestionNumberTotal}}
+                        </p>
+                        <p>
+                            calcQuestionMistakes: {{calcQuestionMistakes}}
                         </p>
                     </div>
                 </div>

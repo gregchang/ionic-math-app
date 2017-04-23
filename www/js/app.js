@@ -56,12 +56,12 @@ angular.module('todo', ['ionic'])
             //     window.localStorage['lastActiveProject'] = index;
             // }
 
-            save: function(numWrong) {
-                window.localStorage['numWrong'] = numWrong;
+            save: function(calcData) {
+                window.localStorage['calcData'] = calcData;
             },
 
             load: function() {
-                return window.localStorage['numWrong'];
+                return window.localStorage['calcData'];
             }
         }
     })
@@ -95,7 +95,8 @@ angular.module('todo', ['ionic'])
             })
             .state('results', {
                 url: "/results",
-                templateUrl: "templates/results.html"
+                templateUrl: "templates/results.html",
+                controller: 'ResultsCtrl'
 
             })
             .state('calcView', {
@@ -114,10 +115,24 @@ angular.module('todo', ['ionic'])
         }
     })
     .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
-        $scope.changeView = function(view) {
-            console.log('changeView: ' + view);
-            $location.path(view);
-        }
+        // $scope.changeView = function(view) {
+        //     console.log('changeView: ' + view);
+        //     $location.path(view);
+        // }
+
+        // No promise so .then doesn't work
+        // Calc.load().then(function(data) {
+        //     $scope.calcData = JSON.parse(data);
+        //     console.log($scope.calcData);
+        // }).error(function(error) {
+        //     $scope.status = "ResultsCtrl Calc load error: " + error;
+        //     console.log($scope.status);
+        // });
+
+        $scope.calcData = JSON.parse(Calc.load());
+        console.log('ResultsCtrl calcData');
+        console.log($scope.calcData);
+
     })
     .controller('CalcCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -140,7 +155,7 @@ angular.module('todo', ['ionic'])
 
         $scope.calcQuestionNumberTotal = 2;
         $scope.calcQuestionNumberCurrent = 0;
-        $scope.calcQuestionNumberWrong = 0;
+        $scope.calcQuestionMistakes = 0;
 
         calcQuestionStringConstruction();
 
@@ -183,6 +198,8 @@ angular.module('todo', ['ionic'])
                 }
                 console.log('After negativeToggle: ' + $scope.calcValueString);
 
+            } else if (digit == 'decimal') {
+                console.log('Decimal yet implemented');
             }
             // Submit button pressed - submit number
             else if (digit == 'submit') {
@@ -195,13 +212,25 @@ angular.module('todo', ['ionic'])
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
                         console.log($scope.calcQuestionNumberTotal + ' correct!');
                         console.log('Changing to Results View');
+
+                        // Data to transfer to Results view
+                        var calcData = {
+                            time: 0,
+                            questionsTotal: $scope.calcQuestionNumberTotal,
+                            mistakes: $scope.calcQuestionMistakes
+                        };
+                        Calc.save(JSON.stringify(calcData));
+
+
+
+
                         $scope.changeView('results');
                     } else {
                         calcQuestionStringConstruction();
                     }
 
                 } else {
-                    $scope.calcQuestionNumberWrong += 1;
+                    $scope.calcQuestionMistakes += 1;
                     console.log('Incorrect Answer');
                 }
 
