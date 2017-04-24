@@ -59,9 +59,9 @@
                 <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/calcView">Start Game</a>
                 </p>
-                <p>
+                <!--                 <p>
                     <a class="button icon icon-right ion-chevron-right" ng-click="changeView('calcView')">Start Game w/ ng-click</a>
-                </p>
+                </p> -->
             </ion-content>
         </ion-view>
     </script>
@@ -202,7 +202,7 @@
                     </div>
                     <!-- Calc debug code -->
                     <div id="calc-debug">
-                        <h5>Calc debug</h5>
+                        <h5>Calc Debug</h5>
                         <p>
                             calcQuestionNumberCurrent: {{calcQuestionNumberCurrent}}
                         </p>
@@ -212,6 +212,9 @@
                         <p>
                             calcQuestionMistakes: {{calcQuestionMistakes}}
                         </p>
+                        {{counter}}
+                        <button ng-click='startTimer()'>Start
+                            <button ng-click='stopTimer()'>Stop
                     </div>
                 </div>
             </ion-content>

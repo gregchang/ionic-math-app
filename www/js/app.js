@@ -112,7 +112,7 @@ angular.module('todo', ['ionic'])
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
             $location.path(view);
-        }
+        };
     })
     .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
         // $scope.changeView = function(view) {
@@ -134,18 +134,12 @@ angular.module('todo', ['ionic'])
         console.log($scope.calcData);
 
     })
-    .controller('CalcCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('CalcCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
         // Enable back button
         // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
         //     viewData.enableBack = true;
         // });
-
-        // Change view
-        $scope.changeView = function(view) {
-            console.log('changeView: ' + view);
-            $location.path(view);
-        }
 
 
         //Calculator
@@ -157,8 +151,49 @@ angular.module('todo', ['ionic'])
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
-        calcQuestionStringConstruction();
+        // Change view
+        $scope.changeView = function(view) {
+            console.log('changeView: ' + view);
+            $location.path(view);
+        };
 
+
+        // Timer, based off http://www.devblogrbmz.com/building-a-very-simple-timer-in-angularjs/
+        $scope.counter = 0;
+        var mytimeout = null;
+
+        if ($scope.counter === 0) {
+            console.log('$scope.counter is 0');
+        }
+
+        $scope.onTimeout = function() {
+            if ($scope.counter === 20) {
+                $scope.$broadcast('timer-stopped', $scope.counter);
+                $timeout.cancel(mytimeout);
+                return;
+            }
+            $scope.counter++;
+            mytimeout = $timeout($scope.onTimeout, 1000);
+        };
+
+        $scope.startTimer = function() {
+            mytimeout = $timeout($scope.onTimeout, 1000);
+        };
+
+        // stop and reset current timer
+        $scope.stopTimer = function() {
+            $scope.$broadcast('timer-stopped', $scope.counter);
+            $scope.counter = 0;
+            $timeout.cancel(mytimeout);
+        };
+        // triggered, when the timer stops, you can do something here, maybe show a visual indicator or vibrate the device
+        $scope.$on('timer-stopped', function(event, elapsed) {
+            console.log(event, elapsed);
+            // console.log('You\'ve spent way too long on your questions!');
+
+        });
+
+        // Create arithmetic questions
         function calcQuestionStringConstruction() {
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
@@ -199,7 +234,7 @@ angular.module('todo', ['ionic'])
                 console.log('After negativeToggle: ' + $scope.calcValueString);
 
             } else if (digit == 'decimal') {
-                console.log('Decimal yet implemented');
+                console.log('Decimal not yet implemented');
             }
             // Submit button pressed - submit number
             else if (digit == 'submit') {
@@ -210,21 +245,27 @@ angular.module('todo', ['ionic'])
                     console.log('Correct Answer');
                     $scope.calcQuestionNumberCurrent += 1;
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                        console.log($scope.calcQuestionNumberTotal + ' correct!');
-                        console.log('Changing to Results View');
+                        console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
 
-                        // Data to transfer to Results view
+                        // Data transfer to Results view
+                        console.log($scope.counter);
                         var calcData = {
-                            time: 0,
+                            time: $scope.counter,
                             questionsTotal: $scope.calcQuestionNumberTotal,
                             mistakes: $scope.calcQuestionMistakes
                         };
+                        // Reset Calc
+                        // $scope.calcQuestionNumberCurrent = 0;
+                        $scope.stopTimer();
+                        mytimeout = null;
+
+                        // Todo write on-success callback
                         Calc.save(JSON.stringify(calcData));
 
-
-
-
-                        $scope.changeView('results');
+                        console.log('Changing to Results View');
+                        // $scope.changeView('results');
+                        $state.reload();
+                        $state.go('results');
                     } else {
                         calcQuestionStringConstruction();
                     }
@@ -247,6 +288,14 @@ angular.module('todo', ['ionic'])
             else {
                 console.log('Error: CalcCtrl controller calcDisplayUpdate no actions triggered');
             }
-        }
+        };
 
-    })
+
+
+
+        $scope.startTimer();
+        calcQuestionStringConstruction();
+
+
+
+    });
