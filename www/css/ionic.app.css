@@ -9838,3 +9838,9 @@ a.button {
 
 .calc-buttons button {
   width: 80%; }
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; }
