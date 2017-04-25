@@ -129,9 +129,11 @@ angular.module('todo', ['ionic'])
         //     console.log($scope.status);
         // });
 
-        $scope.calcData = JSON.parse(Calc.load());
-        console.log('ResultsCtrl calcData');
-        console.log($scope.calcData);
+        $scope.$on('$ionicView.enter', function() {
+            $scope.calcData = JSON.parse(Calc.load());
+            console.log('ResultsCtrl calcData');
+            console.log($scope.calcData);
+        });
 
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
@@ -257,9 +259,8 @@ angular.module('todo', ['ionic'])
                         // Reset Calc
                         // $scope.calcQuestionNumberCurrent = 0;
                         $scope.stopTimer();
-                        // $scope.startTimer();
-                        mytimeout = null;
 
+                        console.log('saving data', JSON.stringify(calcData));
                         // Todo write on-success callback
                         Calc.save(JSON.stringify(calcData));
 
