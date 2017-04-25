@@ -9836,14 +9836,15 @@ a.button {
   height: 7vh;
   vertical-align: center; }
 
-.calc-buttons button {
+.calc-buttons-style button {
   width: 80%; }
+
+.operation-buttons-style button {
+  width: 100%;
+  color: red; }
 
 .bottom {
   position: fixed;
   bottom: 10px;
   left: 10px;
   right: 10px; }
-
-.center-text {
-  text-align: center; }

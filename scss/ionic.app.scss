@@ -17,47 +17,45 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
 .calc-display {
-	background-color: lightgray;
-	margin: 0 auto;
-	font-size: 200%;
-	margin-top: 2vh;
-	margin-bottom: 2vh;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	height: 7vh;
-	vertical-align: center;
+    background-color: lightgray;
+    margin: 0 auto;
+    font-size: 200%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    height: 7vh;
+    vertical-align: center;
 }
 
 .calc-question {
-	margin: 0 auto;
-	font-size: 200%;
-	margin-top: 2vh;
-	margin-bottom: 2vh;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	height: 7vh;
-	vertical-align: center;
+    margin: 0 auto;
+    font-size: 200%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    height: 7vh;
+    vertical-align: center;
 }
 
-.calc-display-container {
+
+.calc-buttons-style button {
+    width: 80%;
 }
 
-.calc-buttons button {
-	width: 80%;
+.operation-buttons-style button {
+    width: 100%;
+    color: red;
 }
 
 .bottom {
-	position: fixed;
-	bottom: 10px;
-	left: 10px;
-	right: 10px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
 }
 
-.center-text {
-	text-align: center;
-}

@@ -90,32 +90,61 @@
                     </div>
                 </label>
                 <!-- Operations Selection -->
-                <label class="item ">
+<!--                 <label class="item ">
                     <div class="item-content text-center">Operations</div>
                     <div class="row">
                         <div class="col col-50 text-center">
-                            <button class="button button-block button-stable">
+                            <button class="button button-block button-calm">
                                 +
                             </button>
                         </div>
                         <div class="col col-50 text-center">
-                            <button class="button button-block button-stable">
+                            <button class="button button-block button-calm">
                                 -
                             </button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col col-50 text-center">
-                            <button class="button button-block button-stable">
+                            <button class="button button-block button-calm">
                                 &times;
                             </button>
                         </div>
                         <div class="col col-50 text-center">
-                            <button class="button button-block button-stable">
+                            <button class="button button-block button-calm">
                                 &divide;
                             </button>
                         </div>
                     </div>
+                </label> -->
+                <label class="item ">
+                    <div class="item-content text-center">Operations</div>
+                <div class="operation-buttons-style">
+                    <div class="row">
+                        <div class="col col-50 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
+                                +
+                            </button>
+                        </div>
+                        <div class="col col-50 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
+                                -
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-50 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="col col-50 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
+                                &divide;
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 </label>
                 <a class="button button-balanced bottom" href="#/calcView">Start Game</a>
                 <!--                 <p>
@@ -177,7 +206,7 @@
                             {{calcValueString}}
                         </div>
                     </div>
-                    <div class="calc-buttons">
+                    <div class="calc-buttons-style">
                         <div class="row">
                             <div class="col col-33 text-center">
                                 <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
@@ -257,8 +286,6 @@
                                     <i class="icon ion-checkmark-round"></i>
                                 </button>
                             </div>
-                        </div>
-                        <div class="row">
                         </div>
                         <!-- Calc debug code -->
                         <div id="calc-debug">
