@@ -134,7 +134,7 @@ angular.module('todo', ['ionic'])
         console.log($scope.calcData);
 
     })
-    .controller('CalcCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
         // Enable back button
         // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
@@ -257,6 +257,7 @@ angular.module('todo', ['ionic'])
                         // Reset Calc
                         // $scope.calcQuestionNumberCurrent = 0;
                         $scope.stopTimer();
+                        // $scope.startTimer();
                         mytimeout = null;
 
                         // Todo write on-success callback
@@ -264,7 +265,7 @@ angular.module('todo', ['ionic'])
 
                         console.log('Changing to Results View');
                         // $scope.changeView('results');
-                        $state.reload();
+                        // $state.resultseload();
                         $state.go('results');
                     } else {
                         calcQuestionStringConstruction();
@@ -290,11 +291,13 @@ angular.module('todo', ['ionic'])
             }
         };
 
-
-
-
-        $scope.startTimer();
-        calcQuestionStringConstruction();
+        $scope.$on('$ionicView.enter', function() {
+            // analytics.trackView('Screen Title');
+            console.log('Calc loaded');
+            $scope.calcQuestionNumberCurrent = 0;
+            $scope.startTimer();
+            calcQuestionStringConstruction();
+        });
 
 
 
