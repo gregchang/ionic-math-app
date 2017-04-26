@@ -90,7 +90,7 @@
                     </div>
                 </label>
                 <!-- Operations Selection -->
-<!--                 <label class="item ">
+                <!--                 <label class="item ">
                     <div class="item-content text-center">Operations</div>
                     <div class="row">
                         <div class="col col-50 text-center">
@@ -119,32 +119,32 @@
                 </label> -->
                 <label class="item ">
                     <div class="item-content text-center">Operations</div>
-                <div class="operation-buttons-style">
-                    <div class="row">
-                        <div class="col col-50 text-center">
-                            <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
-                                +
-                            </button>
+                    <div class="operations-buttons-style">
+                        <div class="row">
+                            <div class="col col-50 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
+                                    +
+                                </button>
+                            </div>
+                            <div class="col col-50 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
+                                    -
+                                </button>
+                            </div>
                         </div>
-                        <div class="col col-50 text-center">
-                            <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
-                                -
-                            </button>
+                        <div class="row">
+                            <div class="col col-50 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
+                                    &times;
+                                </button>
+                            </div>
+                            <div class="col col-50 text-center">
+                                <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
+                                    &divide;
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col col-50 text-center">
-                            <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
-                                &times;
-                            </button>
-                        </div>
-                        <div class="col col-50 text-center">
-                            <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
-                                &divide;
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 </label>
                 <a class="button button-balanced bottom" href="#/calcView">Start Game</a>
                 <!--                 <p>
@@ -176,16 +176,30 @@
     <script id="templates/results.html" type="text/ng-template">
         <ion-view view-title="Results">
             <ion-content class="padding">
-                <h2 class="title">Results</h2>
-                <p>
-                    Time: {{calcData.time}}
-                </p>
-                <p>
+                <h2 class="title text-center">Results</h2>
+                <div class="results-content">
+                    <p>
+                        Time: {{calcData.time}}
+                    </p>
+                    <!--                 <p>
                     # of Questions: {{calcData.questionsTotal}}
-                </p>
-                <p>
-                    Mistakes {{calcData.mistakes}}
-                </p>
+                </p> -->
+                    <p>
+                        Mistakes: {{calcData.mistakes}}
+                    </p>
+                </div>
+                <div class="row operations-buttons-style">
+                    <div class="col col-50 text-center">
+                        <button class="button button-positive" href="#/calcView">
+                            Retry
+                        </button>
+                    </div>
+                    <div class="col col-50 text-center">
+                        <button class="button button-positive" href="#/">
+                            Home
+                        </button>
+                    </div>
+                </div>
                 <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
                 </p>
@@ -287,6 +301,14 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <button class="button button-calm">
+                                    Hint
+                                </button>
+                            </div>
+                        </div>
+                        <progress max="10" value="1"></progress>
                         <!-- Calc debug code -->
                         <div id="calc-debug">
                             <h5>Calc Debug</h5>
@@ -299,11 +321,18 @@
                             <p>
                                 calcQuestionMistakes: {{calcQuestionMistakes}}
                             </p>
-                            {{counter}}
-                            <button ng-click='startTimer()'>Start
-                                <button ng-click='stopTimer()'>Stop
+                            <div class="text-center">
+                                <button class="button button-dark" ng-click="endGame()">
+                                    Skip to end
+                                </button>
+                            </div>
+                            <div class="text-center">
+                                <h3>{{counter}}</h3>
+                                <button class="button button-dark" ng-click='startTimer()'>Start</button>
+                                <button class="button button-dark" ng-click='stopTimer()'>Stop</button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
             </ion-content>
         </ion-view>
     </script>

@@ -47,9 +47,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     width: 80%;
 }
 
-.operation-buttons-style button {
+.operations-buttons-style button {
     width: 100%;
-    color: red;
+}
+
+.results-buttons-style button {
+    width: 90%;
 }
 
 .bottom {
@@ -59,3 +62,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     right: 10px;
 }
 
+.results-content {
+	text-align: center;
+	font-size: 1.2em;
+}

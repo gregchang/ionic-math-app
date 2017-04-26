@@ -149,7 +149,7 @@ angular.module('todo', ['ionic'])
         $scope.calcQuestionString = '';
         $scope.calcQuestionAnswer = 0;
 
-        $scope.calcQuestionNumberTotal = 2;
+        $scope.calcQuestionNumberTotal = 10;
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
@@ -169,7 +169,7 @@ angular.module('todo', ['ionic'])
         }
 
         $scope.onTimeout = function() {
-            if ($scope.counter === 20) {
+            if ($scope.counter === 100) {
                 $scope.$broadcast('timer-stopped', $scope.counter);
                 $timeout.cancel(mytimeout);
                 return;
@@ -194,6 +194,30 @@ angular.module('todo', ['ionic'])
             // console.log('You\'ve spent way too long on your questions!');
 
         });
+
+        $scope.endGame = function() {
+            console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
+
+            // Data transfer to Results view
+            console.log($scope.counter);
+            var calcData = {
+                time: $scope.counter,
+                questionsTotal: $scope.calcQuestionNumberTotal,
+                mistakes: $scope.calcQuestionMistakes
+            };
+            // Reset Calc
+            // $scope.calcQuestionNumberCurrent = 0;
+            $scope.stopTimer();
+
+            console.log('saving data', JSON.stringify(calcData));
+            // Todo write on-success callback
+            Calc.save(JSON.stringify(calcData));
+
+            console.log('Changing to Results View');
+            // $scope.changeView('results');
+            // $state.resultseload();
+            $state.go('results');
+        }
 
         // Create arithmetic questions
         function calcQuestionStringConstruction() {
@@ -247,27 +271,7 @@ angular.module('todo', ['ionic'])
                     console.log('Correct Answer');
                     $scope.calcQuestionNumberCurrent += 1;
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                        console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
-
-                        // Data transfer to Results view
-                        console.log($scope.counter);
-                        var calcData = {
-                            time: $scope.counter,
-                            questionsTotal: $scope.calcQuestionNumberTotal,
-                            mistakes: $scope.calcQuestionMistakes
-                        };
-                        // Reset Calc
-                        // $scope.calcQuestionNumberCurrent = 0;
-                        $scope.stopTimer();
-
-                        console.log('saving data', JSON.stringify(calcData));
-                        // Todo write on-success callback
-                        Calc.save(JSON.stringify(calcData));
-
-                        console.log('Changing to Results View');
-                        // $scope.changeView('results');
-                        // $state.resultseload();
-                        $state.go('results');
+                        $scope.endGame();
                     } else {
                         calcQuestionStringConstruction();
                     }

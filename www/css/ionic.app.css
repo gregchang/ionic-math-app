@@ -9839,12 +9839,18 @@ a.button {
 .calc-buttons-style button {
   width: 80%; }
 
-.operation-buttons-style button {
-  width: 100%;
-  color: red; }
+.operations-buttons-style button {
+  width: 100%; }
+
+.results-buttons-style button {
+  width: 90%; }
 
 .bottom {
   position: fixed;
   bottom: 10px;
   left: 10px;
   right: 10px; }
+
+.results-content {
+  text-align: center;
+  font-size: 1.2em; }
