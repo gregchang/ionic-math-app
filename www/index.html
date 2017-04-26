@@ -53,24 +53,6 @@
     <script id="templates/home.html" type="text/ng-template">
         <ion-view view-title="Home">
             <ion-content>
-                <!--                 <div class="row">
-                    <p>
-                        <a class="button icon icon-right ion-chevron-right" href="#/user">Test</a>
-                    </p>
-                </div> -->
-                <!--                 <div class="row">
-                    <div class="col">
-                        <div class="text-center">
-                            <h2 style="text-align: center;">Nice!</h2>
-                            <h3 style="text-align: center;">5 Day Streak</h3>
-                        </div>
-                    </div>
-                </div> -->
-                <!--                 <div class="item range">
-                    <i class="icon ion-ios7-bolt-outline"></i>
-                    <input type="range" name="volume" min="2" max="20" steps="2">
-                    <i class="icon ion-ios7-bolt"></i>
-                </div> -->
                 <!-- Length slider -->
                 <label class="item ">
                     <div class="item-content text-center">Number of Questions: {{lengthValue}}</div>
@@ -151,19 +133,19 @@
                 </div>
                 <div class="row operations-buttons-style">
                     <div class="col col-50 text-center">
-                        <button class="button button-positive" href="#/calcView">
+                        <a class="button button-positive" href="#/calcView">
                             Retry
-                        </button>
+                        </a>
                     </div>
                     <div class="col col-50 text-center">
-                        <button class="button button-positive" href="#/">
+                        <a class="button button-positive" href="#/">
                             Home
-                        </button>
+                        </a>
                     </div>
                 </div>
-                <p>
+                <!--                 <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
-                </p>
+                </p> -->
             </ion-content>
         </ion-view>
     </script>

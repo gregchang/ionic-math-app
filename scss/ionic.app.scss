@@ -43,15 +43,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 
-.calc-buttons-style button {
+.calc-buttons-style button, a {
     width: 80%;
 }
 
-.operations-buttons-style button {
+.operations-buttons-style button, a {
     width: 100%;
 }
 
-.results-buttons-style button {
+.results-buttons-style button, a {
     width: 90%;
 }
 

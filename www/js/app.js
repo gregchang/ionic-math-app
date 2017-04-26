@@ -304,6 +304,7 @@ angular.module('todo', ['ionic'])
             // analytics.trackView('Screen Title');
             console.log('Calc loaded');
             $scope.calcQuestionNumberCurrent = 0;
+            $scope.calcQuestionMistakes = 0;
             $scope.startTimer();
             calcQuestionStringConstruction();
         });
