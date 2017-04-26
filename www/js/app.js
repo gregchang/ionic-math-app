@@ -109,6 +109,10 @@ angular.module('todo', ['ionic'])
 
     })
     .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+        
+        $scope.lengthValue = 10;
+        $scope.difficultyValue = 1;
+
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
             $location.path(view);
