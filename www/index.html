@@ -75,16 +75,16 @@
                 <label class="item ">
                     <div id="operations-label" class="item-content text-center">Operations</div>
                     <div class="button-bar">
-                        <button class="button button-outline button-positive" ng-click="">
+                        <button ng-class="{'button-outline': operationToggle.add}" class="button button-positive" ng-click="operationToggle.add = !operationToggle.add">
                             +
                         </button>
-                        <button class="button button-outline button-positive" ng-click="">
+                        <button ng-class="{'button-outline': operationToggle.subtract}" class="button button-positive" ng-click="operationToggle.subtract = !operationToggle.subtract">
                             -
                         </button>
-                        <button class="button button-outline button-positive" ng-click="">
+                        <button ng-class="{'button-outline': operationToggle.multiply}" class="button button-positive" ng-click="operationToggle.multiply = !operationToggle.multiply">
                             &times;
                         </button>
-                        <button class="button button-outline button-positive" ng-click="">
+                        <button ng-class="{'button-outline': operationToggle.divide}" class="button button-positive" ng-click="operationToggle.divide = !operationToggle.divide">
                             &divide;
                         </button>
                     </div>

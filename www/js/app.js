@@ -113,6 +113,13 @@ angular.module('todo', ['ionic'])
         $scope.lengthValue = 10;
         $scope.difficultyValue = 1;
 
+        $scope.operationToggle = {
+            add: true,
+            subtract: true,
+            multiply: true,
+            divide: true
+        };
+
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
             $location.path(view);
