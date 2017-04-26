@@ -126,10 +126,6 @@ angular.module('todo', ['ionic'])
         };
     })
     .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
-        // $scope.changeView = function(view) {
-        //     console.log('changeView: ' + view);
-        //     $location.path(view);
-        // }
 
         // No promise so .then doesn't work
         // Calc.load().then(function(data) {
@@ -238,9 +234,8 @@ angular.module('todo', ['ionic'])
             var idx = Math.floor(Math.random() * op.length);
 
 
-            // If doing substraction ensure first number 
-            // is larger than second number to avoid
-            // negative answers
+            // If doing substraction and avoiding negative answers
+            // ensure first number is larger than second number
             // if (n1 < n2 && op[idx] == '-') {
             //     var temp = n1;
             //     n1 = n2;
@@ -300,7 +295,6 @@ angular.module('todo', ['ionic'])
                 $scope.calcValueString += digit.toString();
                 console.log('After update: ' + $scope.calcValueString);
             }
-            // else if ($scope.calcValueString.length  5)
             // Unexpected behavior check
             else {
                 console.log('Error: CalcCtrl controller calcDisplayUpdate no actions triggered');
