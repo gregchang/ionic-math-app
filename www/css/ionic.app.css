@@ -9846,10 +9846,12 @@ a.button {
   width: 90%; }
 
 .bottom {
+  text-align: center;
   position: fixed;
   bottom: 10px;
-  left: 10px;
-  right: 10px; }
+  width: 90%;
+  left: 5%;
+  right: 5%; }
 
 .results-content {
   text-align: center;
