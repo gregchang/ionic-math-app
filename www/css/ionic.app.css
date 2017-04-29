@@ -9836,13 +9836,16 @@ a.button {
   height: 7vh;
   vertical-align: center; }
 
-.calc-buttons-style button, a {
+.calc-buttons-style button,
+a {
   width: 80%; }
 
-.operations-buttons-style button, a {
+.operations-buttons-style button,
+a {
   width: 100%; }
 
-.results-buttons-style button, a {
+.results-buttons-style button,
+a {
   width: 90%; }
 
 .bottom {
@@ -9861,6 +9864,25 @@ a.button {
 #operations-label {
   margin-bottom: 1em; }
 
-progress[value] {
-  width: 250px;
+/*progress[value] {
+    width: 250px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-value::before {
+    content: '80%';
+    position: absolute;
+    right: 0;
+    top: -125%;
+}*/
+.loader {
+  /*background: #f20d49 !important;*/
+  background: dodgerblue !important;
+  border-radius: 100px;
   height: 20px; }
+  .loader p {
+    text-align: center;
+    color: lightgray !important;
+    text-align: center; }

@@ -53,11 +53,11 @@
     <script id="templates/home.html" type="text/ng-template">
         <ion-view view-title="Home">
             <ion-content>
-            <br>
-            <h2 class="title text-center">
+                <br>
+                <h2 class="title text-center">
             MathFast
             </h2>
-            <br>
+                <br>
                 <!-- Length slider -->
                 <label class="item ">
                     <div class="item-content text-center">Number of Questions: {{lengthValue}}</div>
@@ -250,7 +250,13 @@
                                 </button>
                             </div>
                         </div>
-                        <progress max="10" value="1"></progress>
+                        <!-- <progress max="100" value="80"></progress> -->
+                        <!-- <div ng-show="progressPercent > 0"> -->
+                        <div>
+                            <div class="loader" style="width: {{progressPercent}}%;">
+                                <p>{{progressPercent}}%</p>
+                            </div>
+                        </div>
                         <!-- Calc debug code -->
                         <div id="calc-debug">
                             <h5>Calc Debug</h5>

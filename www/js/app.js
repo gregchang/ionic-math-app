@@ -110,7 +110,7 @@ angular.module('todo', ['ionic'])
 
     })
     .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
-        
+
         $scope.lengthValue = 10;
         $scope.difficultyValue = 1;
 
@@ -157,7 +157,7 @@ angular.module('todo', ['ionic'])
         $scope.calcQuestionString = '';
         $scope.calcQuestionAnswer = 0;
 
-        $scope.calcQuestionNumberTotal = 10;
+        $scope.calcQuestionNumberTotal = 5;
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
@@ -276,6 +276,9 @@ angular.module('todo', ['ionic'])
 
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
+                    
+                    $scope.loadingBarLoad(1./$scope.calcQuestionNumberTotal*100);
+
                     $scope.calcQuestionNumberCurrent += 1;
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
                         $scope.endGame();
@@ -310,6 +313,21 @@ angular.module('todo', ['ionic'])
             $scope.startTimer();
             calcQuestionStringConstruction();
         });
+
+        // https://codepen.io/aidan2129/details/GZQwam
+        $scope.progressPercent = 0
+
+        $scope.loadingBarLoad = function(loadPercentage) {
+            var originalPercent = $scope.progressPercent;
+            var interval = setInterval(function() {
+                $scope.progressPercent++;
+                if ($scope.progressPercent - originalPercent == loadPercentage || $scope.progressPercent >= 100) {
+                    clearInterval(interval);
+                    // $scope.progressPercent = 0;
+                }
+                $scope.$apply();
+            }, 20);
+        }
 
 
 
