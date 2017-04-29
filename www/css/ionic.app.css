@@ -9847,8 +9847,9 @@ a.button {
 
 .bottom {
   text-align: center;
-  position: fixed;
-  bottom: 10px;
+  /*position: fixed;*/
+  /*bottom: 10px;*/
+  top: 10vh;
   width: 90%;
   left: 5%;
   right: 5%; }
@@ -9859,3 +9860,7 @@ a.button {
 
 #operations-label {
   margin-bottom: 1em; }
+
+progress[value] {
+  width: 250px;
+  height: 20px; }
