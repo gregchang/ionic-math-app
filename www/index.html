@@ -108,7 +108,7 @@
                 <br>
                 <br>
                 <h2 class="title text-center">
-            MathFast
+            32 correct in a row!
             </h2>
                 <div id="firebaseui-auth-container"></div>
                 <br>
@@ -195,6 +195,12 @@
                 <div class="results-content">
                     <p>
                         Time: {{calcData.roundedTime}} seconds
+                    </p>
+                    <p>
+                        Best Time: 8.7 seconds
+                    </p>
+                    <p>
+                        Rank: N/A
                     </p>
                     <!--                 <p>
                     # of Questions: {{calcData.questionsTotal}}
@@ -316,7 +322,7 @@
                         </div>
                         <div class="row">
                             <div class="col text-center">
-                                <button class="button button-calm">
+                                <button class="button button-calm" ng-click="openHint()">
                                     Hint
                                 </button>
                             </div>
@@ -406,6 +412,19 @@
                         1 digit numbers, 2 digit numbers, and negative numbers
                     </p>
                 </div>
+            </ion-content>
+        </div>
+    </script>
+    <script id="hint.html" type="text/ng-template">
+        <div class="modal">
+            <!-- Modal header bar -->
+            <ion-header-bar class="bar-secondary">
+                <h1 class="title">Hint</h1>
+                <button class="button button-clear button-positive" ng-click="closeHint()">Close</button>
+            </ion-header-bar>
+            <!-- Modal content area -->
+            <ion-content>
+                <br>
             </ion-content>
         </div>
     </script>

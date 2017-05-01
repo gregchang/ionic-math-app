@@ -413,4 +413,22 @@ angular.module('todo', ['ionic'])
             }, 20);
         }
 
+        // Create and load recap Modal
+        $ionicModal.fromTemplateUrl('hint.html', function(modal) {
+            $scope.recapModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        // Open recap modal
+        $scope.openHint = function() {
+            $scope.recapModal.show();
+        };
+
+        // Close recap modal
+        $scope.closeHint = function() {
+            $scope.recapModal.hide();
+        };
+
     });
