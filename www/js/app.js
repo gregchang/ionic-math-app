@@ -309,15 +309,12 @@ angular.module('todo', ['ionic'])
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
                         $scope.calcData.time = $scope.counter;
                     }
-                    // Logic moved to loadingBarLoad
-                    // if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                    //     $scope.endGame();
-                    // } else {
-                    //     calcQuestionStringConstruction();
-                    // }
+
+                    $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, true]);
 
                 } else {
                     $scope.calcQuestionMistakes += 1;
+                    $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, false]);
                     console.log('Incorrect Answer');
                 }
 
@@ -369,6 +366,9 @@ angular.module('todo', ['ionic'])
                 $scope.progressPercent++;
                 if ($scope.progressPercent >= 100) {
                     clearInterval(interval);
+
+                    // Call endGame() here so that view change to
+                    // Results view occurs only after progress bar fills
                     $scope.endGame();
                 } else if ($scope.progressPercent - originalPercent == loadPercentage) {
                     clearInterval(interval);
