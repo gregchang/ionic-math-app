@@ -24,18 +24,63 @@
     <script src="cordova.js"></script>
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <!-- Firebase -->
+    <!--     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAmX_xBU-aSgSZ-B-hrw3i8Hg9s23KvZHM",
+        authDomain: "mathfast-3bcce.firebaseapp.com",
+        databaseURL: "https://mathfast-3bcce.firebaseio.com",
+        projectId: "mathfast-3bcce",
+        storageBucket: "mathfast-3bcce.appspot.com",
+        messagingSenderId: "418145274696"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
+    <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+        // signInSuccessUrl: '<url-to-redirect-to-on-success>',
+        signInSuccessUrl: '#/home',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+            // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+            // firebase.auth.EmailAuthProvider.PROVIDER_ID
+            {
+                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                requireDisplayName: false
+            }
+
+        ],
+        // Terms of service url.
+        tosUrl: '<your-tos-url>',
+        signInFlow: 'popup',
+        credentialHelper: firebaseui.auth.CredentialHelper.NONE
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+    </script> -->
 </head>
 
 <body ng-app="todo">
-    <ion-nav-bar class="bar-positive">
-        <!--         <ion-nav-back-button>
+    <!-- <ion-nav-bar class="bar bar-positive"> -->
+    <!--         <ion-nav-back-button>
         </ion-nav-back-button> -->
-        <!--         <ion-nav-buttons side="right">
+    <!--         <ion-nav-buttons side="right">
             <button class="button button-clear">
                 <i class="icon ion-checkmark-round"></i>
             </button>
         </ion-nav-buttons> -->
-    </ion-nav-bar>
+    <!-- </ion-nav-bar> -->
     <ion-nav-view></ion-nav-view>
     <script id="templates/tabs.html" type="text/ng-template">
         <ion-tabs class="tabs-icon-bottom tabs-positive">
@@ -52,11 +97,20 @@
     </script>
     <script id="templates/home.html" type="text/ng-template">
         <ion-view view-title="Home">
+            <div class="bar bar-header bar-positive">
+                <!-- <button class="button button-icon icon ion-navicon"></button> -->
+                <div class="h1 title">MathFast</div>
+                <button class="button button-positive" ng-click="openHelp()"> <i class="icon ion-help-circled"></i>
+                </button>
+            </div>
             <ion-content>
+                <br>
+                <br>
                 <br>
                 <h2 class="title text-center">
             MathFast
             </h2>
+                <div id="firebaseui-auth-container"></div>
                 <br>
                 <!-- Length slider -->
                 <label class="item ">
@@ -72,7 +126,7 @@
                     <div class="item-content text-center">Difficulty: {{difficultyValue}}</div>
                     <div class="range range-positive">
                         <i class="icon ion-minus-circled"></i>
-                        <input type="range" name="volume" min="1" max="5" value="{{difficultyValue}}" ng-model="difficultyValue">
+                        <input type="range" name="volume" min="1" max="3" value="{{difficultyValue}}" ng-model="difficultyValue">
                         <i class="icon ion-plus-circled"></i>
                     </div>
                 </label>
@@ -98,6 +152,16 @@
             </ion-content>
         </ion-view>
     </script>
+    <script id="templates/login.html" type="text/ng-template">
+        <ion-view view-title="login-page">
+            <ion-content class="padding">
+                <h2 class="title">login</h2>
+                <p>
+                    <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
+                </p>
+            </ion-content>
+        </ion-view>
+    </script>
     <script id="templates/user.html" type="text/ng-template">
         <ion-view view-title="User">
             <ion-content class="padding">
@@ -120,8 +184,14 @@
     </script>
     <script id="templates/results.html" type="text/ng-template">
         <ion-view view-title="Results">
+            <div class="bar bar-header bar-positive">
+                <!-- <button class="button button-icon icon ion-navicon"></button> -->
+                <div class="h1 title">MathFast</div>
+                <button class="button button-positive" ng-click="openHelp()"> <i class="icon ion-help-circled"></i>
+                </button>
+            </div>
             <ion-content class="padding">
-                <h2 class="title text-center">Results</h2>
+                <!-- <h2 class="title text-center">Results</h2> -->
                 <div class="results-content">
                     <p>
                         Time: {{calcData.roundedTime}} seconds
@@ -132,9 +202,9 @@
                     <p>
                         Mistakes: {{calcData.mistakes}}
                     </p>
-                    <button class="button button-positive" ng-click="openRecap()">Review Questions</button>
+                    <button class="button button-dark" ng-click="openRecap()">Review Questions</button>
                 </div>
-                <div class="row operations-buttons-style">
+                <div class="bottom row operations-buttons-style">
                     <div class="col col-50 text-center">
                         <a class="button button-positive" href="#/calcView">
                             Retry
@@ -308,18 +378,36 @@
             </ion-content>
         </div>
     </script>
-    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAmX_xBU-aSgSZ-B-hrw3i8Hg9s23KvZHM",
-        authDomain: "mathfast-3bcce.firebaseapp.com",
-        databaseURL: "https://mathfast-3bcce.firebaseio.com",
-        projectId: "mathfast-3bcce",
-        storageBucket: "mathfast-3bcce.appspot.com",
-        messagingSenderId: "418145274696"
-    };
-    firebase.initializeApp(config);
+    <script id="homehelp.html" type="text/ng-template">
+        <div class="modal">
+            <!-- Modal header bar -->
+            <ion-header-bar class="bar-secondary">
+                <h1 class="title">Help</h1>
+                <button class="button button-clear button-positive" ng-click="closeRecap()">Close</button>
+            </ion-header-bar>
+            <!-- Modal content area -->
+            <ion-content>
+                <br>
+                <div class="padding text-center">
+                    <p>
+                        <strong>Difficulty 1</strong>
+                    </p>
+                    <p>
+                        1 digit numbers
+                    </p>
+                    <p>
+                        <strong>Difficulty 2</strong>
+                    </p>
+                    <p>1 and 2 digit numbers</p>
+                    <p>
+                        <strong>Difficulty 3</strong>
+                    </p>
+                    <p>
+                        1 digit numbers, 2 digit numbers, and negative numbers
+                    </p>
+                </div>
+            </ion-content>
+        </div>
     </script>
 </body>
 

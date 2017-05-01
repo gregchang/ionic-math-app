@@ -59,9 +59,9 @@ a {
 
 .bottom {
     text-align: center;
-    /*position: fixed;*/
-    /*bottom: 10px;*/
-    top: 10vh;
+    position: fixed;
+    bottom: 10px;
+    /*top: 10vh;*/
     width: 90%;
     left: 5%;
     right: 5%;
@@ -69,7 +69,14 @@ a {
 
 .results-content {
     text-align: center;
-    font-size: 1.2em;
+    font-size: 2em;
+    /*font-weight: bold;*/
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    p {
+        padding-bottom: 3vh;
+    }
 }
 
 #operations-label {
@@ -117,14 +124,14 @@ a {
 }
 
 .modal-recap-content {
-	font-size: 2em;
-	padding-bottom: 3vh;
+    font-size: 2em;
+    padding-bottom: 3vh;
 }
 
 .green {
-	color: green;
+    color: green;
 }
 
 .red {
-	color: red;
+    color: red;
 }

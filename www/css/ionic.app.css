@@ -9850,16 +9850,22 @@ a {
 
 .bottom {
   text-align: center;
-  /*position: fixed;*/
-  /*bottom: 10px;*/
-  top: 10vh;
+  position: fixed;
+  bottom: 10px;
+  /*top: 10vh;*/
   width: 90%;
   left: 5%;
   right: 5%; }
 
 .results-content {
   text-align: center;
-  font-size: 1.2em; }
+  font-size: 2em;
+  /*font-weight: bold;*/
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+  .results-content p {
+    padding-bottom: 3vh; }
 
 #operations-label {
   margin-bottom: 1em; }

@@ -84,6 +84,15 @@ angular.module('todo', ['ionic'])
                     }
                 }
             })
+            // .state('tabs.home', {
+            //     url: "/home",
+            //     views: {
+            //         'home-tab': {
+            //             templateUrl: "templates/home.html",
+            //             controller: 'MainCtrl'
+            //         }
+            //     }
+            // })
             .state('settings', {
                 url: "/settings",
                 templateUrl: "templates/settings.html"
@@ -119,6 +128,24 @@ angular.module('todo', ['ionic'])
             subtract: false,
             multiply: false,
             divide: false
+        };
+
+        // Create and load recap Modal
+        $ionicModal.fromTemplateUrl('homehelp.html', function(modal) {
+            $scope.recapModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        // Open recap modal
+        $scope.openHelp = function() {
+            $scope.recapModal.show();
+        };
+
+        // Close recap modal
+        $scope.closeHelp = function() {
+            $scope.recapModal.hide();
         };
 
         $scope.changeView = function(view) {
@@ -162,10 +189,9 @@ angular.module('todo', ['ionic'])
         };
 
         $scope.recapColor = function(correct) {
-            if(correct) {
+            if (correct) {
                 return 'green';
-            }
-            else {
+            } else {
                 return 'red';
             }
         }
