@@ -389,7 +389,7 @@
             <!-- Modal header bar -->
             <ion-header-bar class="bar-secondary">
                 <h1 class="title">Help</h1>
-                <button class="button button-clear button-positive" ng-click="closeRecap()">Close</button>
+                <button class="button button-clear button-positive" ng-click="closeHelp()">Close</button>
             </ion-header-bar>
             <!-- Modal content area -->
             <ion-content>
@@ -423,8 +423,10 @@
                 <button class="button button-clear button-positive" ng-click="closeHint()">Close</button>
             </ion-header-bar>
             <!-- Modal content area -->
-            <ion-content>
-                <br>
+            <ion-content class="padding">
+                <div class="text-center">
+                    <p>Don't dawdle, the timer is still running!</p>
+                </div>
             </ion-content>
         </div>
     </script>
