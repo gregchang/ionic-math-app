@@ -124,7 +124,7 @@
                 <h2 class="title text-center">Results</h2>
                 <div class="results-content">
                     <p>
-                        Time: {{calcData.time}}
+                        Time: {{calcData.roundedTime}}
                     </p>
                     <!--                 <p>
                     # of Questions: {{calcData.questionsTotal}}
@@ -132,6 +132,7 @@
                     <p>
                         Mistakes: {{calcData.mistakes}}
                     </p>
+                    <button class="button button-positive" ng-click="openRecap()">Review Questions</button>
                 </div>
                 <div class="row operations-buttons-style">
                     <div class="col col-50 text-center">
@@ -252,9 +253,14 @@
                         </div>
                         <!-- <progress max="100" value="80"></progress> -->
                         <!-- <div ng-show="progressPercent > 0"> -->
-                        <div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="progress-bar">
                             <div class="loader" style="width: {{progressPercent}}%;">
-                                <p>{{progressPercent}}%</p>
+                                <div class="progress-bar-bar">
+                                    <p class="progress-bar-text">{{progressPercent}}%</p>
+                                </div>
                             </div>
                         </div>
                         <!-- Calc debug code -->
@@ -270,7 +276,7 @@
                                 calcQuestionMistakes: {{calcQuestionMistakes}}
                             </p>
                             <div class="text-center">
-                                <button class="button button-dark" ng-click="endGame()">
+                                <button class="button button-dark" ng-click="loadingBarLoad(100)">
                                     Skip to end
                                 </button>
                             </div>
@@ -283,6 +289,21 @@
                         </div>
             </ion-content>
         </ion-view>
+    </script>
+    <script id="recap.html" type="text/ng-template">
+        <div class="modal">
+            <!-- Modal header bar -->
+            <ion-header-bar class="bar-secondary">
+                <h1 class="title">Review</h1>
+                <button class="button button-clear button-positive" ng-click="closeRecap()">Close</button>
+            </ion-header-bar>
+            <!-- Modal content area -->
+            <ion-content>
+                <div class="padding">
+                    test
+                </div>
+            </ion-content>
+        </div>
     </script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>

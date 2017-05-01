@@ -143,6 +143,24 @@ angular.module('todo', ['ionic'])
             console.log($scope.calcData);
         });
 
+        // Create and load recap Modal
+        $ionicModal.fromTemplateUrl('recap.html', function(modal) {
+            $scope.recapModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        // Open recap modal
+        $scope.openRecap = function() {
+            $scope.recapModal.show();
+        };
+
+        // Close recap modal
+        $scope.closeRecap = function() {
+            $scope.recapModal.hide();
+        };
+
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -161,6 +179,14 @@ angular.module('todo', ['ionic'])
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
+        $scope.calcData = {
+            time: -1,
+            roundedTime: -1,
+            questionsTotal: $scope.calcQuestionNumberTotal,
+            mistakes: -1,
+            questionLog: []
+        };
+
         // Change view
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
@@ -177,17 +203,18 @@ angular.module('todo', ['ionic'])
         }
 
         $scope.onTimeout = function() {
-            if ($scope.counter === 100) {
+            // Prevents never-ending game
+            if ($scope.counter === 100000) {
                 $scope.$broadcast('timer-stopped', $scope.counter);
                 $timeout.cancel(mytimeout);
                 return;
             }
             $scope.counter++;
-            mytimeout = $timeout($scope.onTimeout, 1000);
+            mytimeout = $timeout($scope.onTimeout, 100);
         };
 
         $scope.startTimer = function() {
-            mytimeout = $timeout($scope.onTimeout, 1000);
+            mytimeout = $timeout($scope.onTimeout, 100);
         };
 
         // stop and reset current timer
@@ -204,22 +231,19 @@ angular.module('todo', ['ionic'])
         });
 
         $scope.endGame = function() {
+
             console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
 
             // Data transfer to Results view
             console.log($scope.counter);
-            var calcData = {
-                time: $scope.counter,
-                questionsTotal: $scope.calcQuestionNumberTotal,
-                mistakes: $scope.calcQuestionMistakes
-            };
-            // Reset Calc
-            // $scope.calcQuestionNumberCurrent = 0;
+            $scope.calcData.mistakes = $scope.calcQuestionMistakes;
+            $scope.calcData.roundedTime = ($scope.calcData.time / 10).toFixed(1);
+
             $scope.stopTimer();
 
-            console.log('saving data', JSON.stringify(calcData));
+            console.log('saving data', JSON.stringify($scope.calcData));
             // Todo write on-success callback
-            Calc.save(JSON.stringify(calcData));
+            Calc.save(JSON.stringify($scope.calcData));
 
             console.log('Changing to Results View');
             // $scope.changeView('results');
@@ -276,15 +300,21 @@ angular.module('todo', ['ionic'])
 
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
-                    
-                    $scope.loadingBarLoad(1./$scope.calcQuestionNumberTotal*100);
+
+                    $scope.loadingBarLoad(1. / $scope.calcQuestionNumberTotal * 100);
 
                     $scope.calcQuestionNumberCurrent += 1;
+
+                    // Save time on submission of final correct answer
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                        $scope.endGame();
-                    } else {
-                        calcQuestionStringConstruction();
+                        $scope.calcData.time = $scope.counter;
                     }
+                    // Logic moved to loadingBarLoad
+                    // if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
+                    //     $scope.endGame();
+                    // } else {
+                    //     calcQuestionStringConstruction();
+                    // }
 
                 } else {
                     $scope.calcQuestionMistakes += 1;
@@ -310,6 +340,7 @@ angular.module('todo', ['ionic'])
             console.log('Calc loaded');
             $scope.calcQuestionNumberCurrent = 0;
             $scope.calcQuestionMistakes = 0;
+            $scope.progressPercent = 0;
             $scope.startTimer();
             calcQuestionStringConstruction();
         });
@@ -321,14 +352,21 @@ angular.module('todo', ['ionic'])
             var originalPercent = $scope.progressPercent;
             var interval = setInterval(function() {
                 $scope.progressPercent++;
-                if ($scope.progressPercent - originalPercent == loadPercentage || $scope.progressPercent >= 100) {
+                if ($scope.progressPercent >= 100) {
                     clearInterval(interval);
-                    // $scope.progressPercent = 0;
+
+                    // Debug conditional for 'Skip to End' button
+                    if ($scope.calcData.time == -1) {
+                        $scope.calcData.time = $scope.counter;
+                    }
+
+                    $scope.endGame();
+                } else if ($scope.progressPercent - originalPercent == loadPercentage) {
+                    clearInterval(interval);
+                    calcQuestionStringConstruction();
                 }
                 $scope.$apply();
             }, 20);
         }
-
-
 
     });
