@@ -294,7 +294,7 @@ angular.module('todo', ['ionic'])
                 console.log('Decimal not yet implemented');
             }
             // Submit button pressed - submit number
-            else if (digit == 'submit') {
+            else if (digit == 'submit' && $scope.calcValueString != '') {
                 var currentValue = parseInt($scope.calcValueString);
                 console.log('currentValue: ' + currentValue);
 
