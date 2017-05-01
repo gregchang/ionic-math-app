@@ -341,6 +341,15 @@ angular.module('todo', ['ionic'])
             $scope.calcQuestionNumberCurrent = 0;
             $scope.calcQuestionMistakes = 0;
             $scope.progressPercent = 0;
+
+            $scope.calcData = {
+                time: -1,
+                roundedTime: -1,
+                questionsTotal: $scope.calcQuestionNumberTotal,
+                mistakes: -1,
+                questionLog: []
+            };
+
             $scope.startTimer();
             calcQuestionStringConstruction();
         });
@@ -350,16 +359,16 @@ angular.module('todo', ['ionic'])
 
         $scope.loadingBarLoad = function(loadPercentage) {
             var originalPercent = $scope.progressPercent;
+
+            // Debug conditional for 'Skip to End' button
+            if (loadPercentage == 100) {
+                $scope.calcData.time = $scope.counter;
+            }
+
             var interval = setInterval(function() {
                 $scope.progressPercent++;
                 if ($scope.progressPercent >= 100) {
                     clearInterval(interval);
-
-                    // Debug conditional for 'Skip to End' button
-                    if ($scope.calcData.time == -1) {
-                        $scope.calcData.time = $scope.counter;
-                    }
-
                     $scope.endGame();
                 } else if ($scope.progressPercent - originalPercent == loadPercentage) {
                     clearInterval(interval);
