@@ -161,6 +161,15 @@ angular.module('todo', ['ionic'])
             $scope.recapModal.hide();
         };
 
+        $scope.recapColor = function(correct) {
+            if(correct) {
+                return 'green';
+            }
+            else {
+                return 'red';
+            }
+        }
+
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 

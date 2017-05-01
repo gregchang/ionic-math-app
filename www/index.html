@@ -299,8 +299,11 @@
             </ion-header-bar>
             <!-- Modal content area -->
             <ion-content>
+                <br>
                 <div class="padding">
-                    test
+                    <div ng-repeat="e in calcData.questionLog" class="text-center modal-recap-content" ng-class="recapColor(e[2])">
+                        {{e[0]}} = {{e[1]}}
+                    </div>
                 </div>
             </ion-content>
         </div>

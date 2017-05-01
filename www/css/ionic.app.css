@@ -9899,3 +9899,13 @@ a {
   color: #222266;
   /*border: solid #555555 2px;*/
   text-decoration: none; }
+
+.modal-recap-content {
+  font-size: 2em;
+  padding-bottom: 3vh; }
+
+.green {
+  color: green; }
+
+.red {
+  color: red; }
