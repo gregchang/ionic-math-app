@@ -77,23 +77,23 @@
                     </div>
                 </label>
                 <!-- Operations Selection -->
-                <label class="item ">
+                <div class="item ">
                     <div id="operations-label" class="item-content text-center">Operations</div>
                     <div class="button-bar">
-                        <button ng-class="{'button-outline': operationToggle.add}" class="button button-positive" ng-click="operationToggle.add = !operationToggle.add">
+                        <button ng-class="{'button-outline': !operationToggleValue.add}" class="button button-positive" ng-click="operationToggleValue.add = !operationToggleValue.add">
                             +
                         </button>
-                        <button ng-class="{'button-outline': operationToggle.subtract}" class="button button-positive" ng-click="operationToggle.subtract = !operationToggle.subtract">
+                        <button ng-class="{'button-outline': !operationToggleValue.subtract}" class="button button-positive" ng-click="operationToggleValue.subtract = !operationToggleValue.subtract">
                             -
                         </button>
-                        <button ng-class="{'button-outline': operationToggle.multiply}" class="button button-positive" ng-click="operationToggle.multiply = !operationToggle.multiply">
+                        <button ng-class="{'button-outline': !operationToggleValue.multiply}" class="button button-positive" ng-click="operationToggleValue.multiply = !operationToggleValue.multiply">
                             &times;
                         </button>
-                        <button ng-class="{'button-outline': operationToggle.divide}" class="button button-positive" ng-click="operationToggle.divide = !operationToggle.divide">
+                        <button ng-class="{'button-outline': !operationToggleValue.divide}" class="button button-positive" ng-click="operationToggleValue.divide = !operationToggleValue.divide">
                             &divide;
                         </button>
                     </div>
-                </label>
+                </div>
                 <a class="button button-balanced bottom" href="#/calcView">Start Game</a>
             </ion-content>
         </ion-view>
