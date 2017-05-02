@@ -3,36 +3,39 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase'])
+angular.module('todo', ['ionic', 'firebase'])
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+                // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                // for form inputs)
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-            // Don't remove this line unless you know what you are doing. It stops the viewport
-            // from snapping when text inputs are focused. Ionic handles this internally for
-            // a much nicer keyboard experience.
-            cordova.plugins.Keyboard.disableScroll(true);
-        }
-        if (window.StatusBar) {
-            StatusBar.styleDefault();
-        }
-    });
-
-
-})
+                // Don't remove this line unless you know what you are doing. It stops the viewport
+                // from snapping when text inputs are focused. Ionic handles this internally for
+                // a much nicer keyboard experience.
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+            if (window.StatusBar) {
+                StatusBar.styleDefault();
+            }
+        });
 
 
-angular.module('todo', ['ionic'])
-    /**
-     * The Projects factory handles saving and loading projects
-     * from local storage, and also lets us save and load the
-     * last active project index.
-     */
-    .factory('Calc', function($location) {
+    })
+    // .factory('Auth', function(rootRef, $firebaseAuth) {
+    //         return $firebaseAuth(rootRef);
+    //     }
+    //     Auth.$inject = ['rootRef', '$firebaseAuth'];
+    // )
+
+// angular.module('todo', ['ionic', 'firebase'])
+/**
+ * The Projects factory handles saving and loading projects
+ * from local storage, and also lets us save and load the
+ * last active project index.
+ */
+.factory('Calc', function($location) {
         return {
             // all: function() {
             //     var projectString = window.localStorage['projects'];
@@ -57,6 +60,22 @@ angular.module('todo', ['ionic'])
             // setLastActiveIndex: function(index) {
             //     window.localStorage['lastActiveProject'] = index;
             // }
+
+            save: function(calcData) {
+                window.localStorage['calcData'] = calcData;
+            },
+
+            load: function() {
+                return window.localStorage['calcData'];
+            }
+        }
+    })
+    .factory('userService', function($location) {
+        this.userData = { yearSetCount: 0 };
+        return {
+            getUserData: function() {
+                return this.userData;
+            },
 
             save: function(calcData) {
                 window.localStorage['calcData'] = calcData;
@@ -137,7 +156,7 @@ angular.module('todo', ['ionic'])
 
 
     })
-    .controller('LoginCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('LoginCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
 
         // // Initialize Firebase
         // var config = {
@@ -178,16 +197,43 @@ angular.module('todo', ['ionic'])
         // // The start method will wait until the DOM is loaded.
         // ui.start('#firebaseui-auth-container', uiConfig);
 
+        var auth = $firebaseAuth();
+
+        // login with Facebook
+        // auth.$signInWithPopup("facebook").then(function(firebaseUser) {
+        //     console.log("Signed in as:", firebaseUser.uid);
+        // }).catch(function(error) {
+        //     console.log("Authentication failed:", error);
+        // });
+
+        $scope.signIn = function() {
+            $scope.firebaseUser = null;
+            $scope.error = null;
+
+            auth.$signInAnonymously().then(function(firebaseUser) {
+                $scope.firebaseUser = firebaseUser;
+                // $state.go('tabs.home');
+                console.log("Anonymous login success: " + firebaseUser.uid);
+            }).catch(function(error) {
+                $scope.error = error;
+                console.log("Anonymous login error: " + error);
+            });
+        };
+        // $scope.signIn();
+
+
+
     })
-    .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
 
     })
     .controller('SettingsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
     })
-    .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
-        $scope.lengthValue = 10;
+        $scope.gameSettings = {}
+        $scope.gameSettings.lengthValue = 10;
         $scope.difficultyValue = 1;
 
         $scope.operationToggleValue = {
@@ -219,6 +265,38 @@ angular.module('todo', ['ionic'])
             console.log('changeView: ' + view);
             $location.path(view);
         };
+
+        $scope.startGame = function() {
+            $scope.calcData = {
+                difficulty: $scope.difficultyValue,
+                time: -1,
+                roundedTime: -1,
+                questionsTotal: $scope.gameSettings.lengthValue,
+                mistakes: -1,
+                operations: $scope.operationToggleValue,
+                questionLog: []
+            };
+
+            Calc.save(JSON.stringify($scope.calcData));
+            console.log("Starting game");
+            $state.go('calcView');
+        }
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                var isAnonymous = user.isAnonymous;
+                var uid = user.uid;
+                console.log("User is signed in: " + uid + ", " + isAnonymous);
+                // ...
+            } else {
+                // User is signed out.
+                // ...
+                console.log("User is signed out");
+            }
+            // ...
+        });
+
     })
     .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -263,6 +341,11 @@ angular.module('todo', ['ionic'])
             }
         }
 
+        // var database = firebase.database();
+        // firebase.database().ref('users/' + ).set({
+        //     score: 
+        // });
+
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -271,23 +354,18 @@ angular.module('todo', ['ionic'])
         //     viewData.enableBack = true;
         // });
 
+        $scope.calcData = JSON.parse(Calc.load());
+        console.log($scope.calcData);
 
         //Calculator
         $scope.calcValueString = '';
         $scope.calcQuestionString = '';
         $scope.calcQuestionAnswer = 0;
 
-        $scope.calcQuestionNumberTotal = 5;
+        $scope.calcQuestionNumberTotal = $scope.calcData.questionsTotal;
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
-        $scope.calcData = {
-            time: -1,
-            roundedTime: -1,
-            questionsTotal: $scope.calcQuestionNumberTotal,
-            mistakes: -1,
-            questionLog: []
-        };
 
         // Change view
         $scope.changeView = function(view) {
