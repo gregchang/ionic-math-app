@@ -138,3 +138,11 @@ a {
     top: 50%;
     transform: translateY(-50%);
 }
+
+#hint-content {
+	font-size: 2em;
+	p {
+		margin-top: 3vh;
+		margin-bottom: 3vh;
+	}
+}

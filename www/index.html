@@ -226,7 +226,7 @@
                         </a>
                     </div>
                     <div class="col col-50 text-center">
-                        <a class="button button-positive" href="#/">
+                        <a class="button button-positive" href="#/tab/home">
                             Home
                         </a>
                     </div>
@@ -435,6 +435,20 @@
             <ion-content class="padding">
                 <div class="text-center">
                     <p>Don't dawdle, the timer is still running!</p>
+                    <br>
+                    <div id="hint-content">
+                        <p>
+                            {{calcQuestionString}}
+                        </p>
+                        <i class="icon ion-chevron-down"></i>
+                        <p>
+                            {{hintBreakdownOne}}
+                        </p>
+                        <i class="icon ion-chevron-down"></i>
+                        <p>
+                            {{hintBreakdownTwo}}
+                        </p>
+                    </div>
                 </div>
             </ion-content>
         </div>

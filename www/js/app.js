@@ -4,6 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('todo', ['ionic', 'firebase'])
+    .constant('FirebaseUrl', 'https://mathfast-3bcce.firebaseio.com/')
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -23,11 +24,11 @@ angular.module('todo', ['ionic', 'firebase'])
 
 
     })
-    // .factory('Auth', function(rootRef, $firebaseAuth) {
-    //         return $firebaseAuth(rootRef);
-    //     }
-    //     Auth.$inject = ['rootRef', '$firebaseAuth'];
-    // )
+    .factory("Auth", ["$firebaseAuth",
+        function($firebaseAuth) {
+            return $firebaseAuth();
+        }
+    ])
 
 // angular.module('todo', ['ionic', 'firebase'])
 /**
@@ -268,6 +269,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
         $scope.startGame = function() {
             $scope.calcData = {
+                uid: $scope.firebase_uid,
                 difficulty: $scope.difficultyValue,
                 time: -1,
                 roundedTime: -1,
@@ -287,6 +289,7 @@ angular.module('todo', ['ionic', 'firebase'])
                 // User is signed in.
                 var isAnonymous = user.isAnonymous;
                 var uid = user.uid;
+                $scope.firebase_uid = user.uid;
                 console.log("User is signed in: " + uid + ", " + isAnonymous);
                 // ...
             } else {
@@ -298,7 +301,7 @@ angular.module('todo', ['ionic', 'firebase'])
         });
 
     })
-    .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, Auth) {
 
         // No promise so .then doesn't work
         // Calc.load().then(function(data) {
@@ -313,6 +316,12 @@ angular.module('todo', ['ionic', 'firebase'])
             $scope.calcData = JSON.parse(Calc.load());
             console.log('ResultsCtrl calcData');
             console.log($scope.calcData);
+
+            var database = firebase.database();
+
+            firebase.database().ref('users/' + Auth.$getAuth().uid).set({
+                score: $scope.calcData.time
+            });
         });
 
         // Create and load recap Modal
@@ -341,10 +350,7 @@ angular.module('todo', ['ionic', 'firebase'])
             }
         }
 
-        // var database = firebase.database();
-        // firebase.database().ref('users/' + ).set({
-        //     score: 
-        // });
+
 
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
@@ -415,9 +421,12 @@ angular.module('todo', ['ionic', 'firebase'])
             console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
 
             // Data transfer to Results view
-            console.log($scope.counter);
+            console.log('$scope.counter: ' + $scope.counter);
             $scope.calcData.mistakes = $scope.calcQuestionMistakes;
-            $scope.calcData.roundedTime = ($scope.calcData.time / 10).toFixed(1);
+
+            // Mistakes incur 5 second penalties
+            $scope.calcData.roundedTime = (($scope.calcData.time / 10) + ($scope.calcData.mistakes * 5)).toFixed(1);
+            console.log('$scope.calcData.roundedTime: ' + $scope.calcData.roundedTime);
 
             $scope.stopTimer();
 
@@ -426,8 +435,6 @@ angular.module('todo', ['ionic', 'firebase'])
             Calc.save(JSON.stringify($scope.calcData));
 
             console.log('Changing to Results View');
-            // $scope.changeView('results');
-            // $state.resultseload();
             $state.go('results');
         }
 
@@ -438,6 +445,11 @@ angular.module('todo', ['ionic', 'firebase'])
             var op = ['+', '-'];
             var idx = Math.floor(Math.random() * op.length);
 
+            $scope.number1 = n1;
+            $scope.number2 = n2;
+            $scope.operation = op[idx];
+
+            $scope.createHint();
 
             // If doing substraction and avoiding negative answers
             // ensure first number is larger than second number
@@ -575,5 +587,44 @@ angular.module('todo', ['ionic', 'firebase'])
         $scope.closeHint = function() {
             $scope.recapModal.hide();
         };
+
+        $scope.createHint = function() {
+            //number1, number2, operation
+
+            function breakdownFunction(num) {
+                var res = [];
+                var numLength = num.toString().length;
+                for (var i = 0; i < numLength; i++) {
+                    res.push((num % 10) * (Math.pow(10, i)));
+                    num = Math.floor(num / 10);
+                }
+                return res;
+            }
+
+            // Removing multiple items (ES2015 code)
+            // http://stackoverflow.com/questions/5767325/how-to-remove-a-particular-element-from-an-array-in-javascript
+
+            $scope.hintBreakdownOne1 = breakdownFunction($scope.number1).reverse();
+            $scope.hintBreakdownOne1 = $scope.hintBreakdownOne1.filter(item => ![0].includes(item));
+
+            $scope.hintBreakdownOne2 = breakdownFunction($scope.number2).reverse();
+            $scope.hintBreakdownOne2 = $scope.hintBreakdownOne2.filter(item => ![0].includes(item));
+
+            console.log($scope.hintBreakdownOne1, $scope.hintBreakdownOne2)
+
+            $scope.hintBreakdownOne = $scope.hintBreakdownOne1.join(' + ') + ' ' + $scope.operation + ' ' + $scope.hintBreakdownOne2.join(' + ');
+
+            // https://www.reddit.com/r/learnjavascript/comments/683t4u/merge_two_arrays_and_sort_them_i_dont_know_why_it/dgvitkx/
+            function mergeAndSortArrays(a, b) {
+                return a.concat(b).sort((x, y) => y - x);
+            }
+            $scope.hintBreakdownTwo = mergeAndSortArrays($scope.hintBreakdownOne1, $scope.hintBreakdownOne2);
+            // console.log($scope.hintBreakdownTwo);
+            $scope.hintBreakdownTwo = $scope.hintBreakdownTwo.join(' + ');
+
+        }
+
+        // points.sort( function(a, b) {return b-a} );
+
 
     });
