@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'firebase'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -21,6 +21,8 @@ angular.module('starter', ['ionic'])
             StatusBar.styleDefault();
         }
     });
+
+
 })
 
 
@@ -84,26 +86,35 @@ angular.module('todo', ['ionic'])
                     }
                 }
             })
-            // .state('tabs.home', {
-            //     url: "/home",
-            //     views: {
-            //         'home-tab': {
-            //             templateUrl: "templates/home.html",
-            //             controller: 'MainCtrl'
-            //         }
-            //     }
-            // })
-            .state('settings', {
-                url: "/settings",
-                templateUrl: "templates/settings.html"
-
-            })
-            .state('user', {
+            .state('tabs.user', {
                 url: "/user",
-                templateUrl: "templates/user.html"
-
+                views: {
+                    'user-tab': {
+                        templateUrl: "templates/user.html",
+                        controller: 'UserCtrl'
+                    }
+                }
             })
-            .state('results', {
+            .state('tabs.settings', {
+                url: "/settings",
+                views: {
+                    'settings-tab': {
+                        templateUrl: "templates/settings.html",
+                        controller: 'SettingsCtrl'
+                    }
+                }
+            })
+            // .state('settings', {
+            //     url: "/settings",
+            //     templateUrl: "templates/settings.html"
+
+        // })
+        // .state('user', {
+        //     url: "/user",
+        //     templateUrl: "templates/user.html"
+
+        // })
+        .state('results', {
                 url: "/results",
                 templateUrl: "templates/results.html",
                 controller: 'ResultsCtrl'
@@ -114,8 +125,64 @@ angular.module('todo', ['ionic'])
                 templateUrl: "templates/calcView.html",
                 controller: 'CalcCtrl'
 
+            })
+            .state('login', {
+                url: "/login",
+                templateUrl: "templates/login.html",
+                controller: 'LoginCtrl'
+
             });
-        $urlRouterProvider.otherwise("/tab/home");
+        // $urlRouterProvider.otherwise("/tab/home");
+        $urlRouterProvider.otherwise("/login");
+
+
+    })
+    .controller('LoginCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+
+        // // Initialize Firebase
+        // var config = {
+        //     apiKey: "AIzaSyAmX_xBU-aSgSZ-B-hrw3i8Hg9s23KvZHM",
+        //     authDomain: "mathfast-3bcce.firebaseapp.com",
+        //     databaseURL: "https://mathfast-3bcce.firebaseio.com",
+        //     projectId: "mathfast-3bcce",
+        //     storageBucket: "mathfast-3bcce.appspot.com",
+        //     messagingSenderId: "418145274696"
+        // };
+        // firebase.initializeApp(config);
+
+        // // FirebaseUI config.
+        // var uiConfig = {
+        //     // signInSuccessUrl: '<url-to-redirect-to-on-success>',
+        //     signInSuccessUrl: '#/tab/home',
+        //     signInOptions: [
+        //         // Leave the lines as is for the providers you want to offer your users.
+        //         // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //         // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        //         // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        //         // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        //         // firebase.auth.EmailAuthProvider.PROVIDER_ID
+        //         {
+        //             provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        //             requireDisplayName: false
+        //         }
+
+        //     ],
+        //     // Terms of service url.
+        //     tosUrl: '<your-tos-url>',
+        //     signInFlow: 'popup',
+        //     credentialHelper: firebaseui.auth.CredentialHelper.NONE
+        // };
+
+        // // Initialize the FirebaseUI Widget using Firebase.
+        // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // // The start method will wait until the DOM is loaded.
+        // ui.start('#firebaseui-auth-container', uiConfig);
+
+    })
+    .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+
+    })
+    .controller('SettingsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
     })
     .controller('MainCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {

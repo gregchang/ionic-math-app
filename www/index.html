@@ -25,7 +25,8 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <!-- Firebase -->
-    <!--     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.min.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -38,13 +39,13 @@
     };
     firebase.initializeApp(config);
     </script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
-    <script type="text/javascript">
+<!--     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" /> -->
+<!--     <script type="text/javascript">
     // FirebaseUI config.
     var uiConfig = {
         // signInSuccessUrl: '<url-to-redirect-to-on-success>',
-        signInSuccessUrl: '#/home',
+        signInSuccessUrl: '#/tab/home',
         signInOptions: [
             // Leave the lines as is for the providers you want to offer your users.
             // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -87,10 +88,10 @@
             <ion-tab title="Home" icon="ion-home" href="#/tab/home">
                 <ion-nav-view name="home-tab"></ion-nav-view>
             </ion-tab>
-            <ion-tab title="You" icon="ion-person" href="#/user">
+            <ion-tab title="You" icon="ion-person" href="#/tab/user">
                 <ion-nav-view name="user-tab"></ion-nav-view>
             </ion-tab>
-            <ion-tab title="Settings" icon="ion-android-settings" href="#/settings">
+            <ion-tab title="Settings" icon="ion-android-settings" href="#/tab/settings">
                 <ion-nav-view name="settings-tab"></ion-nav-view>
             </ion-tab>
         </ion-tabs>
@@ -110,7 +111,6 @@
                 <h2 class="title text-center">
             32 correct in a row!
             </h2>
-                <div id="firebaseui-auth-container"></div>
                 <br>
                 <!-- Length slider -->
                 <label class="item ">
@@ -155,9 +155,10 @@
     <script id="templates/login.html" type="text/ng-template">
         <ion-view view-title="login-page">
             <ion-content class="padding">
-                <h2 class="title">login</h2>
+                <div id="firebaseui-auth-container"></div>
+                <!-- <h2 class="title">login</h2> -->
                 <p>
-                    <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
+                    <a class="button icon icon-right ion-chevron-right" href="#/tab/home">Home</a>
                 </p>
             </ion-content>
         </ion-view>
@@ -165,7 +166,7 @@
     <script id="templates/user.html" type="text/ng-template">
         <ion-view view-title="User">
             <ion-content class="padding">
-                <h2 class="title">Greg Chang</h2>
+                <h2 class="title">User</h2>
                 <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/settings">Settings</a>
                 </p>
@@ -192,7 +193,7 @@
             </div>
             <ion-content class="padding">
                 <!-- <h2 class="title text-center">Results</h2> -->
-                <div class="results-content">
+                <div class="results-content center-vertically">
                     <p>
                         Time: {{calcData.roundedTime}} seconds
                     </p>

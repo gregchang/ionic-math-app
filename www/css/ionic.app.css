@@ -9860,10 +9860,7 @@ a {
 .results-content {
   text-align: center;
   font-size: 2em;
-  /*font-weight: bold;*/
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%); }
+  /*font-weight: bold;*/ }
   .results-content p {
     padding-bottom: 3vh; }
 
@@ -9915,3 +9912,8 @@ a {
 
 .red {
   color: red; }
+
+.center-vertically {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
