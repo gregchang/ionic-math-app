@@ -213,14 +213,14 @@ angular.module('todo', ['ionic', 'firebase'])
 
             auth.$signInAnonymously().then(function(firebaseUser) {
                 $scope.firebaseUser = firebaseUser;
-                // $state.go('tabs.home');
+                $state.go('tabs.home');
                 console.log("Anonymous login success: " + firebaseUser.uid);
             }).catch(function(error) {
                 $scope.error = error;
                 console.log("Anonymous login error: " + error);
             });
         };
-        // $scope.signIn();
+        $scope.signIn();
 
 
 
