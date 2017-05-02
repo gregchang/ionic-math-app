@@ -9923,3 +9923,6 @@ a {
   #hint-content p {
     margin-top: 3vh;
     margin-bottom: 3vh; }
+
+#perQuestion {
+  font-size: 0.4em; }

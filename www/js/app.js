@@ -71,22 +71,22 @@ angular.module('todo', ['ionic', 'firebase'])
             }
         }
     })
-    .factory('userService', function($location) {
-        this.userData = { yearSetCount: 0 };
-        return {
-            getUserData: function() {
-                return this.userData;
-            },
+    // .factory('userService', function($location) {
+    //     this.userData = { yearSetCount: 0 };
+    //     return {
+    //         getUserData: function() {
+    //             return this.userData;
+    //         },
 
-            save: function(calcData) {
-                window.localStorage['calcData'] = calcData;
-            },
+//         save: function(calcData) {
+//             window.localStorage['calcData'] = calcData;
+//         },
 
-            load: function() {
-                return window.localStorage['calcData'];
-            }
-        }
-    })
+//         load: function() {
+//             return window.localStorage['calcData'];
+//         }
+//     }
+// })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
@@ -300,6 +300,18 @@ angular.module('todo', ['ionic', 'firebase'])
             // ...
         });
 
+
+        $scope.$on('$ionicView.beforeEnter', function() {
+            if (localStorage.getItem('bestTimePerQuestion') === null) {
+                $scope.bestTimePerQuestion = "N/A";
+            } else {
+                $scope.bestTimePerQuestion = localStorage.getItem('bestTimePerQuestion');
+                console.log('$scope.bestTimePerQuestion: ' + $scope.bestTimePerQuestion);
+                // $scope.bestTimePerQuestion = $scope.bestTimePerQuestion.toFixed(2);
+            }
+        });
+
+
     })
     .controller('ResultsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, Auth) {
 
@@ -312,16 +324,71 @@ angular.module('todo', ['ionic', 'firebase'])
         //     console.log($scope.status);
         // });
 
-        $scope.$on('$ionicView.enter', function() {
+        $scope.$on('$ionicView.beforeEnter', function() {
+            $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
             console.log('ResultsCtrl calcData');
             console.log($scope.calcData);
 
+            window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
+
             var database = firebase.database();
 
-            firebase.database().ref('users/' + Auth.$getAuth().uid).set({
-                score: $scope.calcData.time
+            // firebase.database().ref('users/' + Auth.$getAuth().uid).set({
+            //     score: $scope.calcData.time
+            // });
+
+            // http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+            function guid() {
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+                }
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                    s4() + '-' + s4() + s4() + s4();
+            }
+
+            var uuid = guid();
+            firebase.database().ref('scores/' + uuid).set({
+                score: $scope.calcData.roundedTime
             });
+
+            $scope.scores = [];
+            firebase.database().ref('/scores/').once('value').then(function(snapshot) {
+                var s = snapshot.val();
+                console.log(s);
+
+                for (var key in s) {
+                    // _map[key] = this.data[key];
+                    // console.log(s[key].score);
+                    $scope.scores.push(s[key].score);
+                }
+                console.log('$scope.scores: ' + $scope.scores);
+                // ...
+
+                $scope.scores.sort(function(a, b) {
+                    return a - b;
+                });
+                console.log('$scope.scores: ' + $scope.scores);
+                var rank = $scope.scores.indexOf($scope.calcData.roundedTime) + 1;
+                $scope.rank = 'Top ' + Math.floor(rank / $scope.scores.length * 100) + '%';
+                console.log('rank: ' + rank);
+            });
+
+            // $scope.result = [];
+            // $scope.removeDuplicates = function() {
+            //     $scope.result = $scope.scores.filter(function(item, pos) {
+            //         return $scope.scores.indexOf(item) == pos;
+            //     })
+            // };
+            // $scope.removeDuplicates();
+            // console.log('$scope.result: ' + $scope.result);
+
+
+
+
+
         });
 
         // Create and load recap Modal
@@ -359,6 +426,7 @@ angular.module('todo', ['ionic', 'firebase'])
         // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
         //     viewData.enableBack = true;
         // });
+
 
         $scope.calcData = JSON.parse(Calc.load());
         console.log($scope.calcData);
@@ -529,6 +597,7 @@ angular.module('todo', ['ionic', 'firebase'])
             console.log('Calc loaded');
             $scope.calcQuestionNumberCurrent = 0;
             $scope.calcQuestionMistakes = 0;
+            $scope.calcValueString = '';
             $scope.progressPercent = 0;
 
             $scope.calcData = {

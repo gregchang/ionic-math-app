@@ -111,25 +111,25 @@
                 <br>
                 <br>
                 <h2 class="title text-center">
-            32 correct in a row!
-            </h2>
+                  Best: {{bestTimePerQuestion}}<span id="perQuestion">s per question</span>
+                </h2>
                 <br>
                 <!-- Length slider -->
                 <label class="item ">
                     <div class="item-content text-center">Number of Questions: {{gameSettings.lengthValue}}</div>
                     <div class="range range-positive">
-                        <i class="icon ion-minus-circled"></i>
+                        <i class="icon ion-minus-round"></i>
                         <input type="range" name="volume" min="10" max="50" value="{{gameSettings.lengthValue}}" step="10" ng-model="gameSettings.lengthValue">
-                        <i class="icon ion-plus-circled"></i>
+                        <i class="icon ion-plus-round"></i>
                     </div>
                 </label>
                 <!-- Difficulty Slider -->
                 <label class="item ">
                     <div class="item-content text-center">Difficulty: {{difficultyValue}}</div>
                     <div class="range range-positive">
-                        <i class="icon ion-minus-circled"></i>
+                        <i class="icon ion-minus-round"></i>
                         <input type="range" name="volume" min="1" max="3" value="{{difficultyValue}}" ng-model="difficultyValue">
-                        <i class="icon ion-plus-circled"></i>
+                        <i class="icon ion-plus-round"></i>
                     </div>
                 </label>
                 <!-- Operations Selection -->
@@ -206,10 +206,10 @@
                         Time: {{calcData.roundedTime}} seconds
                     </p>
                     <p>
-                        Best Time: 8.7 seconds
+                        Best Time: N/A
                     </p>
                     <p>
-                        Rank: N/A
+                        Rank: {{rank}}
                     </p>
                     <!--                 <p>
                     # of Questions: {{calcData.questionsTotal}}
