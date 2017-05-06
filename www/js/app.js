@@ -510,13 +510,16 @@ angular.module('todo', ['ionic', 'firebase'])
         function calcQuestionStringConstruction() {
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
-            var op = ['+', '-', '×'];
+            var op = ['+', '-', '×', '÷'];
             var idx = Math.floor(Math.random() * op.length);
             // var selectedOp = op[idx]
 
             if (idx == 2) {
                 var n1 = Math.floor(Math.random() * 19) + 1;
                 var n2 = Math.floor(Math.random() * 19) + 1;
+            } else if (idx == 3) {
+                var n2 = Math.floor(Math.random() * 19) + 1;
+                var n1 = n2 * Math.floor(Math.random() * 19) + 1;
             }
 
             $scope.number1 = n1;
@@ -539,6 +542,8 @@ angular.module('todo', ['ionic', 'firebase'])
                 $scope.calcQuestionAnswer = n1 - n2;
             } else if (idx == 2) {
                 $scope.calcQuestionAnswer = n1 * n2;
+            } else if (idx == 4) {
+                $scope.calcQuestionAnswer = n1 / n2;
             }
             console.log('Current calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
             $scope.calcQuestionString = n1 + ' ' + op[idx] + ' ' + n2;
