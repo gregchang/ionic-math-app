@@ -510,7 +510,8 @@ angular.module('todo', ['ionic', 'firebase'])
         function calcQuestionStringConstruction() {
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
-            var op = ['+', '-', '×', '÷'];
+            // var op = ['+', '-', '×', '÷'];
+            var op = ['+', '-', '×'];
             var idx = Math.floor(Math.random() * op.length);
             // var selectedOp = op[idx]
 
