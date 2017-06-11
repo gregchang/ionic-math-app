@@ -327,8 +327,8 @@ angular.module('todo', ['ionic', 'firebase'])
         $scope.$on('$ionicView.beforeEnter', function() {
             $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
-            console.log('ResultsCtrl calcData');
-            console.log($scope.calcData);
+            // console.log('ResultsCtrl calcData');
+            // console.log($scope.calcData);
 
             window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
 
@@ -357,7 +357,7 @@ angular.module('todo', ['ionic', 'firebase'])
             $scope.scores = [];
             firebase.database().ref('/scores/').once('value').then(function(snapshot) {
                 var s = snapshot.val();
-                console.log(s);
+                // console.log(s);
 
                 for (var key in s) {
                     // _map[key] = this.data[key];
@@ -429,7 +429,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
 
         $scope.calcData = JSON.parse(Calc.load());
-        console.log($scope.calcData);
+        // console.log($scope.calcData);
 
         //Calculator
         $scope.calcValueString = '';
@@ -511,7 +511,7 @@ angular.module('todo', ['ionic', 'firebase'])
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
             // var op = ['+', '-', '×', '÷'];
-            var op = ['+', '-', '×'];
+            var op = ['+', '-', '×', '÷'];
             var idx = Math.floor(Math.random() * op.length);
             // var selectedOp = op[idx]
 
@@ -520,7 +520,7 @@ angular.module('todo', ['ionic', 'firebase'])
                 var n2 = Math.floor(Math.random() * 19) + 1;
             } else if (idx == 3) {
                 var n2 = Math.floor(Math.random() * 19) + 1;
-                var n1 = n2 * Math.floor(Math.random() * 19) + 1;
+                var n1 = n2 * (Math.floor(Math.random() * 19) + 1);
             }
 
             $scope.number1 = n1;
@@ -543,7 +543,7 @@ angular.module('todo', ['ionic', 'firebase'])
                 $scope.calcQuestionAnswer = n1 - n2;
             } else if (idx == 2) {
                 $scope.calcQuestionAnswer = n1 * n2;
-            } else if (idx == 4) {
+            } else if (idx == 3) {
                 $scope.calcQuestionAnswer = n1 / n2;
             }
             console.log('Current calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
