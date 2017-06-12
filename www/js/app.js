@@ -429,6 +429,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
 
         $scope.calcData = JSON.parse(Calc.load());
+        console.log($scope.calcData.operations);
         // console.log($scope.calcData);
 
         //Calculator
@@ -440,6 +441,20 @@ angular.module('todo', ['ionic', 'firebase'])
         $scope.calcQuestionNumberCurrent = 0;
         $scope.calcQuestionMistakes = 0;
 
+        // var op = ['+', '-', '×', '÷'];
+        var op = [];
+        if ($scope.calcData.operations.add) {
+            op.push('+');
+        }
+        if ($scope.calcData.operations.subtract) {
+            op.push('-');
+        }
+        if ($scope.calcData.operations.multiply) {
+            op.push('×');
+        }
+        if ($scope.calcData.operations.divide) {
+            op.push('÷');
+        }
 
         // Change view
         $scope.changeView = function(view) {
@@ -510,15 +525,15 @@ angular.module('todo', ['ionic', 'firebase'])
         function calcQuestionStringConstruction() {
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
-            // var op = ['+', '-', '×', '÷'];
-            var op = ['+', '-', '×', '÷'];
+
+
             var idx = Math.floor(Math.random() * op.length);
             // var selectedOp = op[idx]
 
-            if (idx == 2) {
+            if (op[idx] == '×') {
                 var n1 = Math.floor(Math.random() * 19) + 1;
                 var n2 = Math.floor(Math.random() * 19) + 1;
-            } else if (idx == 3) {
+            } else if (idx == '÷') {
                 var n2 = Math.floor(Math.random() * 19) + 1;
                 var n1 = n2 * (Math.floor(Math.random() * 19) + 1);
             }
@@ -537,13 +552,13 @@ angular.module('todo', ['ionic', 'firebase'])
             //     n2 = temp;
             // }
 
-            if (idx == 0) {
+            if (op[idx] == '+') {
                 $scope.calcQuestionAnswer = n1 + n2;
-            } else if (idx == 1) {
+            } else if (op[idx] == '-') {
                 $scope.calcQuestionAnswer = n1 - n2;
-            } else if (idx == 2) {
+            } else if (op[idx] == '×') {
                 $scope.calcQuestionAnswer = n1 * n2;
-            } else if (idx == 3) {
+            } else if (op[idx] == '÷') {
                 $scope.calcQuestionAnswer = n1 / n2;
             }
             console.log('Current calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
