@@ -38,30 +38,6 @@ angular.module('todo', ['ionic', 'firebase'])
  */
 .factory('Calc', function($location) {
         return {
-            // all: function() {
-            //     var projectString = window.localStorage['projects'];
-            //     if (projectString) {
-            //         return angular.fromJson(projectString);
-            //     }
-            //     return [];
-            // },
-            // save: function(projects) {
-            //     window.localStorage['projects'] = angular.toJson(projects);
-            // },
-            // newProject: function(projectTitle) {
-            //     // Add a new project
-            //     return {
-            //         title: projectTitle,
-            //         tasks: []
-            //     };
-            // },
-            // getLastActiveIndex: function() {
-            //     return parseInt(window.localStorage['lastActiveProject']) || 0;
-            // },
-            // setLastActiveIndex: function(index) {
-            //     window.localStorage['lastActiveProject'] = index;
-            // }
-
             save: function(calcData) {
                 window.localStorage['calcData'] = calcData;
             },
@@ -71,22 +47,6 @@ angular.module('todo', ['ionic', 'firebase'])
             }
         }
     })
-    // .factory('userService', function($location) {
-    //     this.userData = { yearSetCount: 0 };
-    //     return {
-    //         getUserData: function() {
-    //             return this.userData;
-    //         },
-
-//         save: function(calcData) {
-//             window.localStorage['calcData'] = calcData;
-//         },
-
-//         load: function() {
-//             return window.localStorage['calcData'];
-//         }
-//     }
-// })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
@@ -124,16 +84,6 @@ angular.module('todo', ['ionic', 'firebase'])
                     }
                 }
             })
-            // .state('settings', {
-            //     url: "/settings",
-            //     templateUrl: "templates/settings.html"
-
-        // })
-        // .state('user', {
-        //     url: "/user",
-        //     templateUrl: "templates/user.html"
-
-        // })
         .state('results', {
                 url: "/results",
                 templateUrl: "templates/results.html",
@@ -221,8 +171,6 @@ angular.module('todo', ['ionic', 'firebase'])
             });
         };
         $scope.signIn();
-
-
 
     })
     .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
@@ -375,19 +323,6 @@ angular.module('todo', ['ionic', 'firebase'])
                 $scope.rank = 'Top ' + Math.floor(rank / $scope.scores.length * 100) + '%';
                 console.log('rank: ' + rank);
             });
-
-            // $scope.result = [];
-            // $scope.removeDuplicates = function() {
-            //     $scope.result = $scope.scores.filter(function(item, pos) {
-            //         return $scope.scores.indexOf(item) == pos;
-            //     })
-            // };
-            // $scope.removeDuplicates();
-            // console.log('$scope.result: ' + $scope.result);
-
-
-
-
 
         });
 
@@ -721,8 +656,4 @@ angular.module('todo', ['ionic', 'firebase'])
             $scope.hintBreakdownTwo = $scope.hintBreakdownTwo.join(' + ');
 
         }
-
-        // points.sort( function(a, b) {return b-a} );
-
-
     });
