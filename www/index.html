@@ -135,7 +135,7 @@
                 <!-- Operations Selection -->
                 <div class="item ">
                     <div id="operations-label" class="item-content text-center">Operations</div>
-                    <div class="button-bar">
+                    <div class="button-bar" ng-click="checkStartGameEnabled()">
                         <button ng-class="{'button-outline': !operationToggleValue.add}" class="button button-positive" ng-click="operationToggleValue.add = !operationToggleValue.add">
                             +
                         </button>
@@ -150,8 +150,8 @@
                         </button>
                     </div>
                 </div>
-                <a class="button button-balanced bottom" href="#/login">Login</a>
-                <a class="button button-balanced bottom" ng-click="startGame()">Start Game</a>
+                <a class="button button-balanced bottom" ng-show="startGameEnabled" ng-disabled="!startGameEnabled" ng-click="startGame()">Start Game</a>
+                <a class="button button-balanced bottom" ng-hide="startGameEnabled" ng-disabled="!startGameEnabled" ng-click="startGame()">Select Operation(s)</a>
             </ion-content>
         </ion-view>
     </script>
@@ -159,7 +159,7 @@
         <ion-view view-title="login-page">
             <ion-content class="padding">
                 <div id="firebaseui-auth-container"></div>
-                <!-- <h2 class="title">login</h2> -->
+<!--                 <h2 class="title">login</h2>
                 <div>
                     <button ng-click="signIn()">Sign In Anonymously</button>
                     <p ng-if="firebaseUser">Signed in user: <strong>{{ firebaseUser.uid }}</strong></p>
@@ -167,7 +167,7 @@
                 </div>
                 <p>
                     <a class="button icon icon-right ion-chevron-right" href="#/tab/home">Home</a>
-                </p>
+                </p> -->
             </ion-content>
         </ion-view>
     </script>

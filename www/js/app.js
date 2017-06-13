@@ -37,16 +37,16 @@ angular.module('todo', ['ionic', 'firebase'])
  * last active project index.
  */
 .factory('Calc', function($location) {
-        return {
-            save: function(calcData) {
-                window.localStorage['calcData'] = calcData;
-            },
+    return {
+        save: function(calcData) {
+            window.localStorage['calcData'] = calcData;
+        },
 
-            load: function() {
-                return window.localStorage['calcData'];
-            }
+        load: function() {
+            return window.localStorage['calcData'];
         }
-    })
+    }
+})
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
@@ -84,7 +84,7 @@ angular.module('todo', ['ionic', 'firebase'])
                     }
                 }
             })
-        .state('results', {
+            .state('results', {
                 url: "/results",
                 templateUrl: "templates/results.html",
                 controller: 'ResultsCtrl'
@@ -214,6 +214,10 @@ angular.module('todo', ['ionic', 'firebase'])
             console.log('changeView: ' + view);
             $location.path(view);
         };
+
+        $scope.checkStartGameEnabled = function() {
+            $scope.startGameEnabled = $scope.operationToggleValue.add || $scope.operationToggleValue.subtract || $scope.operationToggleValue.multiply || $scope.operationToggleValue.divide;
+        }
 
         $scope.startGame = function() {
             $scope.calcData = {
