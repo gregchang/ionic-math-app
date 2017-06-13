@@ -17,11 +17,13 @@
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
     <!-- Ionicons -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <!-- <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet"> -->
+    <link href="lib/Ionicons/css/ionicons.min.css" rel="stylesheet">
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script> -->
+    <script src="lib/firebase/firebase.js"></script>
     <script src="lib/angularfire/dist/angularfire.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -110,9 +112,9 @@
                 <br>
                 <br>
                 <br>
-                <h2 class="title text-center">
+                <!--                 <h2 class="title text-center">
                   Best: {{bestTimePerQuestion}}<span id="perQuestion">s per question</span>
-                </h2>
+                </h2> -->
                 <br>
                 <!-- Length slider -->
                 <label class="item ">
@@ -159,7 +161,7 @@
         <ion-view view-title="login-page">
             <ion-content class="padding">
                 <div id="firebaseui-auth-container"></div>
-<!--                 <h2 class="title">login</h2>
+                <!--                 <h2 class="title">login</h2>
                 <div>
                     <button ng-click="signIn()">Sign In Anonymously</button>
                     <p ng-if="firebaseUser">Signed in user: <strong>{{ firebaseUser.uid }}</strong></p>
@@ -183,10 +185,14 @@
     </script>
     <script id="templates/settings.html" type="text/ng-template">
         <ion-view view-title="Settings">
+            <div class="bar bar-header bar-positive">
+                <div class="h1 title">MathFast</div>
+                <!-- <button class="button button-positive" ng-click="openHelp()"> <i class="icon ion-help-circled"></i> -->
+                </button>
+            </div>
             <ion-content class="padding">
-                <h2 class="title">Settings</h2>
                 <p>
-                    <a class="button icon icon-right ion-chevron-right" href="#/">Home</a>
+                    <a class="button" href="#/">Clear Data</a>
                 </p>
             </ion-content>
         </ion-view>
@@ -208,9 +214,9 @@
                     <p>
                         Best Time: N/A
                     </p>
-                    <p>
+                    <!--                     <p>
                         Rank: {{rank}}
-                    </p>
+                    </p> -->
                     <!--                 <p>
                     # of Questions: {{calcData.questionsTotal}}
                 </p> -->
@@ -329,15 +335,13 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row">
+                        <!--                         <div class="row">
                             <div class="col text-center">
                                 <button class="button button-calm" ng-click="openHint()">
                                     Hint
                                 </button>
                             </div>
-                        </div>
-                        <!-- <progress max="100" value="80"></progress> -->
-                        <!-- <div ng-show="progressPercent > 0"> -->
+                        </div> -->
                         <br>
                         <br>
                         <br>

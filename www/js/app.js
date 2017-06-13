@@ -167,6 +167,7 @@ angular.module('todo', ['ionic', 'firebase'])
                 console.log("Anonymous login success: " + firebaseUser.uid);
             }).catch(function(error) {
                 $scope.error = error;
+                $state.go('tabs.home');
                 console.log("Anonymous login error: " + error);
             });
         };
@@ -236,31 +237,28 @@ angular.module('todo', ['ionic', 'firebase'])
             $state.go('calcView');
         }
 
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in.
-                var isAnonymous = user.isAnonymous;
-                var uid = user.uid;
-                $scope.firebase_uid = user.uid;
-                console.log("User is signed in: " + uid + ", " + isAnonymous);
-                // ...
-            } else {
-                // User is signed out.
-                // ...
-                console.log("User is signed out");
-            }
-            // ...
-        });
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if (user) {
+        //         // User is signed in.
+        //         var isAnonymous = user.isAnonymous;
+        //         var uid = user.uid;
+        //         $scope.firebase_uid = user.uid;
+        //         console.log("User is signed in: " + uid + ", " + isAnonymous);
+        //         // ...
+        //     } else {
+        //         // User is signed out.
+        //         console.log("User is signed out");
+        //     }
+        // });
 
 
         $scope.$on('$ionicView.beforeEnter', function() {
-            if (localStorage.getItem('bestTimePerQuestion') === null) {
-                $scope.bestTimePerQuestion = "N/A";
-            } else {
-                $scope.bestTimePerQuestion = localStorage.getItem('bestTimePerQuestion');
-                console.log('$scope.bestTimePerQuestion: ' + $scope.bestTimePerQuestion);
-                // $scope.bestTimePerQuestion = $scope.bestTimePerQuestion.toFixed(2);
-            }
+            // if (localStorage.getItem('bestTimePerQuestion') === null) {
+            //     $scope.bestTimePerQuestion = "N/A";
+            // } else {
+            //     $scope.bestTimePerQuestion = localStorage.getItem('bestTimePerQuestion');
+            //     console.log('$scope.bestTimePerQuestion: ' + $scope.bestTimePerQuestion);
+            // }
         });
 
 
@@ -277,56 +275,46 @@ angular.module('todo', ['ionic', 'firebase'])
         // });
 
         $scope.$on('$ionicView.beforeEnter', function() {
-            $scope.rank = '. . .';
+            // $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
-            // console.log('ResultsCtrl calcData');
-            // console.log($scope.calcData);
 
-            window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
+            // window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
 
-            var database = firebase.database();
-
-            // firebase.database().ref('users/' + Auth.$getAuth().uid).set({
-            //     score: $scope.calcData.time
-            // });
+            // var database = firebase.database();
 
             // http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-            function guid() {
-                function s4() {
-                    return Math.floor((1 + Math.random()) * 0x10000)
-                        .toString(16)
-                        .substring(1);
-                }
-                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                    s4() + '-' + s4() + s4() + s4();
-            }
+            // function guid() {
+            //     function s4() {
+            //         return Math.floor((1 + Math.random()) * 0x10000)
+            //             .toString(16)
+            //             .substring(1);
+            //     }
+            //     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            //         s4() + '-' + s4() + s4() + s4();
+            // }
 
-            var uuid = guid();
-            firebase.database().ref('scores/' + uuid).set({
-                score: $scope.calcData.roundedTime
-            });
+            // var uuid = guid();
+            // firebase.database().ref('scores/' + uuid).set({
+            //     score: $scope.calcData.roundedTime
+            // });
 
-            $scope.scores = [];
-            firebase.database().ref('/scores/').once('value').then(function(snapshot) {
-                var s = snapshot.val();
-                // console.log(s);
+            // $scope.scores = [];
+            // firebase.database().ref('/scores/').once('value').then(function(snapshot) {
+            //     var s = snapshot.val();
 
-                for (var key in s) {
-                    // _map[key] = this.data[key];
-                    // console.log(s[key].score);
-                    $scope.scores.push(s[key].score);
-                }
-                console.log('$scope.scores: ' + $scope.scores);
-                // ...
+            //     for (var key in s) {
+            //         $scope.scores.push(s[key].score);
+            //     }
+            //     console.log('$scope.scores: ' + $scope.scores);
 
-                $scope.scores.sort(function(a, b) {
-                    return a - b;
-                });
-                console.log('$scope.scores: ' + $scope.scores);
-                var rank = $scope.scores.indexOf($scope.calcData.roundedTime) + 1;
-                $scope.rank = 'Top ' + Math.floor(rank / $scope.scores.length * 100) + '%';
-                console.log('rank: ' + rank);
-            });
+            //     $scope.scores.sort(function(a, b) {
+            //         return a - b;
+            //     });
+            //     console.log('$scope.scores: ' + $scope.scores);
+            //     var rank = $scope.scores.indexOf($scope.calcData.roundedTime) + 1;
+            //     $scope.rank = 'Top ' + Math.floor(rank / $scope.scores.length * 100) + '%';
+            //     console.log('rank: ' + rank);
+            // });
 
         });
 
