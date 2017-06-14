@@ -66,15 +66,15 @@ angular.module('todo', ['ionic', 'firebase'])
                     }
                 }
             })
-            .state('tabs.user', {
-                url: "/user",
-                views: {
-                    'user-tab': {
-                        templateUrl: "templates/user.html",
-                        controller: 'UserCtrl'
-                    }
-                }
-            })
+            // .state('tabs.user', {
+            //     url: "/user",
+            //     views: {
+            //         'user-tab': {
+            //             templateUrl: "templates/user.html",
+            //             controller: 'UserCtrl'
+            //         }
+            //     }
+            // })
             .state('tabs.settings', {
                 url: "/settings",
                 views: {
