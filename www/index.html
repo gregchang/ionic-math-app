@@ -92,7 +92,7 @@
             <ion-tab title="Home" icon="ion-home" href="#/tab/home">
                 <ion-nav-view name="home-tab"></ion-nav-view>
             </ion-tab>
-<!--             <ion-tab title="You" icon="ion-person" href="#/tab/user">
+            <!--             <ion-tab title="You" icon="ion-person" href="#/tab/user">
                 <ion-nav-view name="user-tab"></ion-nav-view>
             </ion-tab> -->
             <ion-tab title="Settings" icon="ion-android-settings" href="#/tab/settings">
@@ -115,9 +115,8 @@
                 <!--                 <h2 class="title text-center">
                   Best: {{bestTimePerQuestion}}<span id="perQuestion">s per question</span>
                 </h2> -->
-                <br>
                 <!-- Length slider -->
-                <label class="item ">
+                <label class="item">
                     <div class="item-content text-center">Number of Questions: {{gameSettings.lengthValue}}</div>
                     <div class="range range-positive">
                         <i class="icon ion-minus-round"></i>
@@ -127,10 +126,10 @@
                 </label>
                 <!-- Difficulty Slider -->
                 <label class="item ">
-                    <div class="item-content text-center">Difficulty: {{difficultyValue}}</div>
+                    <div class="item-content text-center">Difficulty: {{gameSettings.difficultyValue}}</div>
                     <div class="range range-positive">
                         <i class="icon ion-minus-round"></i>
-                        <input type="range" name="volume" min="1" max="3" value="{{difficultyValue}}" ng-model="difficultyValue">
+                        <input type="range" name="volume" min="1" max="3" value="{{gameSettings.difficultyValue}}" ng-model="gameSettings.difficultyValue">
                         <i class="icon ion-plus-round"></i>
                     </div>
                 </label>
@@ -173,7 +172,7 @@
             </ion-content>
         </ion-view>
     </script>
-<!--     <script id="templates/user.html" type="text/ng-template">
+    <!--     <script id="templates/user.html" type="text/ng-template">
         <ion-view view-title="User">
             <ion-content class="padding">
                 <br>
@@ -192,7 +191,10 @@
             <ion-content class="padding">
                 <br>
                 <br>
-                <a class="button button-full button-positive" href="#/">Clear Data</a>
+                <br>
+                <div id="clear-data-button">
+                    <a class="button button-positive" href="#/">Clear Data</a>
+                </div>
             </ion-content>
         </ion-view>
     </script>

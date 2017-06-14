@@ -184,7 +184,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
         $scope.gameSettings = {}
         $scope.gameSettings.lengthValue = 10;
-        $scope.difficultyValue = 1;
+        $scope.gameSettings.difficultyValue = 1;
 
         $scope.operationToggleValue = {
             add: false,
@@ -223,7 +223,7 @@ angular.module('todo', ['ionic', 'firebase'])
         $scope.startGame = function() {
             $scope.calcData = {
                 uid: $scope.firebase_uid,
-                difficulty: $scope.difficultyValue,
+                difficulty: $scope.gameSettings.difficultyValue,
                 time: -1,
                 roundedTime: -1,
                 questionsTotal: $scope.gameSettings.lengthValue,
@@ -356,9 +356,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
 
         $scope.calcData = JSON.parse(Calc.load());
-        console.log($scope.calcData.operations);
-        // console.log($scope.calcData);
-
+        console.log("difficulty: " + $scope.calcData.difficulty);
         //Calculator
         $scope.calcValueString = '';
         $scope.calcQuestionString = '';
@@ -450,12 +448,12 @@ angular.module('todo', ['ionic', 'firebase'])
 
         // Create arithmetic questions
         function calcQuestionStringConstruction() {
+            var posOrNeg1 = Math.random() < 0.5 ? -1 : 1;
+            var posOrNeg2 = Math.random() < 0.5 ? -1 : 1;
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
 
-
             var idx = Math.floor(Math.random() * op.length);
-            // var selectedOp = op[idx]
 
             if (op[idx] == '×') {
                 var n1 = Math.floor(Math.random() * 19) + 1;
