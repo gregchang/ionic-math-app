@@ -448,8 +448,6 @@ angular.module('todo', ['ionic', 'firebase'])
 
         // Create arithmetic questions
         function calcQuestionStringConstruction() {
-            var posOrNeg1 = Math.random() < 0.5 ? -1 : 1;
-            var posOrNeg2 = Math.random() < 0.5 ? -1 : 1;
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
 
@@ -458,9 +456,18 @@ angular.module('todo', ['ionic', 'firebase'])
             if (op[idx] == '×') {
                 var n1 = Math.floor(Math.random() * 19) + 1;
                 var n2 = Math.floor(Math.random() * 19) + 1;
-            } else if (idx == '÷') {
+            } else if (op[idx] == '÷') {
                 var n2 = Math.floor(Math.random() * 19) + 1;
                 var n1 = n2 * (Math.floor(Math.random() * 19) + 1);
+            }
+            console.log("n1n2: " + n1 + " " + n2);
+            console.log("$scope.calcData.difficulty: " + $scope.calcData.difficulty)
+            if ($scope.calcData.difficulty == 3) {
+                console.log("posOrNeg");
+                var posOrNeg1 = Math.random() < 0.5 ? -1 : 1;
+                var posOrNeg2 = Math.random() < 0.5 ? -1 : 1;
+                n1 *= posOrNeg1;
+                n2 *= posOrNeg2;
             }
 
             $scope.number1 = n1;
