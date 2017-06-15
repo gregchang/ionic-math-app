@@ -355,31 +355,7 @@ angular.module('todo', ['ionic', 'firebase'])
         // });
 
 
-        $scope.calcData = JSON.parse(Calc.load());
-        console.log("difficulty: " + $scope.calcData.difficulty);
-        //Calculator
-        $scope.calcValueString = '';
-        $scope.calcQuestionString = '';
-        $scope.calcQuestionAnswer = 0;
 
-        $scope.calcQuestionNumberTotal = $scope.calcData.questionsTotal;
-        $scope.calcQuestionNumberCurrent = 0;
-        $scope.calcQuestionMistakes = 0;
-
-        // var op = ['+', '-', '×', '÷'];
-        var op = [];
-        if ($scope.calcData.operations.add) {
-            op.push('+');
-        }
-        if ($scope.calcData.operations.subtract) {
-            op.push('-');
-        }
-        if ($scope.calcData.operations.multiply) {
-            op.push('×');
-        }
-        if ($scope.calcData.operations.divide) {
-            op.push('÷');
-        }
 
         // Change view
         $scope.changeView = function(view) {
@@ -451,12 +427,12 @@ angular.module('todo', ['ionic', 'firebase'])
             var n1 = Math.floor(Math.random() * 100) + 1;
             var n2 = Math.floor(Math.random() * 100) + 1;
 
-            var idx = Math.floor(Math.random() * op.length);
+            var idx = Math.floor(Math.random() * $scope.op.length);
 
-            if (op[idx] == '×') {
+            if ($scope.op[idx] == '×') {
                 var n1 = Math.floor(Math.random() * 19) + 1;
                 var n2 = Math.floor(Math.random() * 19) + 1;
-            } else if (op[idx] == '÷') {
+            } else if ($scope.op[idx] == '÷') {
                 var n2 = Math.floor(Math.random() * 19) + 1;
                 var n1 = n2 * (Math.floor(Math.random() * 19) + 1);
             }
@@ -472,29 +448,29 @@ angular.module('todo', ['ionic', 'firebase'])
 
             $scope.number1 = n1;
             $scope.number2 = n2;
-            $scope.operation = op[idx];
+            $scope.operation = $scope.op[idx];
 
             $scope.createHint();
 
             // If doing substraction and avoiding negative answers
             // ensure first number is larger than second number
-            // if (n1 < n2 && op[idx] == '-') {
+            // if (n1 < n2 && $scope.op[idx] == '-') {
             //     var temp = n1;
             //     n1 = n2;
             //     n2 = temp;
             // }
 
-            if (op[idx] == '+') {
+            if ($scope.op[idx] == '+') {
                 $scope.calcQuestionAnswer = n1 + n2;
-            } else if (op[idx] == '-') {
+            } else if ($scope.op[idx] == '-') {
                 $scope.calcQuestionAnswer = n1 - n2;
-            } else if (op[idx] == '×') {
+            } else if ($scope.op[idx] == '×') {
                 $scope.calcQuestionAnswer = n1 * n2;
-            } else if (op[idx] == '÷') {
+            } else if ($scope.op[idx] == '÷') {
                 $scope.calcQuestionAnswer = n1 / n2;
             }
             console.log('Current calcQuestionAnswer: ' + $scope.calcQuestionAnswer);
-            $scope.calcQuestionString = n1 + ' ' + op[idx] + ' ' + n2;
+            $scope.calcQuestionString = n1 + ' ' + $scope.op[idx] + ' ' + n2;
         };
 
         console.log('Initial calcValueString' + $scope.calcValueString);
@@ -556,18 +532,44 @@ angular.module('todo', ['ionic', 'firebase'])
         $scope.$on('$ionicView.enter', function() {
             // analytics.trackView('Screen Title');
             console.log('Calc loaded');
-            $scope.calcQuestionNumberCurrent = 0;
-            $scope.calcQuestionMistakes = 0;
-            $scope.calcValueString = '';
+            // $scope.calcQuestionNumberCurrent = 0;
+            // $scope.calcQuestionMistakes = 0;
+            // $scope.calcValueString = '';
             $scope.progressPercent = 0;
 
-            $scope.calcData = {
-                time: -1,
-                roundedTime: -1,
-                questionsTotal: $scope.calcQuestionNumberTotal,
-                mistakes: -1,
-                questionLog: []
-            };
+            // $scope.calcData = {
+            //     time: -1,
+            //     roundedTime: -1,
+            //     questionsTotal: $scope.calcQuestionNumberTotal,
+            //     mistakes: -1,
+            //     questionLog: []
+            // };
+
+            $scope.calcData = JSON.parse(Calc.load());
+            console.log("difficulty: " + $scope.calcData.difficulty);
+            //Calculator
+            $scope.calcValueString = '';
+            $scope.calcQuestionString = '';
+            $scope.calcQuestionAnswer = 0;
+
+            $scope.calcQuestionNumberTotal = $scope.calcData.questionsTotal;
+            $scope.calcQuestionNumberCurrent = 0;
+            $scope.calcQuestionMistakes = 0;
+
+            // $scope.op = ['+', '-', '×', '÷'];
+            $scope.op = [];
+            if ($scope.calcData.operations.add) {
+                $scope.op.push('+');
+            }
+            if ($scope.calcData.operations.subtract) {
+                $scope.op.push('-');
+            }
+            if ($scope.calcData.operations.multiply) {
+                $scope.op.push('×');
+            }
+            if ($scope.calcData.operations.divide) {
+                $scope.op.push('÷');
+            }
 
             $scope.startTimer();
             calcQuestionStringConstruction();
