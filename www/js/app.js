@@ -424,20 +424,34 @@ angular.module('todo', ['ionic', 'firebase'])
 
         // Create arithmetic questions
         function calcQuestionStringConstruction() {
-            var n1 = Math.floor(Math.random() * 100) + 1;
-            var n2 = Math.floor(Math.random() * 100) + 1;
+            var plusMinusMultiplier;
+            var multDivMultiplier;
+            if ($scope.calcData.difficulty == 1) {
+                plusMinusMultiplier = 9;
+                multDivMultiplier = 4;
+            } else if ($scope.calcData.difficulty == 2) {
+                plusMinusMultiplier = 49;
+                multDivMultiplier = 9;
+            } else if ($scope.calcData.difficulty == 3) {
+                plusMinusMultiplier = 99;
+                multDivMultiplier = 19;
+            }
+
+            var n1 = Math.floor(Math.random() * plusMinusMultiplier) + 1;
+            var n2 = Math.floor(Math.random() * plusMinusMultiplier) + 1;
 
             var idx = Math.floor(Math.random() * $scope.op.length);
 
             if ($scope.op[idx] == '×') {
-                var n1 = Math.floor(Math.random() * 19) + 1;
-                var n2 = Math.floor(Math.random() * 19) + 1;
+                var n1 = Math.floor(Math.random() * multDivMultiplier) + 1;
+                var n2 = Math.floor(Math.random() * multDivMultiplier) + 1;
             } else if ($scope.op[idx] == '÷') {
-                var n2 = Math.floor(Math.random() * 19) + 1;
-                var n1 = n2 * (Math.floor(Math.random() * 19) + 1);
+                var n2 = Math.floor(Math.random() * multDivMultiplier) + 1;
+                var n1 = n2 * (Math.floor(Math.random() * multDivMultiplier) + 1);
             }
-            console.log("n1n2: " + n1 + " " + n2);
+
             console.log("$scope.calcData.difficulty: " + $scope.calcData.difficulty)
+
             if ($scope.calcData.difficulty == 3) {
                 console.log("posOrNeg");
                 var posOrNeg1 = Math.random() < 0.5 ? -1 : 1;
