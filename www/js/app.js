@@ -218,7 +218,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
         $scope.checkStartGameEnabled = function() {
             $scope.startGameEnabled = $scope.operationToggleValue.add || $scope.operationToggleValue.subtract || $scope.operationToggleValue.multiply || $scope.operationToggleValue.divide;
-        }
+        };
 
         $scope.startGame = function() {
             $scope.calcData = {
@@ -235,7 +235,7 @@ angular.module('todo', ['ionic', 'firebase'])
             Calc.save(JSON.stringify($scope.calcData));
             console.log("Starting game");
             $state.go('calcView');
-        }
+        };
 
         // firebase.auth().onAuthStateChanged(function(user) {
         //     if (user) {
@@ -344,8 +344,6 @@ angular.module('todo', ['ionic', 'firebase'])
             }
         }
 
-
-
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -353,9 +351,6 @@ angular.module('todo', ['ionic', 'firebase'])
         // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
         //     viewData.enableBack = true;
         // });
-
-
-
 
         // Change view
         $scope.changeView = function(view) {
