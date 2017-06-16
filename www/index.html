@@ -203,7 +203,7 @@
             <div class="bar bar-header bar-positive">
                 <!-- <button class="button button-icon icon ion-navicon"></button> -->
                 <div class="h1 title">MathFast</div>
-                <button class="button button-positive" ng-click="openHelp()"> <i class="icon ion-help-circled"></i>
+                <button class="button button-positive" ng-click="openResultsHelp()"> <i class="icon ion-help-circled"></i>
                 </button>
             </div>
             <ion-content class="padding">
@@ -436,7 +436,7 @@
                         The arithmetic operations you will see in the game
                     </p>
                     <p>
-                    At least one must be selected for game to start
+                        At least one must be selected for game to start
                     </p>
                 </div>
             </ion-content>
@@ -467,6 +467,38 @@
                             {{hintBreakdownTwo}}
                         </p>
                     </div>
+                </div>
+            </ion-content>
+        </div>
+    </script>
+    <script id="resultshelp.html" type="text/ng-template">
+        <div class="modal">
+            <!-- Modal header bar -->
+            <ion-header-bar class="bar-secondary">
+                <h1 class="title">Help</h1>
+                <button class="button button-clear button-positive" ng-click="closeResultsHelp()">Close</button>
+            </ion-header-bar>
+            <!-- Modal content area -->
+            <ion-content>
+                <br>
+                <div class="padding text-center">
+                    <h4><u>Time</u></h4>
+                    <p>
+                        Total time spent including penalties
+                    </p>
+                    <br>
+                    <h4><u>Best Time</u></h4>
+                    <p>
+                        Your fastest time with the current game settings
+                    </p>
+                    <br>
+                    <h4><u>Mistakes</u></h4>
+                    <p>
+                        Number of incorrect submissions
+                    </p>
+                    <p>
+                        Mistakes incur a 5 second time penalty
+                    </p>
                 </div>
             </ion-content>
         </div>

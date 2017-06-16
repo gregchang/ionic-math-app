@@ -195,7 +195,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
         // Create and load recap Modal
         $ionicModal.fromTemplateUrl('homehelp.html', function(modal) {
-            $scope.recapModal = modal;
+            $scope.homeHelpModal = modal;
         }, {
             scope: $scope,
             animation: 'slide-in-up'
@@ -203,12 +203,12 @@ angular.module('todo', ['ionic', 'firebase'])
 
         // Open recap modal
         $scope.openHelp = function() {
-            $scope.recapModal.show();
+            $scope.homeHelpModal.show();
         };
 
         // Close recap modal
         $scope.closeHelp = function() {
-            $scope.recapModal.hide();
+            $scope.homeHelpModal.hide();
         };
 
         $scope.changeView = function(view) {
@@ -343,6 +343,24 @@ angular.module('todo', ['ionic', 'firebase'])
                 return 'red';
             }
         }
+
+        // Create and load results help Modal
+        $ionicModal.fromTemplateUrl('resultshelp.html', function(modal) {
+            $scope.resultsHelpModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        // Open recap modal
+        $scope.openResultsHelp = function() {
+            $scope.resultsHelpModal.show();
+        };
+
+        // Close recap modal
+        $scope.closeResultsHelp = function() {
+            $scope.resultsHelpModal.hide();
+        };
 
     })
     .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
