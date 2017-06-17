@@ -66,15 +66,15 @@ angular.module('todo', ['ionic', 'firebase'])
                     }
                 }
             })
-            // .state('tabs.user', {
-            //     url: "/user",
-            //     views: {
-            //         'user-tab': {
-            //             templateUrl: "templates/user.html",
-            //             controller: 'UserCtrl'
-            //         }
-            //     }
-            // })
+            .state('tabs.user', {
+                url: "/user",
+                views: {
+                    'user-tab': {
+                        templateUrl: "templates/user.html",
+                        controller: 'UserCtrl'
+                    }
+                }
+            })
             .state('tabs.settings', {
                 url: "/settings",
                 views: {
@@ -573,6 +573,10 @@ angular.module('todo', ['ionic', 'firebase'])
             // };
 
             $scope.calcData = JSON.parse(Calc.load());
+            
+            //Reset question log
+            $scope.calcData.questionLog = [];
+
             console.log("difficulty: " + $scope.calcData.difficulty);
             //Calculator
             $scope.calcValueString = '';
