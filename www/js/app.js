@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('todo', ['ionic', 'firebase'])
+angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
     .constant('FirebaseUrl', 'https://mathfast-3bcce.firebaseio.com/')
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -44,6 +44,18 @@ angular.module('todo', ['ionic', 'firebase'])
 
         load: function() {
             return window.localStorage['calcData'];
+        }
+    }
+})
+
+.factory('Scores', function($location) {
+    return {
+        save: function(scores) {
+            window.localStorage['scores'] = scores;
+        },
+
+        load: function() {
+            return window.localStorage['scores'];
         }
     }
 })
@@ -363,12 +375,18 @@ angular.module('todo', ['ionic', 'firebase'])
         };
 
     })
-    .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('CalcCtrl', function($scope, $state, $window, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, ionicToast) {
 
         // Enable back button
         // $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
         //     viewData.enableBack = true;
         // });
+
+        // https://github.com/rajeshwarpatlolla/ionic-toast
+        $scope.showToast = function(message) {
+            // ionicToast.show(message, position, stick, time);
+            ionicToast.show(message, 'top', false, 1500);
+        };
 
         // Change view
         $scope.changeView = function(view) {
@@ -524,6 +542,7 @@ angular.module('todo', ['ionic', 'firebase'])
 
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
+                    $scope.showToast("Correct");
 
                     $scope.loadingBarLoad(1. / $scope.calcQuestionNumberTotal * 100);
 
@@ -537,9 +556,11 @@ angular.module('todo', ['ionic', 'firebase'])
                     $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, true]);
 
                 } else {
+                    console.log('Incorrect Answer');
+                    $scope.showToast("Incorrect");
                     $scope.calcQuestionMistakes += 1;
                     $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, false]);
-                    console.log('Incorrect Answer');
+
                 }
 
                 $scope.calcValueString = '';
@@ -573,7 +594,7 @@ angular.module('todo', ['ionic', 'firebase'])
             // };
 
             $scope.calcData = JSON.parse(Calc.load());
-            
+
             //Reset question log
             $scope.calcData.questionLog = [];
 
