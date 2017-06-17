@@ -9,6 +9,7 @@
     "firebase": "3.x.x"
   },
   "dependencies": {
-    "firebase": "^4.1.2"
+    "firebase": "^4.1.2",
+    "ionic-toast": "^0.4.1"
   }
 }
