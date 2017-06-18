@@ -232,6 +232,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $scope.startGameEnabled = $scope.operationToggleValue.add || $scope.operationToggleValue.subtract || $scope.operationToggleValue.multiply || $scope.operationToggleValue.divide;
         };
 
+        // gameSettings stored in questionsTotal, difficulty, operations
         $scope.startGame = function() {
             $scope.calcData = {
                 uid: $scope.firebase_uid,
@@ -291,6 +292,13 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $scope.calcData = JSON.parse(Calc.load());
 
             // window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
+            
+            console.log($scope.calcData);
+            if (window.localStorage.getItem('scores') == null) {
+                operationsInteger = $scope.calcData.operations.add * 1 * 1000 + $scope.calcData.operations.subtract * 1 * 100 + $scope.calcData.operations.multiply * 1 * 10 + $scope.calcData.operations.divide * 1;
+                console.log("operationsInteger: " + operationsInteger);
+                // scores[$scope.calcData.questionsTotal][$scope.calcData.difficulty]
+            }
 
             // var database = firebase.database();
 
@@ -545,6 +553,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                     $scope.showToast("Correct");
 
                     $scope.loadingBarLoad(1. / $scope.calcQuestionNumberTotal * 100);
+                    calcQuestionStringConstruction();
 
                     $scope.calcQuestionNumberCurrent += 1;
 
@@ -648,7 +657,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                     $scope.endGame();
                 } else if ($scope.progressPercent - originalPercent == loadPercentage) {
                     clearInterval(interval);
-                    calcQuestionStringConstruction();
+                    // calcQuestionStringConstruction();
                 }
                 $scope.$apply();
             }, 20);
