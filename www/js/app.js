@@ -302,24 +302,20 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             console.log(scores);
 
             if (window.localStorage.getItem("scores") === null) {
-                console.log("1");
                 scores[scoreIdentifier] = $scope.calcData.time;
             } else {
-                console.log("2");
-                scores = window.localStorage['scores'];
+                scores = JSON.parse(window.localStorage["scores"]);
                 // scores = JSON.parse(scores);
                 console.log(scores);
                 if (scores[scoreIdentifier] === null) {
-                    console.log("3");
                     scores[scoreIdentifier] = $scope.calcData.time;
                 } else {
-                    console.log("4");
                     scores[scoreIdentifier] = $scope.calcData.time < scores[scoreIdentifier] ? $scope.calcData.time : scores[scoreIdentifier];
                 }
             }
             console.log(scores[scoreIdentifier]);
-            $scope.bestTime = scores[scoreIdentifier];
-            window.localStorage.setItem("scores", scores);
+            $scope.bestTime = scores[scoreIdentifier] / 10 + " seconds";
+            window.localStorage["scores"] = JSON.stringify(scores);
 
             // var database = firebase.database();
 
