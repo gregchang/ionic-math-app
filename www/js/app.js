@@ -295,21 +295,23 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
             // console.log($scope.calcData);
 
-            scoreIdentifier = $scope.calcData.questionsTotal + "-" + $scope.calcData.difficulty + "-" + ($scope.calcData.operations.add * 1 * 1000 + $scope.calcData.operations.subtract * 1 * 100 + $scope.calcData.operations.multiply * 1 * 10 + $scope.calcData.operations.divide * 1);
-            // console.log(scoreIdentifier);
+            scoreIdentifier = $scope.calcData.questionsTotal + "-" + $scope.calcData.difficulty + "-" + ("" + ($scope.calcData.operations.add * 1) + ($scope.calcData.operations.subtract * 1) + ($scope.calcData.operations.multiply * 1) + ($scope.calcData.operations.divide * 1));
+            console.log(scoreIdentifier);
             var scores = {}
                 // scores[scoreIdentifier] = $scope.calcData.time;
-            console.log(scores);
 
             if (window.localStorage.getItem("scores") === null) {
+                console.log("bestTimeSave 1");
                 scores[scoreIdentifier] = $scope.calcData.time;
             } else {
+                console.log("bestTimeSave 2");
                 scores = JSON.parse(window.localStorage["scores"]);
-                // scores = JSON.parse(scores);
                 console.log(scores);
-                if (scores[scoreIdentifier] === null) {
+                if (scores[scoreIdentifier] === null || scores[scoreIdentifier] === undefined) {
+                    console.log("bestTimeSave 3");
                     scores[scoreIdentifier] = $scope.calcData.time;
                 } else {
+                    console.log("bestTimeSave 4");
                     scores[scoreIdentifier] = $scope.calcData.time < scores[scoreIdentifier] ? $scope.calcData.time : scores[scoreIdentifier];
                 }
             }
