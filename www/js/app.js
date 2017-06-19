@@ -292,13 +292,34 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $scope.calcData = JSON.parse(Calc.load());
 
             // window.localStorage.setItem('bestTimePerQuestion', $scope.calcData.roundedTime / $scope.calcData.questionsTotal);
-            
-            console.log($scope.calcData);
-            if (window.localStorage.getItem('scores') == null) {
-                operationsInteger = $scope.calcData.operations.add * 1 * 1000 + $scope.calcData.operations.subtract * 1 * 100 + $scope.calcData.operations.multiply * 1 * 10 + $scope.calcData.operations.divide * 1;
-                console.log("operationsInteger: " + operationsInteger);
-                // scores[$scope.calcData.questionsTotal][$scope.calcData.difficulty]
+
+            // console.log($scope.calcData);
+
+            scoreIdentifier = $scope.calcData.questionsTotal + "-" + $scope.calcData.difficulty + "-" + ($scope.calcData.operations.add * 1 * 1000 + $scope.calcData.operations.subtract * 1 * 100 + $scope.calcData.operations.multiply * 1 * 10 + $scope.calcData.operations.divide * 1);
+            // console.log(scoreIdentifier);
+            var scores = {}
+                // scores[scoreIdentifier] = $scope.calcData.time;
+            console.log(scores);
+
+            if (window.localStorage.getItem("scores") === null) {
+                console.log("1");
+                scores[scoreIdentifier] = $scope.calcData.time;
+            } else {
+                console.log("2");
+                scores = window.localStorage['scores'];
+                // scores = JSON.parse(scores);
+                console.log(scores);
+                if (scores[scoreIdentifier] === null) {
+                    console.log("3");
+                    scores[scoreIdentifier] = $scope.calcData.time;
+                } else {
+                    console.log("4");
+                    scores[scoreIdentifier] = $scope.calcData.time < scores[scoreIdentifier] ? $scope.calcData.time : scores[scoreIdentifier];
+                }
             }
+            console.log(scores[scoreIdentifier]);
+            $scope.bestTime = scores[scoreIdentifier];
+            window.localStorage.setItem("scores", scores);
 
             // var database = firebase.database();
 
@@ -551,8 +572,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
                     $scope.showToast("Correct");
+                    var offset = 0;
+                    if (($scope.calcQuestionNumberTotal == 30 && $scope.calcQuestionNumberCurrent % 3 == 0) || ($scope.calcQuestionNumberTotal == 40 && $scope.calcQuestionNumberCurrent % 4 == 0)) {
+                        offset = 1;
+                    }
+                    $scope.loadingBarLoad(Math.floor(1. / $scope.calcQuestionNumberTotal * 100) + offset);
 
-                    $scope.loadingBarLoad(1. / $scope.calcQuestionNumberTotal * 100);
                     calcQuestionStringConstruction();
 
                     $scope.calcQuestionNumberCurrent += 1;
@@ -641,7 +666,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
         $scope.loadingBarLoad = function(loadPercentage) {
             var originalPercent = $scope.progressPercent;
-
+            console.log("loadingBarLoad: " + loadPercentage);
             // Debug conditional for 'Skip to End' button
             if (loadPercentage == 100) {
                 $scope.calcData.time = $scope.counter;
