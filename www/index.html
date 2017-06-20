@@ -117,7 +117,7 @@
                 {{bestTime}}
                 </h2>
                 <p class="text-center">
-                  Best Time with current settings
+                    Best Time with current settings
                 </p>
                 <!-- Length slider -->
                 <label class="item">
@@ -222,7 +222,7 @@
                 <!-- <h2 class="title text-center">Results</h2> -->
                 <div class="results-content center-vertically">
                     <p>
-                        Time: {{calcData.roundedTime}} seconds
+                        Time: {{calcData.finalTime}} seconds
                     </p>
                     <p>
                         Best Time: {{bestTime}}
@@ -255,6 +255,12 @@
     </script>
     <script id="templates/calcView.html" type="text/ng-template">
         <ion-view view-title="Calc">
+            <div class="bar bar-header bar-positive">
+                <!-- <button class="button button-icon icon ion-android-close" ng-click="endGameEarly()"></button> -->
+                <div class="h1 title">MathFast</div>
+                <button class="button button-icon icon ion-android-close" ng-click="endGameEarly()"></button>
+                </button>
+            </div>
             <ion-content class="padding">
                 <div class="calc">
                     <br>
