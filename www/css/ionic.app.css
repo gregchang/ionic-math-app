@@ -9926,3 +9926,9 @@ a {
 
 #clear-data-button {
   text-align: center; }
+
+#bestTimeSecondsText {
+  font-size: 0.5em; }
+
+.bestTimeText {
+  padding-left: 7vw; }

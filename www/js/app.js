@@ -194,6 +194,9 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
     })
     .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
+        $scope.bestTime = "N/A";
+        $scope.showSecText = false;
+
         $scope.gameSettings = {}
         $scope.gameSettings.lengthValue = 10;
         $scope.gameSettings.difficultyValue = 1;
@@ -204,6 +207,17 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             multiply: false,
             divide: false
         };
+
+        $scope.$watchGroup(['gameSettings.lengthValue', 'gameSettings.difficultyValue', 'operationToggleValue.add', 'operationToggleValue.subtract', 'operationToggleValue.multiply', 'operationToggleValue.divide'], function(newValues, oldValues, scope) {
+            // newValues array contains the current values of the watch expressions
+            // with the indexes matching those of the watchExpression array
+            // i.e.
+            // newValues[0] -> $scope.foo 
+            // and 
+            // newValues[1] -> $scope.bar
+            console.log("MainCtrl watchGroup triggered");
+            $scope.showBestTime();
+        });
 
         // Create and load recap Modal
         $ionicModal.fromTemplateUrl('homehelp.html', function(modal) {
@@ -264,9 +278,26 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         //     }
         // });
 
+        $scope.showBestTime = function() {
+            console.log("Show Best Time");
+            scoreIdentifier = $scope.gameSettings.lengthValue + "-" + $scope.gameSettings.difficultyValue + "-" + ("" + ($scope.operationToggleValue.add * 1) + ($scope.operationToggleValue.subtract * 1) + ($scope.operationToggleValue.multiply * 1) + ($scope.operationToggleValue.divide * 1));
+            if (window.localStorage.getItem("scores") != null) {
+                scores = JSON.parse(window.localStorage["scores"]);
+                if (scores[scoreIdentifier] != undefined) {
+                    $scope.bestTime = scores[scoreIdentifier];
+                    $scope.showSecText = true;
+                    console.log("showBestTime(): Found existing time");
+                    return;
+                }
+            }
+            console.log("showBestTime(): Existing time not found");
+            $scope.bestTime = "N/A";
+            $scope.showSecText = false;
+        };
+
 
         $scope.$on('$ionicView.beforeEnter', function() {
-
+            $scope.showBestTime();
         });
 
 
@@ -307,7 +338,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 }
             }
             console.log(scores[scoreIdentifier]);
-            $scope.bestTime = scores[scoreIdentifier] + " seconds";
+            $scope.bestTime = scores[scoreIdentifier];
             window.localStorage["scores"] = JSON.stringify(scores);
 
             // var database = firebase.database();

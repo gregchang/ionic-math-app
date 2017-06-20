@@ -113,8 +113,8 @@
                 <br>
                 <br>
                 <br>
-                <h2 class="text-center">
-                {{bestTime}}
+                <h2 class="text-center" ng-class="{bestTimeText: showSecText}">
+                {{bestTime}} <span id="bestTimeSecondsText" ng-show="showSecText">sec</span>
                 </h2>
                 <p class="text-center">
                     Best Time with current settings
