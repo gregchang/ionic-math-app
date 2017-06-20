@@ -78,15 +78,15 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                     }
                 }
             })
-            .state('tabs.user', {
-                url: "/user",
-                views: {
-                    'user-tab': {
-                        templateUrl: "templates/user.html",
-                        controller: 'UserCtrl'
-                    }
-                }
-            })
+            // .state('tabs.user', {
+            //     url: "/user",
+            //     views: {
+            //         'user-tab': {
+            //             templateUrl: "templates/user.html",
+            //             controller: 'UserCtrl'
+            //         }
+            //     }
+            // })
             .state('tabs.settings', {
                 url: "/settings",
                 views: {
@@ -189,8 +189,27 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
     .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
 
     })
-    .controller('SettingsCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('SettingsCtrl', function($scope, $timeout, $ionicModal, $ionicPopup, $location, Calc, $ionicSideMenuDelegate, ionicToast) {
 
+        $scope.showConfirm = function() {
+
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Are you sure?'
+                    // template: 'Are you sure?'
+            });
+
+            confirmPopup.then(function(res) {
+                if (res) {
+                    console.log('Yes');
+                    window.localStorage.removeItem("scores");
+                    ionicToast.show("All scores deleted", 'bottom', false, 1500);
+
+                } else {
+                    console.log('No');
+                }
+            });
+
+        };
     })
     .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 

@@ -93,9 +93,9 @@
             <ion-tab title="Home" icon="ion-home" href="#/tab/home">
                 <ion-nav-view name="home-tab"></ion-nav-view>
             </ion-tab>
-            <ion-tab title="Scores" icon="ion-stats-bars" href="#/tab/user">
+            <!--             <ion-tab title="Scores" icon="ion-stats-bars" href="#/tab/user">
                 <ion-nav-view name="user-tab"></ion-nav-view>
-            </ion-tab>
+            </ion-tab> -->
             <ion-tab title="Settings" icon="ion-android-settings" href="#/tab/settings">
                 <ion-nav-view name="settings-tab"></ion-nav-view>
             </ion-tab>
@@ -117,7 +117,7 @@
                 {{bestTime}} <span id="bestTimeSecondsText" ng-show="showSecText">sec</span>
                 </h2>
                 <p class="text-center">
-                    Best Time with current settings
+                    Fastest time with current settings
                 </p>
                 <!-- Length slider -->
                 <label class="item">
@@ -176,11 +176,10 @@
             </ion-content>
         </ion-view>
     </script>
-    <script id="templates/user.html" type="text/ng-template">
+    <!--     <script id="templates/user.html" type="text/ng-template">
         <ion-view view-title="Settings">
             <div class="bar bar-header bar-positive">
                 <div class="h1 title">MathFast</div>
-                <!-- <button class="button button-positive" ng-click="openHelp()"> <i class="icon ion-help-circled"></i> -->
                 </button>
             </div>
             <ion-content class="padding">
@@ -192,7 +191,7 @@
                 </div>
             </ion-content>
         </ion-view>
-    </script>
+    </script> -->
     <script id="templates/settings.html" type="text/ng-template">
         <ion-view view-title="Settings">
             <div class="bar bar-header bar-positive">
@@ -205,7 +204,7 @@
                 <br>
                 <br>
                 <div id="clear-data-button">
-                    <a class="button button-positive" href="#/">Clear Data</a>
+                    <button class="button button-block button-assertive" ng-click="showConfirm()">Clear scores</button>
                 </div>
             </ion-content>
         </ion-view>
@@ -339,7 +338,7 @@
                                 </button>
                             </div>
                             <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate('decimal')">
+                                <button class="button button-positive disabled" ng-click="calcDisplayUpdate('decimal')">
                                     .
                                 </button>
                             </div>
@@ -366,6 +365,7 @@
                         <br>
                         <br>
                         <br>
+                        <br>
                         <div class="progress-bar">
                             <div class="loader" style="width: {{progressPercent}}%;">
                                 <div class="progress-bar-bar">
@@ -374,7 +374,7 @@
                             </div>
                         </div>
                         <!-- Calc debug code -->
-                        <div id="calc-debug">
+                        <!--                         <div id="calc-debug">
                             <h5>Calc Debug</h5>
                             <p>
                                 calcQuestionNumberCurrent: {{calcQuestionNumberCurrent}}
@@ -395,7 +395,7 @@
                                 <button class="button button-dark" ng-click='startTimer()'>Start</button>
                                 <button class="button button-dark" ng-click='stopTimer()'>Stop</button>
                             </div>
-                        </div>
+                        </div> -->
             </ion-content>
         </ion-view>
     </script>
