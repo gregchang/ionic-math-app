@@ -194,8 +194,8 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         $scope.showConfirm = function() {
 
             var confirmPopup = $ionicPopup.confirm({
-                title: 'Are you sure?'
-                    // template: 'Are you sure?'
+                title: 'Confirmation',
+                template: 'Permanently delete your local high scores?'
             });
 
             confirmPopup.then(function(res) {

@@ -9933,8 +9933,11 @@ a {
 .bestTimeText {
   padding-left: 7vw; }
 
-/*.popup-head {
-	background-color: lightgray;
-}*/
+.popup-title {
+  /*font-size: 1.5em;*/ }
+
 .popup-body {
-  text-align: center; }
+  /*text-align: center;*/ }
+
+.popup-buttons .button:first-child {
+  background-color: lightgray; }
