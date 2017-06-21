@@ -529,6 +529,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
         // Create arithmetic questions
         function calcQuestionStringConstruction() {
+
+            if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal - 1) {
+                $scope.calcQuestionString = "All done!";
+                return;
+            }
+
             var plusMinusMultiplier;
             var multDivMultiplier;
             if ($scope.calcData.difficulty == 1) {
@@ -610,7 +616,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 console.log('Decimal not yet implemented');
             }
             // Submit button pressed - submit number
-            else if (digit == 'submit' && $scope.calcValueString != '') {
+            else if (digit == 'submit' && $scope.calcValueString != '' && $scope.calcQuestionString != "All done!") {
                 var currentValue = parseInt($scope.calcValueString);
                 console.log('currentValue: ' + currentValue);
 
