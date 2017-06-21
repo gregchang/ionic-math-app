@@ -226,12 +226,6 @@
                     <p>
                         Best Time: {{bestTime}} sec
                     </p>
-                    <!--                     <p>
-                        Rank: {{rank}}
-                    </p> -->
-                    <!--                 <p>
-                    # of Questions: {{calcData.questionsTotal}}
-                </p> -->
                     <p>
                         Mistakes: {{calcData.mistakes}}
                     </p>
@@ -239,7 +233,7 @@
                 </div>
                 <div class="bottom row operations-buttons-style">
                     <div class="col col-50 text-center">
-                        <a class="button button-positive" href="#/calcView">
+                        <a class="button button-positive" ng-click="changeView('calcView')">
                             Retry
                         </a>
                     </div>
@@ -364,7 +358,11 @@
                         </div> -->
                         <br>
                         <br>
-                        <br>
+                        <br ng-hide="showCorrect || showIncorrect">
+                        <div id="correctnessFeedback">
+                            <span class="correctText" ng-show="showCorrect">Correct!</span>
+                            <span class="incorrectText" ng-show="showIncorrect">Incorrect! +5 sec penalty</span>
+                        </div>
                         <br>
                         <div class="progress-bar">
                             <div class="loader" style="width: {{progressPercent}}%;">

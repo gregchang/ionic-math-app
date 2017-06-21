@@ -332,6 +332,11 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         //     console.log($scope.status);
         // });
 
+        $scope.changeView = function(view) {
+            console.log('changeView: ' + view);
+            $location.path(view);
+        };
+
         $scope.$on('$ionicView.beforeEnter', function() {
             // $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
@@ -451,10 +456,11 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         // });
 
         // https://github.com/rajeshwarpatlolla/ionic-toast
-        $scope.showToast = function(message) {
-            // ionicToast.show(message, position, stick, time);
-            ionicToast.show(message, 'bottom', false, 1500);
-        };
+        // $scope.showToast = function(message) {
+        //     // ionicToast.show(message, position, stick, time);
+        //     ionicToast.show(message, 'bottom', false, 1500);
+        // };
+
 
         // Change view
         $scope.changeView = function(view) {
@@ -602,6 +608,10 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
         $scope.calcDisplayUpdate = function(digit) {
             // Clear button pressed - clear number
+            if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
+                return;
+            }
+
             if (digit == 'clear') {
                 $scope.calcValueString = '';
             } else if (digit == 'negativeToggle') {
@@ -616,18 +626,23 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 console.log('Decimal not yet implemented');
             }
             // Submit button pressed - submit number
-            else if (digit == 'submit' && $scope.calcValueString != '' && $scope.calcQuestionString != "All done!") {
+            else if (digit == 'submit' && $scope.calcValueString != '') {
                 var currentValue = parseInt($scope.calcValueString);
                 console.log('currentValue: ' + currentValue);
+                console.log('calcQuestionString: ' + $scope.calcQuestionString);
 
                 if (currentValue == $scope.calcQuestionAnswer) {
                     console.log('Correct Answer');
-                    $scope.showToast("Correct!");
+                    // $scope.showToast("Correct!");
+                    $scope.showCorrect = true;
+                    $scope.showIncorrect = false;
                     var offset = 0;
                     if (($scope.calcQuestionNumberTotal == 30 && $scope.calcQuestionNumberCurrent % 3 == 0) || ($scope.calcQuestionNumberTotal == 40 && $scope.calcQuestionNumberCurrent % 4 == 0)) {
                         offset = 1;
                     }
                     $scope.loadingBarLoad(Math.floor(1. / $scope.calcQuestionNumberTotal * 100) + offset);
+
+                    $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, true]);
 
                     calcQuestionStringConstruction();
 
@@ -638,11 +653,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                         $scope.calcData.time = $scope.counter;
                     }
 
-                    $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, true]);
 
                 } else {
                     console.log('Incorrect Answer');
-                    $scope.showToast("Incorrect! +5 second penalty");
+                    // $scope.showToast("Incorrect! +5 second penalty");
+                    $scope.showCorrect = false;
+                    $scope.showIncorrect = true;
                     $scope.calcQuestionMistakes += 1;
                     $scope.calcData.questionLog.push([$scope.calcQuestionString, currentValue, false]);
 
@@ -678,20 +694,19 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             //     questionLog: []
             // };
 
-            $scope.calcData = JSON.parse(Calc.load());
-
-            //Reset question log
-            $scope.calcData.questionLog = [];
-
-            console.log("difficulty: " + $scope.calcData.difficulty);
             //Calculator
             $scope.calcValueString = '';
             $scope.calcQuestionString = '';
             $scope.calcQuestionAnswer = 0;
 
+            $scope.calcData = JSON.parse(Calc.load());
+
             $scope.calcQuestionNumberTotal = $scope.calcData.questionsTotal;
             $scope.calcQuestionNumberCurrent = 0;
             $scope.calcQuestionMistakes = 0;
+
+            //Reset question log
+            $scope.calcData.questionLog = [];
 
             // $scope.op = ['+', '-', '×', '÷'];
             $scope.op = [];
@@ -710,6 +725,9 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
             $scope.startTimer();
             calcQuestionStringConstruction();
+
+            $scope.showCorrect = false;
+            $scope.showIncorrect = false;
         });
 
         // https://codepen.io/aidan2129/details/GZQwam

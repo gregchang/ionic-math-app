@@ -9941,3 +9941,16 @@ a {
 
 .popup-buttons .button:first-child {
   background-color: lightgray; }
+
+.correctText {
+  text-align: center;
+  color: darkgreen;
+  font-size: 1.5em; }
+
+.incorrectText {
+  text-align: center;
+  color: darkred;
+  font-size: 1.5em; }
+
+#correctnessFeedback {
+  text-align: center; }
