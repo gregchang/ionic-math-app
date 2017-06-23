@@ -210,6 +210,24 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             });
 
         };
+
+        // Create and load about Modal
+        $ionicModal.fromTemplateUrl('about.html', function(modal) {
+            $scope.aboutModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        // Open anbout modal
+        $scope.openAbout = function() {
+            $scope.aboutModal.show();
+        };
+
+        // Close about modal
+        $scope.closeAbout = function() {
+            $scope.aboutModal.hide();
+        };
     })
     .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
 
@@ -238,7 +256,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $scope.showBestTime();
         });
 
-        // Create and load recap Modal
+        // Create and load homeHelp Modal
         $ionicModal.fromTemplateUrl('homehelp.html', function(modal) {
             $scope.homeHelpModal = modal;
         }, {
@@ -246,12 +264,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             animation: 'slide-in-up'
         });
 
-        // Open recap modal
+        // Open homeHelp modal
         $scope.openHelp = function() {
             $scope.homeHelpModal.show();
         };
 
-        // Close recap modal
+        // Close homeHelp modal
         $scope.closeHelp = function() {
             $scope.homeHelpModal.hide();
         };
@@ -757,22 +775,22 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             }, 20);
         }
 
-        // Create and load recap Modal
+        // Create and load hint Modal
         $ionicModal.fromTemplateUrl('hint.html', function(modal) {
-            $scope.recapModal = modal;
+            $scope.hintModal = modal;
         }, {
             scope: $scope,
             animation: 'slide-in-up'
         });
 
-        // Open recap modal
+        // Open hint modal
         $scope.openHint = function() {
-            $scope.recapModal.show();
+            $scope.hintModal.show();
         };
 
-        // Close recap modal
+        // Close hint modal
         $scope.closeHint = function() {
-            $scope.recapModal.hide();
+            $scope.hintModal.hide();
         };
 
         $scope.createHint = function() {
