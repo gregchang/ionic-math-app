@@ -109,7 +109,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
             });
         // $urlRouterProvider.otherwise("/tab/home");
-        $urlRouterProvider.otherwise("/login");
+        $urlRouterProvider.otherwise("/tab/home");
 
 
     })
@@ -154,30 +154,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         // // The start method will wait until the DOM is loaded.
         // ui.start('#firebaseui-auth-container', uiConfig);
 
-        var auth = $firebaseAuth();
-
         // login with Facebook
         // auth.$signInWithPopup("facebook").then(function(firebaseUser) {
         //     console.log("Signed in as:", firebaseUser.uid);
         // }).catch(function(error) {
         //     console.log("Authentication failed:", error);
         // });
-
-        $scope.signIn = function() {
-            $scope.firebaseUser = null;
-            $scope.error = null;
-
-            auth.$signInAnonymously().then(function(firebaseUser) {
-                $scope.firebaseUser = firebaseUser;
-                $state.go('tabs.home');
-                console.log("Anonymous login success: " + firebaseUser.uid);
-            }).catch(function(error) {
-                $scope.error = error;
-                $state.go('tabs.home');
-                console.log("Anonymous login error: " + error);
-            });
-        };
-        $scope.signIn();
 
     })
     .controller('UserCtrl', function($scope, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
@@ -223,7 +205,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $scope.aboutModal.hide();
         };
     })
-    .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate) {
+    .controller('MainCtrl', function($scope, $state, $timeout, $ionicModal, $location, Calc, $ionicSideMenuDelegate, $firebaseAuth) {
 
         $scope.bestTime = "N/A";
         $scope.showSecText = false;
@@ -328,6 +310,25 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
 
         $scope.$on('$ionicView.beforeEnter', function() {
+
+            // var auth = $firebaseAuth();
+
+            // $scope.signIn = function() {
+            //     $scope.firebaseUser = null;
+            //     $scope.error = null;
+
+            //     auth.$signInAnonymously().then(function(firebaseUser) {
+            //         $scope.firebaseUser = firebaseUser;
+            //         // $state.go('tabs.home');
+            //         console.log("Anonymous login success: " + firebaseUser.uid);
+            //     }).catch(function(error) {
+            //         $scope.error = error;
+            //         // $state.go('tabs.home');
+            //         console.log("Anonymous login error: " + error);
+            //     });
+            // };
+            // $scope.signIn();
+
             $scope.showBestTime();
         });
 
