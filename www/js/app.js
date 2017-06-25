@@ -30,12 +30,6 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         }
     ])
 
-// angular.module('todo', ['ionic', 'firebase'])
-/**
- * The Projects factory handles saving and loading projects
- * from local storage, and also lets us save and load the
- * last active project index.
- */
 .factory('Calc', function($location) {
     return {
         save: function(calcData) {
@@ -479,7 +473,6 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         //     ionicToast.show(message, 'bottom', false, 1500);
         // };
 
-
         // Change view
         $scope.changeView = function(view) {
             console.log('changeView: ' + view);
@@ -488,54 +481,53 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
 
         // Timer, based off http://www.devblogrbmz.com/building-a-very-simple-timer-in-angularjs/
-        $scope.counter = 0;
-        var mytimeout = null;
+        // $scope.counter = 0;
+        // var mytimeout = null;
 
-        if ($scope.counter === 0) {
-            console.log('$scope.counter is 0');
-        }
+        // if ($scope.counter === 0) {
+        //     console.log('$scope.counter is 0');
+        // }
 
-        $scope.onTimeout = function() {
-            // Prevents never-ending game
-            if ($scope.counter === 100000) {
-                $scope.$broadcast('timer-stopped', $scope.counter);
-                $timeout.cancel(mytimeout);
-                return;
-            }
-            $scope.counter++;
-            mytimeout = $timeout($scope.onTimeout, 100);
-        };
+        // $scope.onTimeout = function() {
+        //     // Prevents never-ending game
+        //     if ($scope.counter === 100000) {
+        //         $scope.$broadcast('timer-stopped', $scope.counter);
+        //         $timeout.cancel(mytimeout);
+        //         return;
+        //     }
+        //     $scope.counter++;
+        //     mytimeout = $timeout($scope.onTimeout, 100);
+        // };
 
-        $scope.startTimer = function() {
-            mytimeout = $timeout($scope.onTimeout, 100);
-        };
+        // $scope.startTimer = function() {
+        //     mytimeout = $timeout($scope.onTimeout, 100);
+        // };
 
-        // stop and reset current timer
-        $scope.stopTimer = function() {
-            $scope.$broadcast('timer-stopped', $scope.counter);
-            $scope.counter = 0;
-            $timeout.cancel(mytimeout);
-        };
-        // triggered, when the timer stops, you can do something here, maybe show a visual indicator or vibrate the device
-        $scope.$on('timer-stopped', function(event, elapsed) {
-            console.log(event, elapsed);
-            // console.log('You\'ve spent way too long on your questions!');
+        // // stop and reset current timer
+        // $scope.stopTimer = function() {
+        //     $scope.$broadcast('timer-stopped', $scope.counter);
+        //     $scope.counter = 0;
+        //     $timeout.cancel(mytimeout);
+        // };
+        // // triggered, when the timer stops, you can do something here, maybe show a visual indicator or vibrate the device
+        // $scope.$on('timer-stopped', function(event, elapsed) {
+        //     console.log(event, elapsed);
+        //     // console.log('You\'ve spent way too long on your questions!');
 
-        });
+        // });
 
         $scope.endGame = function() {
 
             console.log('All ' + $scope.calcQuestionNumberTotal + ' correct!');
 
             // Data transfer to Results view
-            console.log('$scope.counter: ' + $scope.counter);
             $scope.calcData.mistakes = $scope.calcQuestionMistakes;
 
             // Mistakes incur 5 second penalties
-            $scope.calcData.finalTime = (($scope.calcData.time / 10) + ($scope.calcData.mistakes * 5)).toFixed(1);
+            $scope.calcData.finalTime = (($scope.calcData.time / 1000) + ($scope.calcData.mistakes * 5)).toFixed(2);
             console.log('$scope.calcData.finalTime: ' + $scope.calcData.finalTime);
 
-            $scope.stopTimer();
+            // $scope.stopTimer();
 
             console.log('saving data', JSON.stringify($scope.calcData));
             // Todo write on-success callback
@@ -546,7 +538,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         }
 
         $scope.endGameEarly = function() {
-            $scope.stopTimer();
+            // $scope.stopTimer();
             console.log('Changing to Home View');
             $state.go('tabs.home');
         }
@@ -668,7 +660,8 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
                     // Save time on submission of final correct answer
                     if ($scope.calcQuestionNumberCurrent == $scope.calcQuestionNumberTotal) {
-                        $scope.calcData.time = $scope.counter;
+                        // $scope.calcData.time = $scope.counter;
+                        $scope.calcData.time = Date.now() - $scope.start;
                     }
 
 
@@ -699,18 +692,9 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         $scope.$on('$ionicView.enter', function() {
             // analytics.trackView('Screen Title');
             console.log('Calc loaded');
-            // $scope.calcQuestionNumberCurrent = 0;
-            // $scope.calcQuestionMistakes = 0;
-            // $scope.calcValueString = '';
-            $scope.progressPercent = 0;
 
-            // $scope.calcData = {
-            //     time: -1,
-            //     finalTime: -1,
-            //     questionsTotal: $scope.calcQuestionNumberTotal,
-            //     mistakes: -1,
-            //     questionLog: []
-            // };
+            $scope.start = Date.now();
+            $scope.progressPercent = 0;
 
             //Calculator
             $scope.calcValueString = '';
@@ -741,7 +725,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 $scope.op.push('÷');
             }
 
-            $scope.startTimer();
+            // $scope.startTimer();
             calcQuestionStringConstruction();
 
             $scope.showCorrect = false;
@@ -754,10 +738,11 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         $scope.loadingBarLoad = function(loadPercentage) {
             var originalPercent = $scope.progressPercent;
             console.log("loadingBarLoad: " + loadPercentage);
+
             // Debug conditional for 'Skip to End' button
-            if (loadPercentage == 100) {
-                $scope.calcData.time = $scope.counter;
-            }
+            // if (loadPercentage == 100) {
+            //     $scope.calcData.time = $scope.counter;
+            // }
 
             var interval = setInterval(function() {
                 $scope.progressPercent++;
