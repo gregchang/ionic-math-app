@@ -9851,7 +9851,7 @@ a {
 .bottom {
   text-align: center;
   position: fixed;
-  bottom: 10px;
+  bottom: 4vh;
   /*top: 10vh;*/
   width: 90%;
   left: 5%;
