@@ -201,7 +201,7 @@
             <ion-content class="padding">
                 <br>
                 <br>
-                <button class="button button-block button-assertive" ng-click="showConfirm()">Clear Scores</button>
+                <button class="button button-block button-assertive" ng-click="clearScores()">Clear Scores</button>
                 <button class="button button-block button-dark" ng-click="openAbout()">About</button>
             </ion-content>
         </ion-view>
@@ -215,8 +215,11 @@
                 </button>
             </div>
             <ion-content class="padding">
-                <!-- <h2 class="title text-center">Results</h2> -->
                 <div class="results-content center-vertically">
+                    <!-- Todo: Multiply congratulatory messages -->
+                    <p id="new-best-time-message" ng-show="showNewBestTimeMessage">
+                        New Best Time!
+                    </p>
                     <p>
                         Actual Time: {{(calcData.time / 1000).toFixed(2)}}s
                     </p>
@@ -229,6 +232,7 @@
                     <p>
                         Best Time: {{bestTime}}s
                     </p>
+                    <br>
                     <button class="button button-dark" ng-click="openRecap()">Review Questions</button>
                 </div>
                 <div class="bottom row operations-buttons-style">

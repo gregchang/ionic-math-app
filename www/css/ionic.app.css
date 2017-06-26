@@ -9940,6 +9940,9 @@ a {
 .popup-buttons .button:first-child {
   background-color: lightgray; }
 
+.popup {
+  border-radius: 5px !important; }
+
 .correctText {
   text-align: center;
   color: darkgreen;
@@ -9963,4 +9966,9 @@ a {
   padding-bottom: 0vh; }
 
 #new-best-time-message {
-  visibility: hidden; }
+  /*visibility: hidden;*/
+  position: fixed;
+  margin: 5% auto;
+  left: 0;
+  right: 0;
+  top: -45%; }

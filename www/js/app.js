@@ -167,18 +167,18 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
     })
     .controller('SettingsCtrl', function($scope, $timeout, $ionicModal, $ionicPopup, $location, Calc, $ionicSideMenuDelegate, ionicToast) {
 
-        $scope.showConfirm = function() {
+        $scope.clearScores = function() {
 
             var confirmPopup = $ionicPopup.confirm({
-                title: 'Confirmation',
-                template: 'Permanently delete your local high scores?'
+                title: 'Are you sure?'
+                // template: 'Permanently delete your local high scores?'
             });
 
             confirmPopup.then(function(res) {
                 if (res) {
                     console.log('Yes');
                     window.localStorage.removeItem("scores");
-                    ionicToast.show("All scores deleted", 'bottom', false, 1500);
+                    ionicToast.show("All scores deleted", 'middle', false, 1000);
 
                 } else {
                     console.log('No');
@@ -355,7 +355,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             // $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
 
-            $scope.hideNewBestTimeMessage = true;
+            $scope.showNewBestTimeMessage = false;
 
             scoreIdentifier = $scope.calcData.questionsTotal + "-" + $scope.calcData.difficulty + "-" + ("" + ($scope.calcData.operations.add * 1) + ($scope.calcData.operations.subtract * 1) + ($scope.calcData.operations.multiply * 1) + ($scope.calcData.operations.divide * 1));
             console.log(scoreIdentifier);
@@ -379,6 +379,11 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             }
             console.log(scores[scoreIdentifier]);
             $scope.bestTime = scores[scoreIdentifier];
+
+            if ($scope.bestTime == $scope.calcData.finalTime) {
+                $scope.showNewBestTimeMessage = true;
+            }
+
             window.localStorage["scores"] = JSON.stringify(scores);
 
             // var database = firebase.database();

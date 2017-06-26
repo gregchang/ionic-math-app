@@ -141,60 +141,70 @@ a {
 }
 
 #hint-content {
-	font-size: 2em;
-	p {
-		margin-top: 3vh;
-		margin-bottom: 3vh;
-	}
+    font-size: 2em;
+    p {
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
 }
 
 #bestTimeSecondsText {
-	font-size: 0.5em;
+    font-size: 0.5em;
 }
 
 .bestTimeText {
-	padding-left: 7vw;
+    padding-left: 7vw;
 }
 
 .popup-title {
-	/*font-size: 1.5em;*/
+    /*font-size: 1.5em;*/
 }
 
 .popup-body {
-	/*text-align: center;*/
+    /*text-align: center;*/
 }
 
 .popup-buttons .button:first-child {
-	background-color: lightgray;
+    background-color: lightgray;
+}
+
+.popup {
+	border-radius: 5px !important;
 }
 
 .correctText {
-	text-align: center;
-	color: darkgreen;
-	font-size: 1.5em;
+    text-align: center;
+    color: darkgreen;
+    font-size: 1.5em;
 }
 
 .incorrectText {
-	text-align: center;
-	color: darkred;
-	font-size: 1.5em;
+    text-align: center;
+    color: darkred;
+    font-size: 1.5em;
 }
 
 #correctnessFeedback {
-	text-align: center;
+    text-align: center;
 }
 
 .about-modal-paragraph {
-	margin-left: 10%;
-	margin-right: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 #penalty-explanation {
-	font-size: 0.5em;
-	padding-top: 0vh;
-	padding-bottom: 0vh;
+    font-size: 0.5em;
+    padding-top: 0vh;
+    padding-bottom: 0vh;
 }
 
 #new-best-time-message {
-	visibility: hidden;
+    /*visibility: hidden;*/
+    position: fixed;
+
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    top: -45%;
 }
