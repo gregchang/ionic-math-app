@@ -350,9 +350,12 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
             $location.path(view);
         };
 
+
         $scope.$on('$ionicView.beforeEnter', function() {
             // $scope.rank = '. . .';
             $scope.calcData = JSON.parse(Calc.load());
+
+            $scope.hideNewBestTimeMessage = true;
 
             scoreIdentifier = $scope.calcData.questionsTotal + "-" + $scope.calcData.difficulty + "-" + ("" + ($scope.calcData.operations.add * 1) + ($scope.calcData.operations.subtract * 1) + ($scope.calcData.operations.multiply * 1) + ($scope.calcData.operations.divide * 1));
             console.log(scoreIdentifier);

@@ -113,7 +113,7 @@
                 <br>
                 <br>
                 <h2 class="text-center" ng-class="{bestTimeText: showSecText}">
-                {{bestTime}} <span id="bestTimeSecondsText" ng-show="showSecText">sec</span>
+                {{bestTime}}<span id="bestTimeSecondsText" ng-show="showSecText">s</span>
                 </h2>
                 <p class="text-center">
                     Fastest time with current settings
@@ -218,13 +218,16 @@
                 <!-- <h2 class="title text-center">Results</h2> -->
                 <div class="results-content center-vertically">
                     <p>
-                        Time: {{calcData.finalTime}} sec
+                        Actual Time: {{(calcData.time / 1000).toFixed(2)}}s
+                    </p>
+                    <p id="penalty-explanation">
+                        {{calcData.mistakes}} Mistake(s) x 5s per Mistake = {{calcData.mistakes * 5}}s Penalty
                     </p>
                     <p>
-                        Best Time: {{bestTime}} sec
+                        Final Time: {{calcData.finalTime}}s
                     </p>
                     <p>
-                        Mistakes: {{calcData.mistakes}}
+                        Best Time: {{bestTime}}s
                     </p>
                     <button class="button button-dark" ng-click="openRecap()">Review Questions</button>
                 </div>
@@ -358,7 +361,7 @@
                         <br ng-hide="showCorrect || showIncorrect">
                         <div id="correctnessFeedback">
                             <span class="correctText" ng-show="showCorrect">Correct!</span>
-                            <span class="incorrectText" ng-show="showIncorrect">Incorrect! +5 sec penalty</span>
+                            <span class="incorrectText" ng-show="showIncorrect">Incorrect! +5s penalty</span>
                         </div>
                         <br>
                         <div class="progress-bar">

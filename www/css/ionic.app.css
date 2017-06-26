@@ -9862,7 +9862,8 @@ a {
   font-size: 2em;
   /*font-weight: bold;*/ }
   .results-content p {
-    padding-bottom: 3vh; }
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh; }
 
 #operations-label {
   margin-bottom: 1em; }
@@ -9955,3 +9956,11 @@ a {
 .about-modal-paragraph {
   margin-left: 10%;
   margin-right: 10%; }
+
+#penalty-explanation {
+  font-size: 0.5em;
+  padding-top: 0vh;
+  padding-bottom: 0vh; }
+
+#new-best-time-message {
+  visibility: hidden; }
