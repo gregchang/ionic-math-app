@@ -220,6 +220,10 @@
                     <p id="new-best-time-message" ng-show="showNewBestTimeMessage">
                         New Best Time!
                     </p>
+                    <div class="pyro" ng-show="showNewBestTimeMessage">
+                        <div class="before"></div>
+                        <div class="after"></div>
+                    </div>
                     <p>
                         Actual Time: {{(calcData.time / 1000).toFixed(2)}}s
                     </p>

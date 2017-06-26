@@ -384,6 +384,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
                 $scope.showNewBestTimeMessage = true;
             }
 
+            console.log("$scope.showNewBestTimeMessage: " + $scope.showNewBestTimeMessage)
             window.localStorage["scores"] = JSON.stringify(scores);
 
             // var database = firebase.database();
