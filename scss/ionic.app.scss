@@ -19,6 +19,13 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+@font-face {
+font-family: 'Kalam-Bold';
+src: url('../fonts/Kalam/Kalam-Bold.ttf')  format('truetype');
+font-weight: bold;
+}
+
 .calc-display {
     background-color: lightgray;
     margin: 0 auto;
@@ -200,9 +207,9 @@ a {
 }
 
 #new-best-time-message {
-    /*visibility: hidden;*/
+	font-size: 1.2em;
+	font-family: Kalam-Bold;
     position: fixed;
-
     margin: 5% auto;
     left: 0;
     right: 0;
