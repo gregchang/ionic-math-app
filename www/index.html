@@ -225,7 +225,7 @@
                         <div class="after"></div>
                     </div>
                     <p>
-                        Actual Time: {{(calcData.time / 1000).toFixed(2)}}s
+                        Base Time: {{(calcData.time / 1000).toFixed(2)}}s
                     </p>
                     <p id="penalty-explanation">
                         {{calcData.mistakes}} Mistake(s) x 5s per Mistake = {{calcData.mistakes * 5}}s Penalty
@@ -508,22 +508,25 @@
             <ion-content>
                 <br>
                 <div class="padding text-center">
-                    <h4><u>Time</u></h4>
+                    <h4><u>Base Time</u></h4>
                     <p>
-                        Total time spent including penalties
+                        Seconds taken to complete questions
+                    </p>
+                    <br>
+                    <h4><u>Final Time</u></h4>
+                    <p>
+                        Base time plus time penalties
+                    </p>
+                    <p>
+                        Each mistake incurs a 5 second time penalty
                     </p>
                     <br>
                     <h4><u>Best Time</u></h4>
                     <p>
-                        Your fastest time with the current game settings
+                        Your fastest final time with current game settings
                     </p>
                     <br>
-                    <h4><u>Mistakes</u></h4>
                     <p>
-                        Number of incorrect submissions
-                    </p>
-                    <p>
-                        Mistakes incur a 5 second time penalty
                     </p>
                 </div>
             </ion-content>
