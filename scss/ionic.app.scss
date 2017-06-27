@@ -19,11 +19,11 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+/*@import url('https://fonts.googleapis.com/css?family=Kalam:700');*/
 
 @font-face {
-font-family: 'Kalam-Bold';
-src: url('../fonts/Kalam/Kalam-Bold.ttf')  format('truetype');
-font-weight: bold;
+    font-family: 'kalam-bold';
+    src: url('../fonts/Kalam/Kalam-Bold.ttf');
 }
 
 .calc-display {
@@ -176,7 +176,7 @@ a {
 }
 
 .popup {
-	border-radius: 5px !important;
+    border-radius: 5px !important;
 }
 
 .correctText {
@@ -207,8 +207,8 @@ a {
 }
 
 #new-best-time-message {
-	font-size: 1.2em;
-	font-family: Kalam-Bold;
+    font-size: 1.2em;
+    font-family: kalam-bold;
     position: fixed;
     margin: 5% auto;
     left: 0;
@@ -216,39 +216,36 @@ a {
     top: -45%;
 }
 
+
 /*Pure CSS Fireworks, a pen by Eddie Lin, https://codepen.io/yshlin/pen/ylDEk*/
+
+
 /*pyro*/
+
 $particles: 50;
 $width: 500;
 $height: 500;
-
 // Create the explosion...
 $box-shadow: ();
 $box-shadow2: ();
 @for $i from 0 through $particles {
-  $box-shadow: $box-shadow,
-               random($width)-$width / 2 + px
-               random($height)-$height / 1.2 + px
-               hsl(random(360), 100, 50);
-  $box-shadow2: $box-shadow2, 0 0 #fff
+    $box-shadow: $box-shadow, random($width)-$width / 2 + px random($height)-$height / 1.2 + px hsl(random(360), 100, 50);
+    $box-shadow2: $box-shadow2, 0 0 #fff
 }
+
 @mixin keyframes ($animationName) {
     @-webkit-keyframes #{$animationName} {
         @content;
     }
-
     @-moz-keyframes #{$animationName} {
         @content;
     }
-
     @-o-keyframes #{$animationName} {
         @content;
     }
-
     @-ms-keyframes #{$animationName} {
         @content;
     }
-
     @keyframes #{$animationName} {
         @content;
     }
@@ -287,59 +284,70 @@ $box-shadow2: ();
 }
 
 .pyro {
-  margin:0;
-  padding:0;
-  background: #000;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    overflow: hidden;
 }
 
-.pyro > .before, .pyro > .after {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  box-shadow: $box-shadow2;
-  @include animation((1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards));
-}
-    
+.pyro > .before,
 .pyro > .after {
-  @include animation-delay((1.25s, 1.25s, 1.25s));
-  @include animation-duration((1.25s, 1.25s, 6.25s));
-}
-        
-@include keyframes(bang) {
-  to {
-    box-shadow:$box-shadow;
-  }
-}
-    
-@include keyframes(gravity)  {
-  to {
-    @include transform(translateY(200px));
-    opacity: 0;
-  }
-}
-    
-@include keyframes(position) {
-  0%, 19.9% {
-    margin-top: 10%;
-    margin-left: 40%;
-  }
-  20%, 39.9% {
-    margin-top: 40%;
-    margin-left: 30%;
-  }
-  40%, 59.9% {  
-    margin-top: 20%;
-    margin-left: 70%
-  }
-  60%, 79.9% {  
-    margin-top: 30%;
-    margin-left: 20%;
-  }
-  80%, 99.9% {  
-    margin-top: 30%;
-    margin-left: 80%;
-  }
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    box-shadow: $box-shadow2;
+    @include animation((1s bang ease-out infinite backwards,
+    1s gravity ease-in infinite backwards,
+    5s position linear infinite backwards));
 }
 
+.pyro > .after {
+    @include animation-delay((1.25s,
+    1.25s,
+    1.25s));
+    @include animation-duration((1.25s,
+    1.25s,
+    6.25s));
+}
+
+@include keyframes(bang) {
+    to {
+        box-shadow: $box-shadow;
+    }
+}
+
+@include keyframes(gravity) {
+    to {
+        @include transform(translateY(200px));
+        opacity: 0;
+    }
+}
+
+@include keyframes(position) {
+    0%,
+    19.9% {
+        margin-top: 10%;
+        margin-left: 40%;
+    }
+    20%,
+    39.9% {
+        margin-top: 40%;
+        margin-left: 30%;
+    }
+    40%,
+    59.9% {
+        margin-top: 20%;
+        margin-left: 70%
+    }
+    60%,
+    79.9% {
+        margin-top: 30%;
+        margin-left: 20%;
+    }
+    80%,
+    99.9% {
+        margin-top: 30%;
+        margin-left: 80%;
+    }
+}
