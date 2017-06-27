@@ -257,130 +257,127 @@
     <script id="templates/calcView.html" type="text/ng-template">
         <ion-view view-title="Calc">
             <div class="bar bar-header bar-positive">
-                <!-- <button class="button button-icon icon ion-android-close" ng-click="endGameEarly()"></button> -->
                 <div class="h1 title">MathFast</div>
                 <button class="button button-icon icon ion-android-close" ng-click="endGameEarly()"></button>
                 </button>
             </div>
             <ion-content class="padding">
-                <div class="calc">
-                    <br>
-                    <br>
-                    <div class="row calc-question-container">
-                        <div class="col col-66 text-center calc-question">
-                            {{calcQuestionString}}
+                <br>
+                <br>
+                <div class="row calc-question-container">
+                    <div class="col col-66 text-center calc-question">
+                        {{calcQuestionString}}
+                    </div>
+                </div>
+                <div class="row calc-display-container">
+                    <div class="col col-66 text-center calc-display">
+                        {{calcValueString}}
+                    </div>
+                </div>
+                <div class="calc-buttons-style">
+                    <div class="row">
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
+                                1
+                            </button>
+                        </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
+                                2
+                            </button>
+                        </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(3)">
+                                3
+                            </button>
                         </div>
                     </div>
-                    <div class="row calc-display-container">
-                        <div class="col col-66 text-center calc-display">
-                            {{calcValueString}}
+                    <div class="row">
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
+                                4
+                            </button>
+                        </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
+                                5
+                            </button>
+                        </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(6)">
+                                6
+                            </button>
                         </div>
                     </div>
-                    <div class="calc-buttons-style">
-                        <div class="row">
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(1)">
-                                    1
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(2)">
-                                    2
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(3)">
-                                    3
-                                </button>
-                            </div>
+                    <div class="row">
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(7)">
+                                7
+                            </button>
                         </div>
-                        <div class="row">
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(4)">
-                                    4
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(5)">
-                                    5
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(6)">
-                                    6
-                                </button>
-                            </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(8)">
+                                8
+                            </button>
                         </div>
-                        <div class="row">
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(7)">
-                                    7
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(8)">
-                                    8
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(9)">
-                                    9
-                                </button>
-                            </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(9)">
+                                9
+                            </button>
                         </div>
-                        <div class="row">
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate('negativeToggle')">
-                                    <div style="font-size:1.8em;">&#x207a;&#x2044;&#x208b;</div>
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive" ng-click="calcDisplayUpdate(0)">
-                                    0
-                                </button>
-                            </div>
-                            <div class="col col-33 text-center">
-                                <button class="button button-positive disabled" ng-click="calcDisplayUpdate('decimal')">
-                                    .
-                                </button>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate('negativeToggle')">
+                                <div style="font-size:1.8em;">&#x207a;&#x2044;&#x208b;</div>
+                            </button>
                         </div>
-                        <div class="row">
-                            <div class="col col-50 text-center">
-                                <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
-                                    <i class="icon ion-close-round"></i>
-                                </button>
-                            </div>
-                            <div class="col col-50 text-center">
-                                <button class="button button-balanced" ng-click="calcDisplayUpdate('submit')">
-                                    <i class="icon ion-checkmark-round"></i>
-                                </button>
-                            </div>
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive" ng-click="calcDisplayUpdate(0)">
+                                0
+                            </button>
                         </div>
-                        <!--                         <div class="row">
+                        <div class="col col-33 text-center">
+                            <button class="button button-positive disabled" ng-click="calcDisplayUpdate('decimal')">
+                                .
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-50 text-center">
+                            <button class="button button-assertive" ng-click="calcDisplayUpdate('clear')">
+                                <i class="icon ion-close-round"></i>
+                            </button>
+                        </div>
+                        <div class="col col-50 text-center">
+                            <button class="button button-balanced" ng-click="calcDisplayUpdate('submit')">
+                                <i class="icon ion-checkmark-round"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!--                         <div class="row">
                             <div class="col text-center">
                                 <button class="button button-calm" ng-click="openHint()">
                                     Hint
                                 </button>
                             </div>
                         </div> -->
-                        <!-- <br>
-                        <br> -->
-                        <!-- <br ng-hide="showCorrect || showIncorrect"> -->
-                        <div id="correctnessFeedback">
-                            <span class="correctText" ng-show="showCorrect">Correct!</span>
-                            <span class="incorrectText" ng-show="showIncorrect">Incorrect! +5s penalty</span>
+                </div>
+                <br>
+                <div id="correctnessFeedback">
+                    <span class="correctText" ng-show="showCorrect">Correct!</span>
+                    <span class="incorrectText" ng-show="showIncorrect">Incorrect! +5s Penalty</span>
+                </div>
+                <!-- <br> -->
+                <div class="progress-bar">
+                    <div class="loader" style="width: {{progressPercent}}%;">
+                        <div class="progress-bar-bar">
+                            <p class="progress-bar-text">{{progressPercent}}%</p>
                         </div>
-                        <!-- <br> -->
-                        <div class="progress-bar">
-                            <div class="loader" style="width: {{progressPercent}}%;">
-                                <div class="progress-bar-bar">
-                                    <p class="progress-bar-text">{{progressPercent}}%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Calc debug code -->
-                        <!--                         <div id="calc-debug">
+                    </div>
+                </div>
+                <!-- Calc debug code -->
+                <!--                         <div id="calc-debug">
                             <h5>Calc Debug</h5>
                             <p>
                                 calcQuestionNumberCurrent: {{calcQuestionNumberCurrent}}
@@ -544,7 +541,7 @@
                 <br>
                 <div class="padding text-center about-modal-paragraph">
                     <p>
-                        Built with love using Ionic framework
+                        Built with <i class="icon ion-heart red-ion-heart"></i> using Ionic framework
                     </p>
                     <br>
                     <p>

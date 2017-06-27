@@ -67,12 +67,12 @@ a {
 
 .bottom {
     text-align: center;
-    position: fixed;
-    bottom: 4%;
-    /*top: 10vh;*/
     width: 90%;
     left: 5%;
     right: 5%;
+/*    position: fixed;
+    bottom: 4%;*/
+    top: 2.5vh;
 }
 
 .results-content {
@@ -197,8 +197,9 @@ a {
 
 #correctnessFeedback {
     text-align: center;
-    position: relative;
-    top: 100%;
+    /*    position: relative;
+    top: 50%;
+    transform: translateY(-50%);*/
 }
 
 .about-modal-paragraph {
@@ -220,6 +221,10 @@ a {
     left: 0;
     right: 0;
     top: -45%;
+}
+
+.red-ion-heart {
+    color: red;
 }
 
 
