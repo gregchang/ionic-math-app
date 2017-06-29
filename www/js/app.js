@@ -7,6 +7,9 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
     .constant('FirebaseUrl', 'https://mathfast-3bcce.firebaseio.com/')
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
+            setTimeout(function() {
+                navigator.splashscreen.hide();
+            }, 300);
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -171,7 +174,7 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
 
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Are you sure?'
-                // template: 'Permanently delete your local high scores?'
+                    // template: 'Permanently delete your local high scores?'
             });
 
             confirmPopup.then(function(res) {
