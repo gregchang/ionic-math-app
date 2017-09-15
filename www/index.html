@@ -23,15 +23,13 @@
     <!-- Path to ionic-toast -->
     <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
     <!-- Firebase -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script> -->
     <script src="lib/firebase/firebase.js"></script>
     <script src="lib/angularfire/dist/angularfire.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <!--     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script> -->
+
     <script>
     // Initialize Firebase
     var config = {
@@ -44,37 +42,6 @@
     };
     firebase.initializeApp(config);
     </script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css">
-    <!--     <script type="text/javascript">
-    // FirebaseUI config.
-    var uiConfig = {
-        // signInSuccessUrl: '<url-to-redirect-to-on-success>',
-        signInSuccessUrl: '#/tab/home',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-            // firebase.auth.EmailAuthProvider.PROVIDER_ID
-            {
-                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                requireDisplayName: false
-            }
-
-        ],
-        // Terms of service url.
-        tosUrl: '<your-tos-url>',
-        signInFlow: 'popup',
-        credentialHelper: firebaseui.auth.CredentialHelper.NONE
-    };
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
-    </script> -->
 </head>
 
 <body ng-app="todo">
