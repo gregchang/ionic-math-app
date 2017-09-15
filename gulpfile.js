@@ -11,9 +11,6 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-// Manually added to enable watch for sass
-gulp.task('serve:before', ['default','watch']);
-
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
@@ -52,3 +49,6 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+// Manually added to enable watch for sass
+gulp.task('serve:before', ['default','watch']);
