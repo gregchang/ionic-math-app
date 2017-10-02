@@ -351,9 +351,9 @@ angular.module('todo', ['ionic', 'firebase', 'ionic-toast'])
         $scope.topOnlineScore = $scope.bestTime;
       }
       if ($scope.topOnlineScore === undefined || $scope.calcData.finalTime < $scope.topOnlineScore) {
-      firebase.database().ref('scores/' + scoreIdentifier).set({
+        firebase.database().ref('scores/' + scoreIdentifier).set({
           score: $scope.calcData.finalTime
-      });
+        });
       }
     });
 
